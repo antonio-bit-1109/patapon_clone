@@ -1,4 +1,4 @@
-import { build } from 'esbuild';
+import {build} from 'esbuild';
 import clean from 'esbuild-plugin-clean';
 import copy from 'esbuild-plugin-copy';
 import inlineImage from 'esbuild-plugin-inline-image';
@@ -18,7 +18,7 @@ let msgPhaser = {
 
 const builder = async () => {
     await build({
-        entryPoints: ['./src/main.ts'],
+        entryPoints: ['./src/index.ts'],
         bundle: true,
         minify: true,
         sourcemap: false,
@@ -33,11 +33,11 @@ const builder = async () => {
             }),
             copy({
                 assets: [
-                    { from: './public/index.html', to: './' },
-                    { from: './public/style.css', to: './' },
-                    { from: './public/favicon.ico', to: './' },
-                    { from: './public/favicon.png', to: './' },
-                    { from: './public/assets/**/*', to: './assets/' }
+                    {from: './public/index.html', to: './'},
+                    {from: './public/style.css', to: './'},
+                    {from: './public/favicon.ico', to: './'},
+                    {from: './public/favicon.png', to: './'},
+                    {from: './public/assets/**/*', to: './assets/'}
                 ],
             }),
             msgPhaser

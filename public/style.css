@@ -1,8 +1,16 @@
+@font-face {
+    font-family: 'pataponFont'; /* Scegli un nome per il tuo font */
+    src: url('assets/font/DalekPinpointBold.ttf'); /* Percorso al file del font */
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     margin: 0;
     padding: 0;
     color: rgba(255, 255, 255, 0.87);
     background-color: #000000;
+    font-family: "pataponFont", serif;
 }
 
 #app {

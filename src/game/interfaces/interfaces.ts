@@ -1,3 +1,0 @@
-interface IMainScene {
-    any: any;
-}

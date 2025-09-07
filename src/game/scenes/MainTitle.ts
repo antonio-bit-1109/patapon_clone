@@ -1,11 +1,12 @@
 import Phaser from "phaser";
-import {IStyleText, sceneName} from "../global/global_constant.ts";
+import {assetPath, sceneName} from "../global/global_constant.ts";
+import {CommonMethodsClass} from "./CommonMethodsClass.ts";
+import {IStyleText} from "../global/interface.ts";
 
 
 export class MainTitle extends Phaser.Scene {
 
-    private canvasW: number;
-    private canvasH: number;
+
     private text: Phaser.GameObjects.Text;
     private text2: Phaser.GameObjects.Text;
 
@@ -13,45 +14,27 @@ export class MainTitle extends Phaser.Scene {
     private style: IStyleText = {
         color: '#ffffff', // <-- Colore bianco, il più importante!
         stroke: '#ffffff', // Aggiunge un bordo nero per maggiore leggibilità
-        strokeThickness: 0.5
+        strokeThickness: 0.1,
+        fontFamily: "pataponFont"
     }
 
     constructor() {
         super(sceneName.maintitle);
     }
 
-    public adjustWidth(n: number) {
-        return this.canvasW / n
-    }
-
-    public adjustHeight(n: number) {
-        return this.canvasH / n
-    }
-
     public init() {
-        this.canvasW = this.sys.game.config.width as number;
-        this.canvasH = this.sys.game.config.height as number;
     }
 
     public preload() {
-        this.load.image("main_bg", "assets/dudepon/dudepon_main.jpeg")
+        this.load.image("main_bg", assetPath + "/dudepon_main.jpeg")
 
-    }
-
-    private addTweens(duration: number, target: any, scale: number, ease: string) {
-        this.tweens.add({
-            duration: duration,
-            targets: target,
-            scale: scale,
-            ease: ease
-        })
     }
 
     public create() {
-        this.add.image(this.adjustWidth(2), this.adjustHeight(2), "main_bg")
+        this.add.image(CommonMethodsClass.adjustWidth(2, this), CommonMethodsClass.adjustHeight(2, this), "main_bg")
             .setScale(0.8)
 
-        this.text = this.add.text(this.adjustWidth(2), this.adjustHeight(1.8), "New Game",
+        this.text = this.add.text(CommonMethodsClass.adjustWidth(2, this), CommonMethodsClass.adjustHeight(1.8, this), "New Game",
             this.style
         )
             .setScale(5)
@@ -59,13 +42,13 @@ export class MainTitle extends Phaser.Scene {
             .setInteractive({cursor: "pointer"})
             .once("pointerdown", this.startAndStopScene(this.scene.key, sceneName.choosemaincharacter))
             .on("pointerover", () => {
-                this.addTweens(500, this.text, 6, "Power2")
+                CommonMethodsClass.addTweens(500, this.text, 6, "Power2", this)
             })
             .on("pointerout", () => {
-                this.addTweens(500, this.text, 5, "Power2")
+                CommonMethodsClass.addTweens(500, this.text, 5, "Power2", this)
             })
 
-        this.text2 = this.add.text(this.adjustWidth(2), this.adjustHeight(1.5), "Continue",
+        this.text2 = this.add.text(CommonMethodsClass.adjustWidth(2, this), CommonMethodsClass.adjustHeight(1.5, this), "Continue",
             this.style
         )
             .setScale(5)
@@ -75,13 +58,13 @@ export class MainTitle extends Phaser.Scene {
                 console.log("stai avviando il continua.")
             })
             .on("pointerover", () => {
-                this.addTweens(500, this.text2, 6, "Power2")
+                CommonMethodsClass.addTweens(500, this.text2, 6, "Power2", this)
             })
             .on("pointerout", () => {
-                this.addTweens(500, this.text2, 5, "Power2")
+                CommonMethodsClass.addTweens(500, this.text2, 5, "Power2", this)
             })
     }
-    
+
     public startAndStopScene(sceneToStop: string, sceneToStart: string) {
         return () => {
             this.scene.stop(sceneToStop);

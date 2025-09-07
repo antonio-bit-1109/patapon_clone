@@ -1,17 +1,10 @@
-interface ISceneNane {
-    maintitle: string;
-    choosemaincharacter: string;
-    preloadscene: string
-}
+import {ISceneName} from "./interface.ts";
 
-export const sceneName: ISceneNane = {
+
+export const sceneName: ISceneName = {
     maintitle: "maintitle",
     choosemaincharacter: "choosemaincharacter",
     preloadscene: "preloadscene"
 }
 
-export interface IStyleText {
-    color: string, // <-- Colore bianco, il più importante!
-    stroke: string, // Aggiunge un bordo nero per maggiore leggibilità
-    strokeThickness: number
-}
+export const assetPath: string = "assets/dudepon"

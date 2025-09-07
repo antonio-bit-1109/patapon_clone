@@ -4,10 +4,10 @@ import inlineImage from "esbuild-plugin-inline-image";
 esbuildServe(
     {
         logLevel: "info",
-        entryPoints: ["src/main.ts"],
+        entryPoints: ["src/index.ts"],
         bundle: true,
         outfile: "public/bundle.min.js",
-        plugins: [ inlineImage() ]
+        plugins: [inlineImage()]
     },
-    { root: "public", port: 8080 },
+    {root: "public", port: 8080},
 );
