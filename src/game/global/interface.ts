@@ -1,7 +1,7 @@
 export interface IStyleText {
     [key: string]: string | number;
 
-    fontFamily: "pataponFont"
+    fontFamily: "pataponFont";
 }
 
 
