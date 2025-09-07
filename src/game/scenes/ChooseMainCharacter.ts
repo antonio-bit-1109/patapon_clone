@@ -8,9 +8,10 @@ export class ChooseMainCharacter extends Phaser.Scene {
     private pinkDudeRef: Phaser.GameObjects.Sprite;
     private whiteDudeRef: Phaser.GameObjects.Sprite;
     private arrayDudes: Phaser.GameObjects.Sprite[] = [];
-    private positionXCopy: number = 300;
+    // private positionXCopy: number = 300;
     private positionYCopy: number = 698;
     private possiblePositionsCopies = [300, 400, 500, 600, 700]
+    private goNextRef: Phaser.GameObjects.Image;
 
     constructor() {
         super(sceneName.choosemaincharacter);
@@ -36,7 +37,8 @@ export class ChooseMainCharacter extends Phaser.Scene {
                 strokeThickness: 1,
                 fontSize: '50px', // Ora puoi aggiungere anche questa
                 fontFamily: "pataponFont"
-            })
+            },
+            {x: 0.5, y: 0.5})
 
         CommonMethodsClass.addText(
             this,
@@ -49,7 +51,8 @@ export class ChooseMainCharacter extends Phaser.Scene {
                 strokeThickness: 1,
                 fontSize: '50px', // Ora puoi aggiungere anche questa
                 fontFamily: "pataponFont"
-            }
+            },
+            {x: 0.5, y: 0.5}
         )
 
         CommonMethodsClass.addText(
@@ -63,7 +66,8 @@ export class ChooseMainCharacter extends Phaser.Scene {
                 strokeThickness: 1,
                 fontSize: '50px', // Ora puoi aggiungere anche questa
                 fontFamily: "pataponFont"
-            }
+            },
+            {x: 0.5, y: 0.5}
         )
 
         CommonMethodsClass.addText(
@@ -77,7 +81,8 @@ export class ChooseMainCharacter extends Phaser.Scene {
                 strokeThickness: 1,
                 fontSize: '50px', // Ora puoi aggiungere anche questa
                 fontFamily: "pataponFont"
-            }
+            },
+            {x: 0.5, y: 0.5}
         )
 
         this.whiteDudeRef = this.add
@@ -107,7 +112,15 @@ export class ChooseMainCharacter extends Phaser.Scene {
                 this.addSpriteIntoArray(this.blueDudeRef)
             })
 
+        this.goNextRef = this.add
+            .sprite(CommonMethodsClass.adjustWidth(1.1, this), CommonMethodsClass.adjustHeight(1.1, this), "arrow_pulsing_spritesheet")
+            .play("arrow_pulsing")
+            .setScale(4)
+            .setVisible(false)
+            .setInteractive({cursor: "pointer"})
+            .on("pointerdown", () => {
 
+            })
     }
 
     addSpriteIntoArray(sprite: Phaser.GameObjects.Sprite) {
@@ -119,7 +132,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
 
         const spriteCopy = this.add
             .sprite(this.findNextAvailablePosition(), this.positionYCopy, sprite.texture)
-            .play(sprite.anims.currentAnim?.key)
+            .play(sprite.anims.currentAnim?.key as string)
             .setScale(3)
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
@@ -131,13 +144,15 @@ export class ChooseMainCharacter extends Phaser.Scene {
     }
 
 
-    private findNextAvailablePosition(): number | undefined {
+    private findNextAvailablePosition(): number {
         // 1. Ottieni un array di tutte le posizioni X già occupate
         const occupiedPositions = this.arrayDudes.map(dude => dude.x);
 
         // 2. Trova la prima posizione in `possiblePositionsCopies` che NON è presente
         //    nell'array delle posizioni occupate.
-        return this.possiblePositionsCopies.find(pos => !occupiedPositions.includes(pos));
+
+        let notOccupatedPosition = this.possiblePositionsCopies.find(pos => !occupiedPositions.includes(pos))
+        return notOccupatedPosition ?? 500;
     }
 
     removeSpriteFromArray(spriteToRemove: Phaser.GameObjects.Sprite) {
@@ -148,6 +163,16 @@ export class ChooseMainCharacter extends Phaser.Scene {
         this.arrayDudes = this.arrayDudes.filter(sprite => sprite !== spriteToRemove);
     }
 
-    update() {
+    canShowNextBtn() {
+        if (this.arrayDudes.length === 5) {
+            this.goNextRef.setVisible(true)
+        } else {
+            this.goNextRef.setVisible(false)
+        }
     }
+    
+    update() {
+        this.canShowNextBtn()
+    }
+
 }

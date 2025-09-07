@@ -1,6 +1,6 @@
-//static class
-import {IStyleText, OriginObj} from "../global/interface.ts";
+import {OriginObj, IStyleText} from "../global/interface.ts";
 
+//static class
 export class CommonMethodsClass {
 
 
@@ -70,6 +70,6 @@ export class CommonMethodsClass {
 
     public static addText(scene: Phaser.Scene, x: number, y: number, text: string, style: IStyleText, origin: OriginObj) {
         scene.add.text(x, y, text, style)
-            .setOrigin(origin)
+            .setOrigin(origin.x, origin.y)
     }
 }
