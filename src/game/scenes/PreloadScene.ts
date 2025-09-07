@@ -23,6 +23,11 @@ export class PreloadScene extends Phaser.Scene {
         this.load.spritesheet("whiteDude_stand", assetPath + "/whiteDude/Owlet_Monster.png", this.addFrameWidthHeight(32, 32))
 
         this.load.spritesheet("arrow_pulsing_spritesheet", assetPath + "/arrow_pulsing.png", this.addFrameWidthHeight(21, 28))
+
+        this.load.image("background_looping", assetPath + "/background_seamless.jpeg")
+        this.load.image("terrain_looping", assetPath + "/terrain_seamless.png")
+
+
     }
 
     create() {

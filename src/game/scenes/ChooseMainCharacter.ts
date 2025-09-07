@@ -119,7 +119,9 @@ export class ChooseMainCharacter extends Phaser.Scene {
             .setVisible(false)
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
-
+                this.scene.start(sceneName.gameplay, {
+                    dudesArmy: this.arrayDudes
+                })
             })
     }
 
@@ -170,7 +172,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
             this.goNextRef.setVisible(false)
         }
     }
-    
+
     update() {
         this.canShowNextBtn()
     }
