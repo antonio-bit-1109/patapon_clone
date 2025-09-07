@@ -124,7 +124,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
                 this.scene.start(sceneName.gameplay, {
-                    dudesArmy: this.arrayDudes
+                    dudesArmy: this.arrayDudes.map(dude => dude.getData("type"))
                 })
             })
     }

@@ -4,8 +4,8 @@ import Sprite = Phaser.GameObjects.Sprite;
 
 export class Gameplay extends Phaser.Scene {
 
-
-    private dudesArmyGameplay_array: Phaser.GameObjects.Sprite[] = [];
+    private oldDudesTypes: string[] = []
+    // private dudesArmyGameplay_array: Phaser.GameObjects.Sprite[] = [];
     private dudesArmyGameplay_group: Phaser.GameObjects.Group;
     private backgroundLooping: Phaser.GameObjects.TileSprite;
     private terrainLooping: Phaser.GameObjects.TileSprite;
@@ -19,9 +19,8 @@ export class Gameplay extends Phaser.Scene {
 
     init(data: IData) {
 
-        data.dudesArmy.forEach(dudeCopy => {
-            this.dudesArmyGameplay_array.push(dudeCopy);
-        })
+        this.oldDudesTypes = data.dudesArmy
+
     }
 
     preload() {
@@ -31,18 +30,20 @@ export class Gameplay extends Phaser.Scene {
 
         this.dudesArmyGameplay_group = this.add.group();
 
-        this.dudesArmyGameplay_array.forEach(dudeCopy => {
-            const dudeGameplay: Sprite = this.physics.add.sprite(
-                100,
-                (this.game.config.height as number) - (90 as number),
-                this.checkAndChangeTexture(dudeCopy.texture.key)
-            )
-                .setData('')
-                .setScale(dudeCopy.scale)
-                .setDepth(1)
-                .play("")
+        this.oldDudesTypes.forEach(typeDudes => {
 
-            console.log(dudeCopy.getData("type"))
+            let distance = Math.floor(Math.random() * (250 - 50 + 1) + 50)
+
+            const dudeGameplay: Sprite = this.physics.add.sprite(
+                50 + distance,
+                (this.game.config.height as number) - (90 as number),
+                this.checkAndChangeTexture(typeDudes)
+            )
+                .setScale(3)
+                .setDepth(1)
+                .play(this.addCorrectAnimation(typeDudes))
+
+
             this.dudesArmyGameplay_group.add(dudeGameplay);
         })
 
@@ -69,25 +70,36 @@ export class Gameplay extends Phaser.Scene {
 
     }
 
-    public checkAndChangeTexture(texture: string): string {
+    public checkAndChangeTexture(type: string): string {
 
-        if (texture.includes("pink")) {
+        if (type.includes("pink")) {
             return "pinkDude_idle_spritesheet"
         }
 
-        if (texture.includes("white")) {
+        if (type.includes("white")) {
             return "whiteDude_idle_spritesheet"
         }
 
-        if (texture.includes("blue")) {
+        if (type.includes("blue")) {
             return "blueDude_idle_spritesheet"
         }
 
-        throw new Error("no old texture found.")
-        return "null";
+        return "default";
     }
 
-    public addCorrectAnimation()
+    public addCorrectAnimation(type) {
+        if (type.includes("pink")) {
+            return "pinkDude_waiting"
+        }
+
+        if (type.includes("white")) {
+            return "whiteDude_waiting"
+        }
+
+        if (type.includes("blue")) {
+            return "blueDude_waiting"
+        }
+    }
 
     update() {
         this.backgroundLooping.tilePositionX += 0.1;

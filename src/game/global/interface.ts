@@ -18,5 +18,5 @@ export interface OriginObj {
 }
 
 export interface IData {
-    dudesArmy: Phaser.GameObjects.Sprite[]
+    dudesArmy: String[]
 }
