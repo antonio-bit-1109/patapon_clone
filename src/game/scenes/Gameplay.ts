@@ -71,20 +71,19 @@ export class Gameplay extends Phaser.Scene {
     }
 
     public checkAndChangeTexture(type: string): string {
-
         if (type.includes("pink")) {
-            return "pinkDude_idle_spritesheet"
+            return "pinkDude_idle_spritesheet";
         }
-
         if (type.includes("white")) {
-            return "whiteDude_idle_spritesheet"
+            return "whiteDude_idle_spritesheet";
         }
-
         if (type.includes("blue")) {
-            return "blueDude_idle_spritesheet"
+            return "blueDude_idle_spritesheet";
         }
 
-        return "default";
+        // Se nessuna delle condizioni è vera, significa che c'è un errore nei dati.
+        // Lancia un errore chiaro per fermare il gioco e informare lo sviluppatore.
+        throw new Error(`Tipo di texture non riconosciuto: "${type}"`);
     }
 
     public addCorrectAnimation(type) {
