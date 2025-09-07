@@ -1,5 +1,6 @@
 import {sceneName} from "../global/global_constant.ts";
 import {IData} from "../global/interface.ts";
+import Sprite = Phaser.GameObjects.Sprite;
 
 export class Gameplay extends Phaser.Scene {
 
@@ -10,6 +11,7 @@ export class Gameplay extends Phaser.Scene {
     private terrainLooping: Phaser.GameObjects.TileSprite;
     private phisicsTerrain: Phaser.GameObjects.Rectangle;
 
+
     constructor() {
         super(sceneName.gameplay);
 
@@ -18,8 +20,7 @@ export class Gameplay extends Phaser.Scene {
     init(data: IData) {
 
         data.dudesArmy.forEach(dudeCopy => {
-            const dudeGameplay = this.physics.add.sprite(0, 0, dudeCopy.texture.key).setScale(dudeCopy.scale)
-            this.dudesArmyGameplay_array.push(dudeGameplay)
+            this.dudesArmyGameplay_array.push(dudeCopy);
         })
     }
 
@@ -30,9 +31,20 @@ export class Gameplay extends Phaser.Scene {
 
         this.dudesArmyGameplay_group = this.add.group();
 
-        for (const dude of this.dudesArmyGameplay_array) {
-            this.dudesArmyGameplay_group.add(dude);
-        }
+        this.dudesArmyGameplay_array.forEach(dudeCopy => {
+            const dudeGameplay: Sprite = this.physics.add.sprite(
+                100,
+                (this.game.config.height as number) - (90 as number),
+                this.checkAndChangeTexture(dudeCopy.texture.key)
+            )
+                .setData('')
+                .setScale(dudeCopy.scale)
+                .setDepth(1)
+                .play("")
+
+            console.log(dudeCopy.getData("type"))
+            this.dudesArmyGameplay_group.add(dudeGameplay);
+        })
 
         this.backgroundLooping = this.add
             .tileSprite(0, 0, this.sys.game.config.width as number, this.sys.game.config.height as number, "background_looping")
@@ -56,6 +68,26 @@ export class Gameplay extends Phaser.Scene {
         this.physics.add.existing(this.phisicsTerrain)
 
     }
+
+    public checkAndChangeTexture(texture: string): string {
+
+        if (texture.includes("pink")) {
+            return "pinkDude_idle_spritesheet"
+        }
+
+        if (texture.includes("white")) {
+            return "whiteDude_idle_spritesheet"
+        }
+
+        if (texture.includes("blue")) {
+            return "blueDude_idle_spritesheet"
+        }
+
+        throw new Error("no old texture found.")
+        return "null";
+    }
+
+    public addCorrectAnimation()
 
     update() {
         this.backgroundLooping.tilePositionX += 0.1;

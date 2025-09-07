@@ -1,5 +1,6 @@
 import {sceneName} from "../global/global_constant.ts";
 import {CommonMethodsClass} from "./CommonMethodsClass.ts";
+import Sprite = Phaser.GameObjects.Sprite;
 
 export class ChooseMainCharacter extends Phaser.Scene {
 
@@ -89,6 +90,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
             .sprite(CommonMethodsClass.adjustWidth(8, this), CommonMethodsClass.adjustHeight(2.5, this), "whiteDude_stand")
             .setScale(4)
             .play("whiteWalk")
+            .setData("type", "white")
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
                 this.addSpriteIntoArray(this.whiteDudeRef)
@@ -98,6 +100,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
             .sprite(CommonMethodsClass.adjustWidth(2, this), CommonMethodsClass.adjustHeight(2.5, this), "pinkDude_stand")
             .setScale(4)
             .play("pinkWalk")
+            .setData("type", "pink")
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
                 this.addSpriteIntoArray(this.pinkDudeRef)
@@ -107,6 +110,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
             .sprite(CommonMethodsClass.adjustWidth(1.1, this), CommonMethodsClass.adjustHeight(2.5, this), "blueDude_stand")
             .setScale(4)
             .play("blueWalk")
+            .setData("type", "blue")
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
                 this.addSpriteIntoArray(this.blueDudeRef)
@@ -132,10 +136,11 @@ export class ChooseMainCharacter extends Phaser.Scene {
         }
 
 
-        const spriteCopy = this.add
+        const spriteCopy: Sprite = this.add
             .sprite(this.findNextAvailablePosition(), this.positionYCopy, sprite.texture)
             .play(sprite.anims.currentAnim?.key as string)
             .setScale(3)
+            .setData("type", sprite.getData("type"))
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
                 this.removeSpriteFromArray(spriteCopy)
