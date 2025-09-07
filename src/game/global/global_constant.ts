@@ -1,12 +1,13 @@
+interface ISceneNane {
+    maintitle: string;
+    choosemaincharacter: string;
+    preloadscene: string
+}
 
- interface ISceneNane {
-     maintitle:string;
-     choosemaincharacter : string;
- }
-
-export const sceneName:ISceneNane = {
-    maintitle: "maintitle" ,
-    choosemaincharacter: "choosemaincharacter"
+export const sceneName: ISceneNane = {
+    maintitle: "maintitle",
+    choosemaincharacter: "choosemaincharacter",
+    preloadscene: "preloadscene"
 }
 
 export interface IStyleText {
