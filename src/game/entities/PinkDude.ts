@@ -1,4 +1,4 @@
-export class PinkDude extends Phaser.GameObjects.Sprite {
+export class PinkDude extends Phaser.Physics.Arcade.Sprite {
 
     private _speed: number = 2;
     private _damage: number = 4;
@@ -8,8 +8,8 @@ export class PinkDude extends Phaser.GameObjects.Sprite {
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
+        scene.physics.add.existing(this);
         scene.add.existing(this);
-
     }
 
     getType() {
