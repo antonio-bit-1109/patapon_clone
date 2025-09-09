@@ -40,10 +40,19 @@ export class EnvironmentManager {
     }
 
     public moveTerrain() {
-        this.terrainLooping.tilePositionX += 0.8
+        this.scene.add.tween({
+            targets: this.terrainLooping,
+            duration: 1700,
+            tilePositionX: '+=300',
+        })
+
     }
 
     public moveBackground() {
-        this.backgroundLooping.tilePositionX += 0.1;
+        this.scene.add.tween({
+            targets: this.backgroundLooping,
+            duration: 1700,
+            tilePositionX: '+=40',
+        })
     }
 }
