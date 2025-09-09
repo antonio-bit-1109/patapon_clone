@@ -12,6 +12,14 @@ export interface ISceneName {
     gameplay: string
 }
 
+export interface IActions {
+    move: string;
+    attack: string;
+    defend: string;
+    jump: string;
+    idle: string
+}
+
 export interface OriginObj {
     x: number;
     y: number;
