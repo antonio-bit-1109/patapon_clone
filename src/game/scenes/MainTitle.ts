@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import {assetPath, sceneName} from "../global/global_constant.ts";
 import {CommonMethodsClass} from "./CommonMethodsClass.ts";
 import {IStyleText} from "../global/interface.ts";
-import {SoundsManager} from "./SoundsManager.ts";
+import {SoundsManager} from "../manager/SoundsManager.ts";
 
 
 export class MainTitle extends Phaser.Scene {
