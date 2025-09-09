@@ -1,5 +1,8 @@
 import {Scene} from "phaser";
 import Sprite = Phaser.GameObjects.Sprite;
+import {PinkDude} from "../entities/PinkDude.ts";
+import {WhiteDude} from "../entities/WhiteDude.ts";
+import {BlueDude} from "../entities/BlueDude.ts";
 
 export class DudesArmyManager {
 
@@ -11,7 +14,7 @@ export class DudesArmyManager {
         this.scene = scene;
 
     }
-    
+
     create(dudeDataPreviousScene: string[]) {
         this.dudeDataPreviousScene = dudeDataPreviousScene;
         this.dudesArmyGameplay_group = this.scene.add.group();
@@ -24,17 +27,42 @@ export class DudesArmyManager {
 
             let distance = Math.floor(Math.random() * (250 - 50 + 1) + 50)
 
-            const dudeGameplay: Sprite = this.scene.physics.add.sprite(
-                50 + distance,
-                (this.scene.game.config.height as number) - (90 as number),
-                this.checkAndChangeTexture(typeDudes)
-            )
+            console.log(typeDudes)
+
+            let dudeGameplay: Sprite;
+
+            if (typeDudes === "pink") {
+                dudeGameplay = new PinkDude(
+                    this.scene,
+                    50 + distance,
+                    (this.scene.game.config.height as number) - (90 as number),
+                    this.checkAndChangeTexture(typeDudes)
+                )
+            } else if (typeDudes === "white") {
+                dudeGameplay = new WhiteDude(
+                    this.scene,
+                    50 + distance,
+                    (this.scene.game.config.height as number) - (90 as number),
+                    this.checkAndChangeTexture(typeDudes)
+                )
+            } else if (typeDudes === "blue") {
+                dudeGameplay = new BlueDude(
+                    this.scene,
+                    50 + distance,
+                    (this.scene.game.config.height as number) - (90 as number),
+                    this.checkAndChangeTexture(typeDudes)
+                )
+            } else {
+                throw new Error("errore durante inizializzazione del dude. tipo passato sconosciuto. --> " + typeDudes)
+            }
+
+            dudeGameplay
                 .setScale(3)
                 .setDepth(1)
                 .play(this.addCorrectAnimation(typeDudes))
 
-
             this.dudesArmyGameplay_group.add(dudeGameplay);
+            
         })
     }
 
