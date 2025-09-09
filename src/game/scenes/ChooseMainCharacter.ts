@@ -165,7 +165,8 @@ export class ChooseMainCharacter extends Phaser.Scene {
             .on("pointerdown", () => {
 
                 SoundsManager.stopSound("choosing_player")
-
+                this.arrayDudes.length = 0;
+                this.scene.stop(sceneName.choosemaincharacter)
                 this.scene.start(sceneName.maintitle)
             })
     }
