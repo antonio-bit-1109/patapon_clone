@@ -39,7 +39,7 @@ export class Gameplay extends Phaser.Scene {
 
 
     update() {
-        this.environmentManager.update()
+        // this.environmentManager.update()
 
     }
 }

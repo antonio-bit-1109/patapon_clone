@@ -1,4 +1,5 @@
 import {Scene} from "phaser";
+import {SoundsManager} from "./SoundsManager.ts";
 
 export class InputKeyboardManager {
 
@@ -22,29 +23,45 @@ export class InputKeyboardManager {
 
         this.w?.on('down', () => {
                 console.log("hai premuto w")
-                this.inputsContainer.length < 4 && this.inputsContainer.push("w");
-                console.log(this.inputsContainer)
+                if (this.inputsContainer.length < 4) {
+                    this.inputsContainer.push("w");
+                    console.log(this.inputsContainer)
+                    SoundsManager.playSound("W_sound")
+                }
             }
         );
 
         this.a?.on('down', () => {
                 console.log("hai premuto a")
-                this.inputsContainer.length < 4 && this.inputsContainer.push("a");
-                console.log(this.inputsContainer)
+                if (this.inputsContainer.length < 4) {
+                    this.inputsContainer.push("a");
+                    console.log(this.inputsContainer)
+                    SoundsManager.playSound("A_sound")
+                }
             }
         );
 
         this.s?.on('down', () => {
-                console.log("hai premuto s")
-                this.inputsContainer.length < 4 && this.inputsContainer.push("s");
-                console.log(this.inputsContainer)
+
+                if (this.inputsContainer.length < 4) {
+                    this.inputsContainer.push("s");
+                    console.log("hai premuto s")
+                    console.log(this.inputsContainer)
+                    SoundsManager.playSound("S_sound")
+                }
+
             }
         );
 
         this.d?.on('down', () => {
-                console.log("hai premuto d")
-                this.inputsContainer.length < 4 && this.inputsContainer.push("d");
-                console.log(this.inputsContainer)
+
+                if (this.inputsContainer.length < 4) {
+                    this.inputsContainer.push("d");
+                    console.log("hai premuto d")
+                    console.log(this.inputsContainer)
+                    SoundsManager.playSound("D_sound")
+                }
+
             }
         );
 

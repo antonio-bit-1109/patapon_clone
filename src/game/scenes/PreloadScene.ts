@@ -38,6 +38,11 @@ export class PreloadScene extends Phaser.Scene {
         this.load.audio("choosing_player", assetPathSound + "/intros/Beat_of_the_drums_1.mp3")
         this.load.audio("march_gameplay_1", assetPathSound + "/march/Groovy_March_1.mp3")
 
+        this.load.audio("W_sound", assetPathSound + "/letters/W_letter.mp3")
+        this.load.audio("A_sound", assetPathSound + "/letters/A_letter.mp3")
+        this.load.audio("S_sound", assetPathSound + "/letters/S_letter.mp3")
+        this.load.audio("D_sound", assetPathSound + "/letters/D_letter.mp3")
+
     }
 
     create() {
@@ -55,6 +60,11 @@ export class PreloadScene extends Phaser.Scene {
         SoundsManager.addAudio("intro_sound", {volume: 1, loop: true}, this)
         SoundsManager.addAudio("choosing_player", {volume: 1, loop: true}, this)
         SoundsManager.addAudio("march_gameplay_1", {volume: 1, loop: false}, this)
+
+        SoundsManager.addAudio("W_sound", {volume: 2, loop: false}, this)
+        SoundsManager.addAudio("A_sound", {volume: 2, loop: false}, this)
+        SoundsManager.addAudio("S_sound", {volume: 2, loop: false}, this)
+        SoundsManager.addAudio("D_sound", {volume: 2, loop: false}, this)
 
         this.scene.start(sceneName.maintitle)
 
