@@ -54,6 +54,7 @@ export class PreloadScene extends Phaser.Scene {
         SoundsManager.addAudio("intro_sound", {volume: 1, loop: true}, this)
         SoundsManager.addAudio("choosing_player", {volume: 1, loop: true}, this)
 
+
         this.scene.start(sceneName.maintitle)
 
 
