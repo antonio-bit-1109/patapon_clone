@@ -35,7 +35,15 @@ export class EnvironmentManager {
     }
 
     update() {
-        this.backgroundLooping.tilePositionX += 0.1;
+        // this.backgroundLooping.tilePositionX += 0.1;
+        // this.terrainLooping.tilePositionX += 0.8
+    }
+
+    public moveTerrain() {
         this.terrainLooping.tilePositionX += 0.8
+    }
+
+    public moveBackground() {
+        this.backgroundLooping.tilePositionX += 0.1;
     }
 }
