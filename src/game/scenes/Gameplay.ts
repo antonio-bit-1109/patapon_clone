@@ -2,6 +2,7 @@ import {sceneName} from "../global/global_constant.ts";
 import {IData} from "../global/interface.ts";
 import Sprite = Phaser.GameObjects.Sprite;
 
+
 export class Gameplay extends Phaser.Scene {
 
     private oldDudesTypes: string[] = []
@@ -27,6 +28,7 @@ export class Gameplay extends Phaser.Scene {
     }
 
     create() {
+
 
         this.dudesArmyGameplay_group = this.add.group();
 
@@ -86,7 +88,7 @@ export class Gameplay extends Phaser.Scene {
         throw new Error(`Tipo di texture non riconosciuto: "${type}"`);
     }
 
-    public addCorrectAnimation(type) {
+    public addCorrectAnimation(type: string) {
         if (type.includes("pink")) {
             return "pinkDude_waiting"
         }
@@ -98,6 +100,8 @@ export class Gameplay extends Phaser.Scene {
         if (type.includes("blue")) {
             return "blueDude_waiting"
         }
+
+        throw new Error(`Tipo di key-animazione non riconosciuto: "${type}"`);
     }
 
     update() {

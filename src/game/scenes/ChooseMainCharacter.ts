@@ -1,6 +1,7 @@
 import {sceneName} from "../global/global_constant.ts";
 import {CommonMethodsClass} from "./CommonMethodsClass.ts";
 import Sprite = Phaser.GameObjects.Sprite;
+import {SoundsManager} from "./SoundsManager.ts";
 
 export class ChooseMainCharacter extends Phaser.Scene {
 
@@ -123,6 +124,9 @@ export class ChooseMainCharacter extends Phaser.Scene {
             .setVisible(false)
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
+
+                SoundsManager.stopSound("intro_sound")
+
                 this.scene.start(sceneName.gameplay, {
                     dudesArmy: this.arrayDudes.map(dude => dude.getData("type"))
                 })

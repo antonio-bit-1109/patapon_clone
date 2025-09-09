@@ -41,9 +41,10 @@ export class MainTitle extends Phaser.Scene {
         CommonMethodsClass.chainTweens(
             this,
             this.logo,
-            0,
+            -1,
             [
                 {
+                    delay: 500,
                     angle: 10,
                     duration: 800,
                     ease: 'Bounce.easeOut'
@@ -58,14 +59,16 @@ export class MainTitle extends Phaser.Scene {
                     duration: 800,
                     ease: 'Bounce.easeOut'
                 },
-                {delay: 4000},
                 {
+                    delay: 2000,
                     duration: 400,
-                    scale: 2
+                    scale: 2,
+                    ease: 'Bounce.easeOut'
                 },
                 {
                     duration: 400,
-                    scale: 0.8
+                    scale: 0.8,
+                    ease: 'Bounce.easeOut'
                 }
             ]
         )

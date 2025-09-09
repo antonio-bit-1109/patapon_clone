@@ -18,7 +18,7 @@ export interface OriginObj {
 }
 
 export interface IData {
-    dudesArmy: String[]
+    dudesArmy: string[]
 }
 
 export interface IConfigSound {
