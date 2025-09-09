@@ -108,9 +108,9 @@ export class ChooseMainCharacter extends Phaser.Scene {
             .setVisible(false)
 
         this.whiteDudeRef = this.add
-            .sprite(CommonMethodsClass.adjustWidth(8, this), CommonMethodsClass.adjustHeight(2.5, this), "whiteDude_stand")
+            .sprite(CommonMethodsClass.adjustWidth(8, this), CommonMethodsClass.adjustHeight(2.5, this), "whiteDude_idle_spritesheet")
             .setScale(4)
-            .play("whiteWalk")
+            .play("whiteDude_waiting")
             .setData("type", "white")
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
@@ -118,9 +118,9 @@ export class ChooseMainCharacter extends Phaser.Scene {
             })
 
         this.pinkDudeRef = this.add
-            .sprite(CommonMethodsClass.adjustWidth(2, this), CommonMethodsClass.adjustHeight(2.5, this), "pinkDude_stand")
+            .sprite(CommonMethodsClass.adjustWidth(2, this), CommonMethodsClass.adjustHeight(2.5, this), "pinkDude_idle_spritesheet")
             .setScale(4)
-            .play("pinkWalk")
+            .play("pinkDude_waiting")
             .setData("type", "pink")
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
@@ -128,9 +128,9 @@ export class ChooseMainCharacter extends Phaser.Scene {
             })
 
         this.blueDudeRef = this.add
-            .sprite(CommonMethodsClass.adjustWidth(1.1, this), CommonMethodsClass.adjustHeight(2.5, this), "blueDude_stand")
+            .sprite(CommonMethodsClass.adjustWidth(1.1, this), CommonMethodsClass.adjustHeight(2.5, this), "blueDude_idle_spritesheet")
             .setScale(4)
-            .play("blueWalk")
+            .play("blueDude_waiting")
             .setData("type", "blue")
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
