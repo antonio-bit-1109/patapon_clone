@@ -36,7 +36,6 @@ export class SoundsManager {
         return SoundsManager.mapSounds.get(key).isPlaying
     }
 
-
     public static stopAllSounds() {
         for (let sound of SoundsManager.mapSounds.values()) {
             sound.stop()
@@ -51,34 +50,5 @@ export class SoundsManager {
         }
         return false
     }
-
-    // //  looping the songs to be able to reproduce it in a loop constantly
-    // loopSounds(keys: string) {
-    //
-    //     if (this.isAnySoundAlreadyPlaying()) return
-    //
-    //
-    //     this.currSongPlayed = keys[this.index]
-    //     !this.isSoundAlreadyPlaying(this.currSongPlayed) && this.playSound(this.currSongPlayed)
-    //
-    //
-    //     this.getSound(this.currSongPlayed).once("complete", () => {
-    //         console.log("canzone terminata evento acchiappato!!")
-    //
-    //         if (this.index === keys.length - 1) {
-    //             this.index = 0
-    //         } else {
-    //
-    //             this.index++
-    //         }
-    //
-    //         this.currSongPlayed = keys[this.index]
-    //         // recursion - recall the same method but into the complete event to reproduce again the next song
-    //         this.loopSounds(keys)
-    //     })
-    //
-    //
-    // }
-
 
 }
