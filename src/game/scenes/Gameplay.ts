@@ -15,12 +15,14 @@ export class Gameplay extends Phaser.Scene {
     private inputKeyboardManager: InputKeyboardManager;
     private actionsManager: ActionsManager;
 
+
     constructor() {
         super(sceneName.gameplay);
         this.environmentManager = new EnvironmentManager(this);
         this.dudesArmyManager = new DudesArmyManager(this);
         this.inputKeyboardManager = new InputKeyboardManager(this);
         this.actionsManager = new ActionsManager(this);
+
     }
 
     init(data: IData) {
@@ -37,7 +39,7 @@ export class Gameplay extends Phaser.Scene {
 
         this.environmentManager.create();
         this.dudesArmyManager.create(this.oldDudesTypes)
-        this.inputKeyboardManager.createInputKeys()
+        this.inputKeyboardManager.create()
     }
 
 

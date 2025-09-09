@@ -18,3 +18,4 @@ export const actions: IActions = {
 
 export const assetPath: string = "assets/dudepon"
 export const assetPathSound: string = "assets/sounds"
+export const assetPathStamp: string = "assets/stamps"
