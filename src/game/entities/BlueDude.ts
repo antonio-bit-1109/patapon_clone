@@ -4,41 +4,47 @@ export class BlueDude extends Phaser.GameObjects.Sprite {
     private _damage: number = 4;
     private _hp: number = 2;
     private _defense: number = 2
+    private readonly _type: string = "blue";
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
         scene.add.existing(this);
+
     }
 
-    get speed(): number {
+    getType() {
+        return this._type
+    }
+
+    getSpeed(): number {
         return this._speed;
     }
 
-    set speed(value: number) {
+    setSpeed(value: number) {
         this._speed = value;
     }
 
-    get damage(): number {
+    getDamage(): number {
         return this._damage;
     }
 
-    set damage(value: number) {
+    setDamage(value: number) {
         this._damage = value;
     }
 
-    get hp(): number {
+    getHp(): number {
         return this._hp;
     }
 
-    set hp(value: number) {
+    setHp(value: number) {
         this._hp = value;
     }
 
-    get defense(): number {
+    getDefense(): number {
         return this._defense;
     }
 
-    set defense(value: number) {
+    setDefense(value: number) {
         this._defense = value;
     }
 }
