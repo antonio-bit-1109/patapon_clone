@@ -3,17 +3,20 @@ import {CommonMethodsClass} from "./CommonMethodsClass.ts";
 import Sprite = Phaser.GameObjects.Sprite;
 import {SoundsManager} from "./SoundsManager.ts";
 
+
 export class ChooseMainCharacter extends Phaser.Scene {
 
 
+    private goNextRef: Phaser.GameObjects.Image;
+    // @ts-ignore
+    private goBackRef: Phaser.GameObjects.Image;
     private blueDudeRef: Phaser.GameObjects.Sprite;
     private pinkDudeRef: Phaser.GameObjects.Sprite;
     private whiteDudeRef: Phaser.GameObjects.Sprite;
     private arrayDudes: Phaser.GameObjects.Sprite[] = [];
-    // private positionXCopy: number = 300;
     private positionYCopy: number = 698;
     private possiblePositionsCopies = [300, 400, 500, 600, 700]
-    private goNextRef: Phaser.GameObjects.Image;
+    private notificationOnDelete: Phaser.GameObjects.Text;
 
     constructor() {
         super(sceneName.choosemaincharacter);
@@ -28,6 +31,8 @@ export class ChooseMainCharacter extends Phaser.Scene {
 
     create() {
 
+        SoundsManager.playSound("choosing_player")
+
         CommonMethodsClass.addText(
             this,
             CommonMethodsClass.adjustWidth(2, this),
@@ -37,7 +42,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
                 color: '#ffffff',
                 stroke: '#000000',
                 strokeThickness: 1,
-                fontSize: '50px', // Ora puoi aggiungere anche questa
+                fontSize: '45px', // Ora puoi aggiungere anche questa
                 fontFamily: "pataponFont"
             },
             {x: 0.5, y: 0.5})
@@ -87,6 +92,21 @@ export class ChooseMainCharacter extends Phaser.Scene {
             {x: 0.5, y: 0.5}
         )
 
+        this.notificationOnDelete = this.add
+            .text(
+                CommonMethodsClass.adjustWidth(2, this),
+                CommonMethodsClass.adjustHeight(1.3, this),
+                "click on the dude down here to remove it from the army.", {
+                    color: '#e70d0d',
+                    stroke: '#e70d0d',
+                    fontSize: '18px',
+                    strokeThickness: 1,
+                    fontFamily: "pataponFont"
+                }
+            )
+            .setOrigin(0.5, 0.5)
+            .setVisible(false)
+
         this.whiteDudeRef = this.add
             .sprite(CommonMethodsClass.adjustWidth(8, this), CommonMethodsClass.adjustHeight(2.5, this), "whiteDude_stand")
             .setScale(4)
@@ -125,11 +145,28 @@ export class ChooseMainCharacter extends Phaser.Scene {
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
 
-                SoundsManager.stopSound("intro_sound")
+                SoundsManager.stopSound("choosing_player")
 
                 this.scene.start(sceneName.gameplay, {
                     dudesArmy: this.arrayDudes.map(dude => dude.getData("type"))
                 })
+            })
+
+        this.goBackRef = this.add
+            .sprite(
+                CommonMethodsClass.adjustWidth(8, this),
+                CommonMethodsClass.adjustHeight(1.1, this),
+                "arrow_pulsing_spritesheet"
+            ).play("arrow_pulsing")
+            .setScale(4)
+            .setRotation(Phaser.Math.DegToRad(180))
+            .setVisible(true)
+            .setInteractive({cursor: "pointer"})
+            .on("pointerdown", () => {
+
+                SoundsManager.stopSound("choosing_player")
+
+                this.scene.start(sceneName.maintitle)
             })
     }
 
@@ -182,8 +219,17 @@ export class ChooseMainCharacter extends Phaser.Scene {
         }
     }
 
+    private showNotificationDeleteArmyDudes() {
+        if (this.arrayDudes.length > 0) {
+            this.notificationOnDelete.setVisible(true)
+        } else {
+            this.notificationOnDelete.setVisible(false)
+        }
+    }
+
     update() {
         this.canShowNextBtn()
+        this.showNotificationDeleteArmyDudes()
     }
 
 }

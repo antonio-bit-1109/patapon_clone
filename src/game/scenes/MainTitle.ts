@@ -46,29 +46,116 @@ export class MainTitle extends Phaser.Scene {
                 {
                     delay: 500,
                     angle: 10,
-                    duration: 800,
+                    duration: 200,
                     ease: 'Bounce.easeOut'
                 },
                 {
+                    delay: 900,
                     angle: -10,
-                    duration: 800,
+                    duration: 200,
                     ease: 'Bounce.easeOut'
                 },
                 {
+                    delay: 900,
                     angle: 0,
-                    duration: 800,
+                    duration: 200,
                     ease: 'Bounce.easeOut'
                 },
                 {
-                    delay: 2000,
-                    duration: 400,
+                    delay: 1800,
+                    duration: 200,
                     scale: 2,
                     ease: 'Bounce.easeOut'
                 },
                 {
-                    duration: 400,
-                    scale: 0.8,
+                    duration: 200,
+                    scale: 0.7,
                     ease: 'Bounce.easeOut'
+                },
+
+                {
+                    delay: 4000,
+                    duration: 200,
+                    scale: 2,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    duration: 200,
+                    scale: 0.7,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    delay: 4200,
+                    duration: 200,
+                    scale: 2,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    duration: 200,
+                    scale: 0.7,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    delay: 4000,
+                    duration: 200,
+                    scale: 2,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    duration: 200,
+                    scale: 0.7,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    delay: 4200,
+                    scale: 1,
+                    duration: 200,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    delay: 400,
+                    scale: 1.2,
+                    duration: 200,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    delay: 400,
+                    scale: 1.4,
+                    duration: 200,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    delay: 300,
+                    scale: 1,
+                    duration: 100,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    delay: 100,
+                    scale: 0.9,
+                    duration: 100,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    delay: 100,
+                    scale: 0.7,
+                    duration: 100,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    delay: 2200,
+                    duration: 200,
+                    scale: 2,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    duration: 200,
+                    scale: 0.7,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    duration: 7300,
+                    scale: 0.7,
                 }
             ]
         )
@@ -106,6 +193,7 @@ export class MainTitle extends Phaser.Scene {
 
     public startAndStopScene(sceneToStop: string, sceneToStart: string) {
         return () => {
+            SoundsManager.stopSound("intro_sound")
             this.scene.stop(sceneToStop);
             this.scene.start(sceneToStart)
         }

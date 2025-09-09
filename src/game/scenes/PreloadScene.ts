@@ -34,7 +34,8 @@ export class PreloadScene extends Phaser.Scene {
         this.load.image("background_looping", assetPath + "/background_seamless.jpeg")
         this.load.image("terrain_looping", assetPath + "/terrain_seamless.png")
 
-        this.load.audio("intro_sound", assetPathSound + "/intros/Beat_of_the_Drums_0.mp3")
+        this.load.audio("intro_sound", assetPathSound + "/intros/Beat_of_the_Drums_0_cut.mp3")
+        this.load.audio("choosing_player", assetPathSound + "/intros/Beat_of_the_drums_1.mp3")
 
     }
 
@@ -51,6 +52,7 @@ export class PreloadScene extends Phaser.Scene {
         CommonMethodsClass.createAnimation(this, "whiteDude_waiting", "whiteDude_idle_spritesheet", 0, 3, -1)
 
         SoundsManager.addAudio("intro_sound", {volume: 1, loop: true}, this)
+        SoundsManager.addAudio("choosing_player", {volume: 1, loop: true}, this)
 
         this.scene.start(sceneName.maintitle)
 
