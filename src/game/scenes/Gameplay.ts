@@ -3,6 +3,7 @@ import {IData} from "../global/interface.ts";
 import {EnvironmentManager} from "../manager/EnvironmentManager.ts";
 import {DudesArmyManager} from "../manager/DudesArmyManager.ts";
 import {InputKeyboardManager} from "../manager/InputKeyboardManager.ts";
+import {SoundsManager} from "../manager/SoundsManager.ts";
 
 
 export class Gameplay extends Phaser.Scene {
@@ -29,6 +30,8 @@ export class Gameplay extends Phaser.Scene {
 
     create() {
 
+        SoundsManager.playSound("march_gameplay_1");
+
         this.environmentManager.create();
         this.dudesArmyManager.create(this.oldDudesTypes)
         this.inputKeyboardManager.createInputKeys()
@@ -37,6 +40,6 @@ export class Gameplay extends Phaser.Scene {
 
     update() {
         this.environmentManager.update()
-     
+
     }
 }
