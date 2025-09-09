@@ -1,27 +1,25 @@
 import {sceneName} from "../global/global_constant.ts";
 import {IData} from "../global/interface.ts";
-import Sprite = Phaser.GameObjects.Sprite;
+import {EnvironmentManager} from "../manager/EnvironmentManager.ts";
+import {DudesArmyManager} from "../manager/DudesArmyManager.ts";
 
 
 export class Gameplay extends Phaser.Scene {
 
     private oldDudesTypes: string[] = []
-    // private dudesArmyGameplay_array: Phaser.GameObjects.Sprite[] = [];
-    private dudesArmyGameplay_group: Phaser.GameObjects.Group;
-    private backgroundLooping: Phaser.GameObjects.TileSprite;
-    private terrainLooping: Phaser.GameObjects.TileSprite;
-    private phisicsTerrain: Phaser.GameObjects.Rectangle;
+    // private dudesArmyGameplay_group: Phaser.GameObjects.Group;
+    private environmentManager: EnvironmentManager;
+    private dudesArmyManager: DudesArmyManager;
 
 
     constructor() {
         super(sceneName.gameplay);
-
+        this.environmentManager = new EnvironmentManager(this);
+        this.dudesArmyManager = new DudesArmyManager(this)
     }
 
     init(data: IData) {
-
         this.oldDudesTypes = data.dudesArmy
-
     }
 
     preload() {
@@ -29,83 +27,13 @@ export class Gameplay extends Phaser.Scene {
 
     create() {
 
-
-        this.dudesArmyGameplay_group = this.add.group();
-
-        this.oldDudesTypes.forEach(typeDudes => {
-
-            let distance = Math.floor(Math.random() * (250 - 50 + 1) + 50)
-
-            const dudeGameplay: Sprite = this.physics.add.sprite(
-                50 + distance,
-                (this.game.config.height as number) - (90 as number),
-                this.checkAndChangeTexture(typeDudes)
-            )
-                .setScale(3)
-                .setDepth(1)
-                .play(this.addCorrectAnimation(typeDudes))
-
-
-            this.dudesArmyGameplay_group.add(dudeGameplay);
-        })
-
-        this.backgroundLooping = this.add
-            .tileSprite(0, 0, this.sys.game.config.width as number, this.sys.game.config.height as number, "background_looping")
-            .setOrigin(0.0)
-
-        this.terrainLooping = this.add.tileSprite(
-            0,
-            (this.game.config.height as number) - (70 as number),
-            this.sys.game.config.width as number,
-            100,
-            "terrain_looping")
-            .setOrigin(0.0)
-
-        this.phisicsTerrain = this.add.rectangle(
-            0,
-            (this.game.config.height as number) - (40 as number),
-            this.sys.game.config.width as number,
-            100,
-        ).setOrigin(0.0)
-
-        this.physics.add.existing(this.phisicsTerrain)
+        this.environmentManager.create();
+        this.dudesArmyManager.create(this.oldDudesTypes)
 
     }
 
-    public checkAndChangeTexture(type: string): string {
-        if (type.includes("pink")) {
-            return "pinkDude_idle_spritesheet";
-        }
-        if (type.includes("white")) {
-            return "whiteDude_idle_spritesheet";
-        }
-        if (type.includes("blue")) {
-            return "blueDude_idle_spritesheet";
-        }
-
-        // Se nessuna delle condizioni è vera, significa che c'è un errore nei dati.
-        // Lancia un errore chiaro per fermare il gioco e informare lo sviluppatore.
-        throw new Error(`Tipo di texture non riconosciuto: "${type}"`);
-    }
-
-    public addCorrectAnimation(type: string) {
-        if (type.includes("pink")) {
-            return "pinkDude_waiting"
-        }
-
-        if (type.includes("white")) {
-            return "whiteDude_waiting"
-        }
-
-        if (type.includes("blue")) {
-            return "blueDude_waiting"
-        }
-
-        throw new Error(`Tipo di key-animazione non riconosciuto: "${type}"`);
-    }
 
     update() {
-        this.backgroundLooping.tilePositionX += 0.1;
-        this.terrainLooping.tilePositionX += 0.8
+        this.environmentManager.update()
     }
 }
