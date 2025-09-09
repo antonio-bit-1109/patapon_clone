@@ -48,9 +48,9 @@ export class PreloadScene extends Phaser.Scene {
     create() {
 
         // load all the animations a need in the game
-        CommonMethodsClass.createAnimation(this, "pinkWalk", "pinkDude_walk", 0, 5, -1)
-        CommonMethodsClass.createAnimation(this, "blueWalk", "blueDude_walk", 0, 5, -1)
-        CommonMethodsClass.createAnimation(this, "whiteWalk", "whiteDude_walk", 0, 5, -1)
+        CommonMethodsClass.createAnimation(this, "pinkWalk", "pinkDude_walk", 0, 5, 2)
+        CommonMethodsClass.createAnimation(this, "blueWalk", "blueDude_walk", 0, 5, 2)
+        CommonMethodsClass.createAnimation(this, "whiteWalk", "whiteDude_walk", 0, 5, 2)
         CommonMethodsClass.createAnimation(this, "arrow_pulsing", "arrow_pulsing_spritesheet", 0, 19, -1)
 
         CommonMethodsClass.createAnimation(this, "pinkDude_waiting", "pinkDude_idle_spritesheet", 0, 3, -1)
