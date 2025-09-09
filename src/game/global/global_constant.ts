@@ -1,4 +1,4 @@
-import {ISceneName} from "./interface.ts";
+import {IActions, ISceneName} from "./interface.ts";
 
 
 export const sceneName: ISceneName = {
@@ -6,6 +6,14 @@ export const sceneName: ISceneName = {
     choosemaincharacter: "choosemaincharacter",
     preloadscene: "preloadscene",
     gameplay: "gameplay"
+}
+
+export const actions: IActions = {
+    move: "move",
+    attack: "attack",
+    defend: "defend",
+    jump: "jump",
+    idle: "idle"
 }
 
 export const assetPath: string = "assets/dudepon"
