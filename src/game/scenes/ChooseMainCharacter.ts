@@ -1,7 +1,7 @@
 import {sceneName} from "../global/global_constant.ts";
 import {CommonMethodsClass} from "./CommonMethodsClass.ts";
 import Sprite = Phaser.GameObjects.Sprite;
-import {SoundsManager} from "./SoundsManager.ts";
+import {SoundsManager} from "../manager/SoundsManager.ts";
 
 
 export class ChooseMainCharacter extends Phaser.Scene {
