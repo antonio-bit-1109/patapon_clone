@@ -1,6 +1,8 @@
 import Phaser from "phaser";
-import {assetPath, sceneName} from "../global/global_constant.ts";
+import {assetPath, assetPathSound, sceneName} from "../global/global_constant.ts";
 import {CommonMethodsClass} from "./CommonMethodsClass.ts";
+import {SoundsManager} from "./SoundsManager.ts";
+
 
 export class PreloadScene extends Phaser.Scene {
 
@@ -32,6 +34,7 @@ export class PreloadScene extends Phaser.Scene {
         this.load.image("background_looping", assetPath + "/background_seamless.jpeg")
         this.load.image("terrain_looping", assetPath + "/terrain_seamless.png")
 
+        this.load.audio("intro_sound", assetPathSound + "/intros/Beat_of_the_Drums_0.mp3")
 
     }
 
@@ -47,6 +50,7 @@ export class PreloadScene extends Phaser.Scene {
         CommonMethodsClass.createAnimation(this, "blueDude_waiting", "blueDude_idle_spritesheet", 0, 3, -1)
         CommonMethodsClass.createAnimation(this, "whiteDude_waiting", "whiteDude_idle_spritesheet", 0, 3, -1)
 
+        SoundsManager.addAudio("intro_sound", {volume: 1, loop: true}, this)
 
         this.scene.start(sceneName.maintitle)
 

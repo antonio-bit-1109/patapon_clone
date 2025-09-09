@@ -1,4 +1,5 @@
-import {OriginObj, IStyleText} from "../global/interface.ts";
+import {OriginObj, IStyleText, IBasicTweenObj} from "../global/interface.ts";
+import Phaser, {Scene} from "phaser";
 
 //static class
 export class CommonMethodsClass {
@@ -64,6 +65,18 @@ export class CommonMethodsClass {
             targets: target,
             scale: scale,
             ease: ease
+        })
+    }
+
+    public static chainTweens(
+        scene: Scene,
+        target: Phaser.GameObjects.GameObject,
+        loop: number,
+        arrObjs: IBasicTweenObj[]) {
+        scene.add.tweenchain({
+            targets: target,
+            loop: loop,
+            tweens: arrObjs
         })
     }
 

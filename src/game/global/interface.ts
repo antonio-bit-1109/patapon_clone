@@ -20,3 +20,12 @@ export interface OriginObj {
 export interface IData {
     dudesArmy: String[]
 }
+
+export interface IConfigSound {
+    volume: number;
+    loop: boolean;
+}
+
+export interface IBasicTweenObj {
+    [key: string]: string | any;
+}

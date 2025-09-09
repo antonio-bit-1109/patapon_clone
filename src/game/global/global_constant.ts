@@ -9,3 +9,4 @@ export const sceneName: ISceneName = {
 }
 
 export const assetPath: string = "assets/dudepon"
+export const assetPathSound: string = "assets/sounds"

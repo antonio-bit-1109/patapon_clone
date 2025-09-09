@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import {assetPath, sceneName} from "../global/global_constant.ts";
 import {CommonMethodsClass} from "./CommonMethodsClass.ts";
 import {IStyleText} from "../global/interface.ts";
+import {SoundsManager} from "./SoundsManager.ts";
 
 
 export class MainTitle extends Phaser.Scene {
@@ -9,6 +10,7 @@ export class MainTitle extends Phaser.Scene {
 
     private text: Phaser.GameObjects.Text;
     private text2: Phaser.GameObjects.Text;
+    private logo: Phaser.GameObjects.Image;
 
 
     private style: IStyleText = {
@@ -27,12 +29,46 @@ export class MainTitle extends Phaser.Scene {
 
     public preload() {
         this.load.image("main_bg", assetPath + "/dudepon_main.jpeg")
-
     }
 
     public create() {
-        this.add.image(CommonMethodsClass.adjustWidth(2, this), CommonMethodsClass.adjustHeight(2, this), "main_bg")
+
+        SoundsManager.playSound("intro_sound");
+
+        this.logo = this.add.image(CommonMethodsClass.adjustWidth(2, this), CommonMethodsClass.adjustHeight(2, this), "main_bg")
             .setScale(0.8)
+
+        CommonMethodsClass.chainTweens(
+            this,
+            this.logo,
+            0,
+            [
+                {
+                    angle: 10,
+                    duration: 800,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    angle: -10,
+                    duration: 800,
+                    ease: 'Bounce.easeOut'
+                },
+                {
+                    angle: 0,
+                    duration: 800,
+                    ease: 'Bounce.easeOut'
+                },
+                {delay: 4000},
+                {
+                    duration: 400,
+                    scale: 2
+                },
+                {
+                    duration: 400,
+                    scale: 0.8
+                }
+            ]
+        )
 
         this.text = this.add.text(CommonMethodsClass.adjustWidth(2, this), CommonMethodsClass.adjustHeight(1.8, this), "New Game",
             this.style
