@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import {assetPath, assetPathSound, sceneName} from "../global/global_constant.ts";
+import {assetPath, assetPathSound, assetPathStamp, sceneName} from "../global/global_constant.ts";
 import {CommonMethodsClass} from "./CommonMethodsClass.ts";
 import {SoundsManager} from "../manager/SoundsManager.ts";
 
@@ -33,6 +33,8 @@ export class PreloadScene extends Phaser.Scene {
 
         this.load.image("background_looping", assetPath + "/background_seamless.jpeg")
         this.load.image("terrain_looping", assetPath + "/terrain_seamless.png")
+        this.load.image("stamp_w", assetPathStamp + "/timbro_w.png")
+        this.load.image("stamp_a", assetPathStamp + "/timbro_a.png")
 
         this.load.audio("intro_sound", assetPathSound + "/intros/Beat_of_the_Drums_0_cut.mp3")
         this.load.audio("choosing_player", assetPathSound + "/intros/Beat_of_the_drums_1.mp3")
