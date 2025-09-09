@@ -1,19 +1,26 @@
 import {Scene} from "phaser";
-import Sprite = Phaser.GameObjects.Sprite;
 import {PinkDude} from "../entities/PinkDude.ts";
 import {WhiteDude} from "../entities/WhiteDude.ts";
 import {BlueDude} from "../entities/BlueDude.ts";
+import Group = Phaser.GameObjects.Group;
+import {ActionsManager} from "./ActionsManager.ts";
+
 
 export class DudesArmyManager {
 
     private dudesArmyGameplay_group: Phaser.GameObjects.Group;
     private dudeDataPreviousScene: string[];
-    private scene: Scene;
+    private readonly scene: Scene;
 
     constructor(scene: Scene) {
         this.scene = scene;
 
     }
+
+    public getDudesArmy(): Group {
+        return this.dudesArmyGameplay_group
+    }
+
 
     create(dudeDataPreviousScene: string[]) {
         this.dudeDataPreviousScene = dudeDataPreviousScene;
@@ -29,7 +36,7 @@ export class DudesArmyManager {
 
             console.log(typeDudes)
 
-            let dudeGameplay: Sprite;
+            let dudeGameplay: Phaser.Physics.Arcade.Sprite;
 
             if (typeDudes === "pink") {
                 dudeGameplay = new PinkDude(
@@ -62,13 +69,48 @@ export class DudesArmyManager {
                 .play(this.addCorrectAnimation(typeDudes))
 
             this.dudesArmyGameplay_group.add(dudeGameplay);
-            
+
         })
     }
 
-    public getDudesArmy() {
-        return this.dudesArmyGameplay_group
+
+    public moveDudes(actionsManager: ActionsManager) {
+
+        this.dudesArmyGameplay_group.children.iterate((dude) => {
+            const currentDude = dude as PinkDude | WhiteDude | BlueDude;
+            let type = currentDude.getType();
+            currentDude.play(`${type}Walk`)
+            currentDude.once("animationcomplete", () => {
+                currentDude.setTexture(`${type}Dude_idle_spritesheet`)
+                currentDude.play(`${type}Dude_waiting`)
+                actionsManager.setIsActionInProgress(false)
+            })
+            return true;
+        })
+
     }
+
+    public attackDudes() {
+    }
+
+    public defendDudes() {
+    }
+
+    public jumpDudes() {
+    }
+
+    public idleDudes(actionsManager: ActionsManager) {
+        this.dudesArmyGameplay_group.children.iterate((dude) => {
+            const currentDude = dude as PinkDude | WhiteDude | BlueDude;
+            let type = currentDude.getType();
+
+            currentDude.setTexture(`${type}Dude_idle_spritesheet`)
+            currentDude.play(`${type}Dude_waiting`)
+            actionsManager.setIsActionInProgress(false)
+            return true;
+        })
+    }
+
 
     public checkAndChangeTexture(type: string): string {
         if (type.includes("pink")) {
