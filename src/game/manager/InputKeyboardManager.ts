@@ -1,5 +1,6 @@
 import {Scene} from "phaser";
 import {SoundsManager} from "./SoundsManager.ts";
+import {StampsManager} from "./StampsManager.ts";
 
 export class InputKeyboardManager {
 
@@ -9,9 +10,16 @@ export class InputKeyboardManager {
     private d: Phaser.Input.Keyboard.Key | undefined;
     private inputsContainer: string[] = []
     private readonly scene: Scene;
+    private stampsManager: StampsManager;
 
     public constructor(scene: Scene) {
         this.scene = scene;
+        this.stampsManager = new StampsManager(scene)
+    }
+
+    public create() {
+        this.stampsManager.create()
+        this.createInputKeys()
     }
 
 
@@ -25,6 +33,7 @@ export class InputKeyboardManager {
                 console.log("hai premuto w")
                 if (this.inputsContainer.length < 4) {
                     this.inputsContainer.push("w");
+                    this.stampsManager.showStamp(this.stampsManager.getStampRefW())
                     console.log(this.inputsContainer)
                     SoundsManager.playSound("W_sound")
                 }
@@ -35,6 +44,7 @@ export class InputKeyboardManager {
                 console.log("hai premuto a")
                 if (this.inputsContainer.length < 4) {
                     this.inputsContainer.push("a");
+                    this.stampsManager.showStamp(this.stampsManager.getStampRefA())
                     console.log(this.inputsContainer)
                     SoundsManager.playSound("A_sound")
                 }
