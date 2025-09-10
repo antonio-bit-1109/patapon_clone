@@ -55,6 +55,7 @@ export class InputKeyboardManager {
 
                 if (this.inputsContainer.length < 4) {
                     this.inputsContainer.push("s");
+                    this.stampsManager.showStamp(this.stampsManager.getStampRefS())
                     console.log("hai premuto s")
                     console.log(this.inputsContainer)
                     SoundsManager.playSound("S_sound")
@@ -67,6 +68,8 @@ export class InputKeyboardManager {
 
                 if (this.inputsContainer.length < 4) {
                     this.inputsContainer.push("d");
+                    this.stampsManager.showStamp(this.stampsManager.getStampRefD())
+
                     console.log("hai premuto d")
                     console.log(this.inputsContainer)
                     SoundsManager.playSound("D_sound")
