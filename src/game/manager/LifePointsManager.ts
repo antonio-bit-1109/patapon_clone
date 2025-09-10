@@ -6,7 +6,7 @@ import {BlueDude} from "../entities/BlueDude.ts";
 export class LifePointsManager {
 
     private scene: Scene;
-    
+
 
     constructor(scene: Scene) {
         this.scene = scene;
@@ -25,7 +25,7 @@ export class LifePointsManager {
             const lowerBar = this.scene.add.graphics({
                 fillStyle: {color: 0xff0000, alpha: 1},
                 lineStyle: {width: 2, color: 0xff0000, alpha: 1},
-                x: currentDude.x - 20,
+                x: currentDude.x - 10,
                 y: currentDude.y - 50
             })
             lowerBar.fillRect(0, 0, 30, 5);
@@ -41,7 +41,7 @@ export class LifePointsManager {
             const lowerBar = this.scene.add.graphics({
                 fillStyle: {color: 0x008000, alpha: 1},
                 lineStyle: {width: 2, color: 0x82f72f, alpha: 1},
-                x: currentDude.x - 20,
+                x: currentDude.x - 10,
                 y: currentDude.y - 50
             })
             lowerBar.fillRect(0, 0, 30, 5);
