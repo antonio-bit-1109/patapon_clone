@@ -13,3 +13,5 @@ con i dati importanti di ogni sprite
 e tramite quelli ricostruisci gli sprite nella scena gameplay
 
 -capire come gestire la perdita di vita dei dude all itnterno del LIfePointsContainer class
+
+- aggiungere gli attacchi per pink e white dude 
