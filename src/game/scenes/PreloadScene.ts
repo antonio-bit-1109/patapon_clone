@@ -35,6 +35,8 @@ export class PreloadScene extends Phaser.Scene {
         this.load.image("terrain_looping", assetPath + "/terrain_seamless.png")
         this.load.image("stamp_w", assetPathStamp + "/timbro_w.png")
         this.load.image("stamp_a", assetPathStamp + "/timbro_a.png")
+        this.load.image("stamp_s", assetPathStamp + "/timbro_s.png")
+        this.load.image("stamp_d", assetPathStamp + "/timbro_d.png")
 
         this.load.audio("intro_sound", assetPathSound + "/intros/Beat_of_the_Drums_0_cut.mp3")
         this.load.audio("choosing_player", assetPathSound + "/intros/Beat_of_the_drums_1.mp3")
