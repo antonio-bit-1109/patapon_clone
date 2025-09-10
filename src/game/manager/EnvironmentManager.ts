@@ -1,5 +1,6 @@
 import {Scene} from "phaser";
 
+
 export class EnvironmentManager {
 
     private backgroundLooping: Phaser.GameObjects.TileSprite;
@@ -55,4 +56,20 @@ export class EnvironmentManager {
             tilePositionX: '+=40',
         })
     }
+
+    public applyGravityForceToSprite(nX: number, nY: number, sprite: Phaser.Physics.Arcade.Sprite) {
+        if (sprite && sprite.body) {
+            sprite.body.gravity.x = nX;
+            sprite.body.gravity.y = nY;
+        }
+    }
+
+    // public removeGravityForce(n: number) {
+    //     let currGravity = this.scene.physics.world.gravity.y
+    //     this.scene.physics.world.gravity.y = currGravity - n;
+    // }
+    //
+    // public resetGravityZero() {
+    //     this.scene.physics.world.gravity.y = 0;
+    // }
 }

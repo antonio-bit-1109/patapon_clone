@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import {assetPath, assetPathSound, assetPathStamp, sceneName} from "../global/global_constant.ts";
+import {assetPath, assetPathSound, assetPathStamp, assetPathWeapon, sceneName} from "../global/global_constant.ts";
 import {CommonMethodsClass} from "./CommonMethodsClass.ts";
 import {SoundsManager} from "../manager/SoundsManager.ts";
 
@@ -31,12 +31,17 @@ export class PreloadScene extends Phaser.Scene {
 
         this.load.spritesheet("arrow_pulsing_spritesheet", assetPath + "/arrow_pulsing.png", this.addFrameWidthHeight(21, 28))
 
+        this.load.spritesheet("blueDude_idle_attack", assetPath + "/blueDude/Dude_Monster_Arrow_Idle_6.png", this.addFrameWidthHeight(42, 42))
+        this.load.spritesheet("blueDude_arm_throw_arrow", assetPath + "/blueDude/Dude_Monster_Arrow_6.png", this.addFrameWidthHeight(42, 42))
+
         this.load.image("background_looping", assetPath + "/background_seamless.jpeg")
         this.load.image("terrain_looping", assetPath + "/terrain_seamless.png")
         this.load.image("stamp_w", assetPathStamp + "/timbro_w.png")
         this.load.image("stamp_a", assetPathStamp + "/timbro_a.png")
         this.load.image("stamp_s", assetPathStamp + "/timbro_s.png")
         this.load.image("stamp_d", assetPathStamp + "/timbro_d.png")
+
+        this.load.image("arrow", assetPathWeapon + "/arrow.png")
 
         this.load.audio("intro_sound", assetPathSound + "/intros/Beat_of_the_Drums_0_cut.mp3")
         this.load.audio("choosing_player", assetPathSound + "/intros/Beat_of_the_drums_1.mp3")
@@ -60,6 +65,9 @@ export class PreloadScene extends Phaser.Scene {
         CommonMethodsClass.createAnimation(this, "pinkDude_waiting", "pinkDude_idle_spritesheet", 0, 3, -1)
         CommonMethodsClass.createAnimation(this, "blueDude_waiting", "blueDude_idle_spritesheet", 0, 3, -1)
         CommonMethodsClass.createAnimation(this, "whiteDude_waiting", "whiteDude_idle_spritesheet", 0, 3, -1)
+
+        CommonMethodsClass.createAnimation(this, "blueDude_waiting_attack", "blueDude_idle_attack", 0, 5, 0)
+        CommonMethodsClass.createAnimation(this, "blueDude_throw_arrow", "blueDude_arm_throw_arrow", 0, 5, 0)
 
         SoundsManager.addAudio("intro_sound", {volume: 1, loop: true}, this)
         SoundsManager.addAudio("choosing_player", {volume: 1, loop: true}, this)

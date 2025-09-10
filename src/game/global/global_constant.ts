@@ -16,6 +16,14 @@ export const actions: IActions = {
     idle: "idle"
 }
 
+export const weaponTypes = {
+    arrow: "arrow"
+} as const
+
+export type WeaponType = typeof weaponTypes[keyof typeof weaponTypes];
+
+
 export const assetPath: string = "assets/dudepon"
 export const assetPathSound: string = "assets/sounds"
 export const assetPathStamp: string = "assets/stamps"
+export const assetPathWeapon: string = "assets/dudepon/weapon"

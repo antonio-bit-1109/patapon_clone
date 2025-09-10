@@ -4,6 +4,9 @@ import {WhiteDude} from "../entities/WhiteDude.ts";
 import {BlueDude} from "../entities/BlueDude.ts";
 import Group = Phaser.GameObjects.Group;
 import {ActionsManager} from "./ActionsManager.ts";
+import {WeaponManager} from "./WeaponManager.ts";
+import {weaponTypes} from "../global/global_constant.ts";
+import {EnvironmentManager} from "./EnvironmentManager.ts";
 
 
 export class DudesArmyManager {
@@ -31,10 +34,10 @@ export class DudesArmyManager {
     public createDudesArmy() {
 
         let indexDude = 0;
+        let distance = 100;
 
         this.dudeDataPreviousScene.forEach(typeDudes => {
 
-            let distance = Math.floor(Math.random() * (250 - 50 + 1) + 50)
 
             console.log(typeDudes)
 
@@ -43,21 +46,21 @@ export class DudesArmyManager {
             if (typeDudes === "pink") {
                 dudeGameplay = new PinkDude(
                     this.scene,
-                    50 + distance,
+                    distance,
                     (this.scene.game.config.height as number) - (90 as number),
                     this.checkAndChangeTexture(typeDudes)
                 )
             } else if (typeDudes === "white") {
                 dudeGameplay = new WhiteDude(
                     this.scene,
-                    50 + distance,
+                    distance,
                     (this.scene.game.config.height as number) - (90 as number),
                     this.checkAndChangeTexture(typeDudes)
                 )
             } else if (typeDudes === "blue") {
                 dudeGameplay = new BlueDude(
                     this.scene,
-                    50 + distance,
+                    distance,
                     (this.scene.game.config.height as number) - (90 as number),
                     this.checkAndChangeTexture(typeDudes)
                 )
@@ -73,6 +76,7 @@ export class DudesArmyManager {
 
             this.dudesArmyGameplay_group.add(dudeGameplay);
             indexDude++
+            distance += 50;
             console.log(dudeGameplay)
         })
     }
@@ -94,7 +98,39 @@ export class DudesArmyManager {
 
     }
 
-    public attackDudes() {
+    public attackDudes(actionsManager: ActionsManager, weaponManager: WeaponManager, environmentManager: EnvironmentManager) {
+        this.dudesArmyGameplay_group.children.iterate((dude) => {
+            const currentDude = dude as PinkDude | WhiteDude | BlueDude;
+            let type = currentDude.getType();
+
+            if (type === 'blue') {
+
+                currentDude.y -= 15;
+                currentDude.x += 3;
+                currentDude.setTexture(`${type}Dude_idle_attack`)
+                currentDude.play(`${type}Dude_waiting_attack`)
+
+                const throwArrowRef = this.scene.add
+                    .sprite(currentDude.x, currentDude.y + 10, "blueDude_arm_throw_arrow")
+                    .setScale(2.5)
+                    .play("blueDude_throw_arrow")
+                    .setDepth(currentDude.depth)
+
+                currentDude.once("animationcomplete", () => {
+                    currentDude.y += 15;
+                    currentDude.x -= 3;
+                    currentDude.setTexture(`${type}Dude_idle_spritesheet`)
+                    currentDude.play(`${type}Dude_waiting`)
+                    throwArrowRef.destroy()
+                    actionsManager.setIsActionInProgress(false)
+                    const arrow = weaponManager.createPhysicsWeapon("arrow", currentDude.x, currentDude.y, weaponTypes.arrow)
+                    environmentManager.applyGravityForceToSprite(20, 400, arrow)
+                })
+            }
+
+
+            return true;
+        })
     }
 
     public defendDudes() {
