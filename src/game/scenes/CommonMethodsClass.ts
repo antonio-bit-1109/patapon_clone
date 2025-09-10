@@ -85,8 +85,4 @@ export class CommonMethodsClass {
         scene.add.text(x, y, text, style)
             .setOrigin(origin.x, origin.y)
     }
-
-    // public static createSprite(x: number, y: number, texture: string, frame: string, animationKey: string, scene: Scene) {
-    //     scene.physics.add.sprite(x, y, texture, frame).play(animationKey);
-    // }
 }
