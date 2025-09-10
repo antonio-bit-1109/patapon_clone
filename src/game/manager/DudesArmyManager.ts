@@ -5,7 +5,7 @@ import {BlueDude} from "../entities/BlueDude.ts";
 import Group = Phaser.GameObjects.Group;
 import {ActionsManager} from "./ActionsManager.ts";
 import {WeaponManager} from "./WeaponManager.ts";
-import {weaponTypes} from "../global/global_constant.ts";
+import {dudeponTypes, weaponTypes} from "../global/global_constant.ts";
 import {EnvironmentManager} from "./EnvironmentManager.ts";
 
 
@@ -123,8 +123,9 @@ export class DudesArmyManager {
                     currentDude.play(`${type}Dude_waiting`)
                     throwArrowRef.destroy()
                     actionsManager.setIsActionInProgress(false)
-                    const arrow = weaponManager.createPhysicsWeapon("arrow", currentDude.x, currentDude.y, weaponTypes.arrow)
-                    environmentManager.applyGravityForceToSprite(20, 400, arrow)
+                    const arrow = weaponManager.createPhysicsWeapon("arrow", currentDude.x + 20, currentDude.y + 20, weaponTypes.arrow)
+                    environmentManager.applyGravityForceToSprite(20, 500, arrow)
+                    environmentManager.addColliderWithTerrain(arrow)
                 })
             }
 
@@ -153,13 +154,13 @@ export class DudesArmyManager {
 
 
     public checkAndChangeTexture(type: string): string {
-        if (type.includes("pink")) {
+        if (type.includes(dudeponTypes.pink)) {
             return "pinkDude_idle_spritesheet";
         }
-        if (type.includes("white")) {
+        if (type.includes(dudeponTypes.white)) {
             return "whiteDude_idle_spritesheet";
         }
-        if (type.includes("blue")) {
+        if (type.includes(dudeponTypes.blue)) {
             return "blueDude_idle_spritesheet";
         }
 
@@ -169,15 +170,15 @@ export class DudesArmyManager {
     }
 
     public addCorrectAnimation(type: string) {
-        if (type.includes("pink")) {
+        if (type.includes(dudeponTypes.pink)) {
             return "pinkDude_waiting"
         }
 
-        if (type.includes("white")) {
+        if (type.includes(dudeponTypes.white)) {
             return "whiteDude_waiting"
         }
 
-        if (type.includes("blue")) {
+        if (type.includes(dudeponTypes.blue)) {
             return "blueDude_waiting"
         }
 

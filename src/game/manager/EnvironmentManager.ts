@@ -1,4 +1,5 @@
 import {Scene} from "phaser";
+import Sprite = Phaser.GameObjects.Sprite;
 
 
 export class EnvironmentManager {
@@ -30,9 +31,14 @@ export class EnvironmentManager {
             (this.scene.game.config.height as number) - (40 as number),
             this.scene.sys.game.config.width as number,
             100,
-        ).setOrigin(0.0)
+        )
+            .setOrigin(0.0)
+
 
         this.scene.physics.add.existing(this.phisicsTerrain)
+
+        const terrainBody = this.phisicsTerrain.body as Phaser.Physics.Arcade.Body;
+        terrainBody.setImmovable(true);
     }
 
     update() {
@@ -41,6 +47,7 @@ export class EnvironmentManager {
     }
 
     public moveTerrain() {
+
         this.scene.add.tween({
             targets: this.terrainLooping,
             duration: 1700,
@@ -64,12 +71,21 @@ export class EnvironmentManager {
         }
     }
 
-    // public removeGravityForce(n: number) {
-    //     let currGravity = this.scene.physics.world.gravity.y
-    //     this.scene.physics.world.gravity.y = currGravity - n;
-    // }
-    //
-    // public resetGravityZero() {
-    //     this.scene.physics.world.gravity.y = 0;
-    // }
+
+    public addColliderWithTerrain(sprite: Phaser.GameObjects.Sprite) {
+        this.scene.physics.add.collider(sprite, this.phisicsTerrain, this.collideCallback, this.processCallback, this)
+    }
+
+    private collideCallback(sprite: Sprite, terrain) {
+        console.log("uno sprite ha colliso con il terreno --->", sprite.getData("arrow"))
+        sprite.setVelocity(0)
+        this.scene.time.delayedCall(500, () => {
+            sprite.destroy()
+        })
+    }
+
+    private processCallback() {
+        return true;
+    }
+
 }

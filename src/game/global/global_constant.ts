@@ -1,5 +1,11 @@
 import {IActions, ISceneName} from "./interface.ts";
 
+export const dudeponTypes = {
+    blue: "blue",
+    white: "white",
+    pink: "pink"
+}
+
 
 export const sceneName: ISceneName = {
     maintitle: "maintitle",

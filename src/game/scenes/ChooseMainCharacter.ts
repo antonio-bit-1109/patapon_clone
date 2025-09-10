@@ -1,4 +1,4 @@
-import {sceneName} from "../global/global_constant.ts";
+import {dudeponTypes, sceneName} from "../global/global_constant.ts";
 import {CommonMethodsClass} from "./CommonMethodsClass.ts";
 import Sprite = Phaser.GameObjects.Sprite;
 import {SoundsManager} from "../manager/SoundsManager.ts";
@@ -111,7 +111,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
             .sprite(CommonMethodsClass.adjustWidth(8, this), CommonMethodsClass.adjustHeight(2.5, this), "whiteDude_idle_spritesheet")
             .setScale(4)
             .play("whiteDude_waiting")
-            .setData("type", "white")
+            .setData("type", dudeponTypes.white)
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
                 this.addSpriteIntoArray(this.whiteDudeRef)
@@ -121,7 +121,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
             .sprite(CommonMethodsClass.adjustWidth(2, this), CommonMethodsClass.adjustHeight(2.5, this), "pinkDude_idle_spritesheet")
             .setScale(4)
             .play("pinkDude_waiting")
-            .setData("type", "pink")
+            .setData("type", dudeponTypes.pink)
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
                 this.addSpriteIntoArray(this.pinkDudeRef)
@@ -131,7 +131,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
             .sprite(CommonMethodsClass.adjustWidth(1.1, this), CommonMethodsClass.adjustHeight(2.5, this), "blueDude_idle_spritesheet")
             .setScale(4)
             .play("blueDude_waiting")
-            .setData("type", "blue")
+            .setData("type", dudeponTypes.blue)
             .setInteractive({cursor: "pointer"})
             .on("pointerdown", () => {
                 this.addSpriteIntoArray(this.blueDudeRef)
