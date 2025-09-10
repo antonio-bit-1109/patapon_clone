@@ -22,9 +22,18 @@ export class StampsManager {
     }
 
     public showStamp(ref: Image) {
+
+        this.scene.add.tween({
+            targets: ref,
+            duration: 80,
+            scale: 0.6
+
+        })
+
         ref.setVisible(true)
-        this.scene.time.delayedCall(500, () => {
+        this.scene.time.delayedCall(200, () => {
             ref.setVisible(false)
+            ref.setScale(0.9)
         })
     }
 
@@ -38,7 +47,7 @@ export class StampsManager {
                 "stamp_w"
             )
             .setDepth(1)
-            .setScale(0.5)
+            .setScale(0.9)
             .setRotation(Phaser.Math.DegToRad(26))
             .setVisible(false)
 
@@ -49,7 +58,7 @@ export class StampsManager {
                 "stamp_a"
             )
             .setDepth(1)
-            .setScale(0.5)
+            .setScale(0.9)
             .setRotation(Phaser.Math.DegToRad(-26))
             .setVisible(false)
     }
