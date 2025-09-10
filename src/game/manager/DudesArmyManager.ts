@@ -30,6 +30,8 @@ export class DudesArmyManager {
 
     public createDudesArmy() {
 
+        let indexDude = 0;
+
         this.dudeDataPreviousScene.forEach(typeDudes => {
 
             let distance = Math.floor(Math.random() * (250 - 50 + 1) + 50)
@@ -66,10 +68,12 @@ export class DudesArmyManager {
             dudeGameplay
                 .setScale(3)
                 .setDepth(1)
+                .setData("indexDude", indexDude)
                 .play(this.addCorrectAnimation(typeDudes))
 
             this.dudesArmyGameplay_group.add(dudeGameplay);
-
+            indexDude++
+            console.log(dudeGameplay)
         })
     }
 

@@ -5,6 +5,7 @@ import {DudesArmyManager} from "../manager/DudesArmyManager.ts";
 import {InputKeyboardManager} from "../manager/InputKeyboardManager.ts";
 import {SoundsManager} from "../manager/SoundsManager.ts";
 import {ActionsManager} from "../manager/ActionsManager.ts";
+import {LifePointsManager} from "../manager/LifePointsManager.ts";
 
 
 export class Gameplay extends Phaser.Scene {
@@ -14,6 +15,7 @@ export class Gameplay extends Phaser.Scene {
     private dudesArmyManager: DudesArmyManager;
     private inputKeyboardManager: InputKeyboardManager;
     private actionsManager: ActionsManager;
+    private lifePointsManager: LifePointsManager;
 
 
     constructor() {
@@ -22,6 +24,7 @@ export class Gameplay extends Phaser.Scene {
         this.dudesArmyManager = new DudesArmyManager(this);
         this.inputKeyboardManager = new InputKeyboardManager(this);
         this.actionsManager = new ActionsManager(this);
+        this.lifePointsManager = new LifePointsManager(this)
 
     }
 
@@ -39,6 +42,7 @@ export class Gameplay extends Phaser.Scene {
 
         this.environmentManager.create();
         this.dudesArmyManager.create(this.oldDudesTypes)
+        this.lifePointsManager.create(this.dudesArmyManager.getDudesArmy())
         this.inputKeyboardManager.create()
     }
 

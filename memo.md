@@ -11,3 +11,5 @@ nella scena gameplay stai passando gli Sprite della scena precedente. evita di f
 e passa un oggetto semplice
 con i dati importanti di ogni sprite
 e tramite quelli ricostruisci gli sprite nella scena gameplay
+
+-capire come gestire la perdita di vita dei dude all itnterno del LIfePointsContainer class

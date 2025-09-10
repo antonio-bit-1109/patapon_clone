@@ -1,10 +1,14 @@
 export class WhiteDude extends Phaser.Physics.Arcade.Sprite {
 
-    private _speed: number = 2;
     private _damage: number = 4;
     private _hp: number = 2;
     private _defense: number = 2
+
     private readonly _type: string = "white";
+
+    private hp: number = 10 * this._hp;
+    private damage: number = 2 * this._damage;
+    private defense: number = 1.5 * this._defense;
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
@@ -16,35 +20,28 @@ export class WhiteDude extends Phaser.Physics.Arcade.Sprite {
         return this._type
     }
 
-    getSpeed(): number {
-        return this._speed;
-    }
-
-    setSpeed(value: number) {
-        this._speed = value;
-    }
 
     getDamage(): number {
-        return this._damage;
+        return this.damage;
     }
 
     setDamage(value: number) {
-        this._damage = value;
+        this.damage = value;
     }
 
     getHp(): number {
-        return this._hp;
+        return this.hp;
     }
 
     setHp(value: number) {
-        this._hp = value;
+        this.hp = value;
     }
 
     getDefense(): number {
-        return this._defense;
+        return this.defense;
     }
 
     setDefense(value: number) {
-        this._defense = value;
+        this.defense = value;
     }
 }
