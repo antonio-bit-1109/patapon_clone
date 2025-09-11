@@ -15,4 +15,6 @@ e tramite quelli ricostruisci gli sprite nella scena gameplay
 -capire come gestire la perdita di vita dei dude all itnterno del LIfePointsContainer class
 
 - aggiungere gli attacchi per pink e white dude
-- uniforma i tipi di attacchi e dai al whitedude la spada come attacco 
+- uniforma i tipi di attacchi e dai al whitedude la spada come attacco
+- studia un modo intelligente per far spostare gli enemy e non farli stare sempre sullo stesso posto (environment
+  manager)

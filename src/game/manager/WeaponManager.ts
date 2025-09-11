@@ -51,7 +51,7 @@ export class WeaponManager {
             duration: 2000
         })
 
-        return weapon;
+        return weapon ?? null;
     }
 
 

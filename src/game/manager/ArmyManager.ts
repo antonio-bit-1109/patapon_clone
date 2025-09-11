@@ -97,7 +97,7 @@ export class ArmyManager {
 
     public createEnemyDudesArmy(numberEnemy: number) {
         let index = 0;
-        let distance = 900
+        let distance = 2000
 
         for (let i = 0; i < numberEnemy + 1; i++) {
             let enemy = new BaseEnemy(
@@ -109,7 +109,7 @@ export class ArmyManager {
             enemy
                 .setScale(3)
                 .setDepth(1)
-                .setData("indexDude", index)
+                .setData("indexEnemy", index)
                 .setFlipX(true)
                 .play(this.addCorrectAnimation(dudeponTypes.pink))
 
@@ -119,6 +119,18 @@ export class ArmyManager {
             index++
             distance -= 50;
         }
+
+        this.scene.time.delayedCall(3000, () => {
+            this.dudesArmyEnemy_group.children.iterate(enemy => {
+                const currEnemy = enemy as BaseEnemy
+                let type = currEnemy.getType()
+                currEnemy.setTexture(`${type}Dude_walk`)
+                currEnemy.play(`${type}Walk_infinite`)
+                currEnemy.setVelocityX(-150)
+                return true;
+            })
+        })
+
     }
 
 
@@ -172,8 +184,8 @@ export class ArmyManager {
                         weaponTypes.arrow,
                         null
                     )
-                    environmentManager.applyGravityForceToSprite(50, 500, arrow)
-                    environmentManager.addColliderWithTerrain(arrow)
+                    arrow && environmentManager.applyGravityForceToSprite(50, 500, arrow)
+                    arrow && environmentManager.addColliderWithTerrain(arrow)
                 })
             }
 
@@ -194,8 +206,8 @@ export class ArmyManager {
                         weaponTypes.rock,
                         2
                     )
-                    environmentManager.applyGravityForceToSprite(60, 700, rock)
-                    environmentManager.addColliderWithTerrain(rock)
+                    rock && environmentManager.applyGravityForceToSprite(60, 700, rock)
+                    rock && environmentManager.addColliderWithTerrain(rock)
                 })
             }
 

@@ -1,4 +1,8 @@
 import {Scene} from "phaser";
+import Group = Phaser.GameObjects.Group;
+import Zone = Phaser.GameObjects.Zone;
+import {BaseEnemy} from "../entities/players/BaseEnemy.ts";
+import Sprite = Phaser.GameObjects.Sprite;
 
 
 export class EnvironmentManager {
@@ -7,6 +11,7 @@ export class EnvironmentManager {
     private terrainLooping: Phaser.GameObjects.TileSprite;
     private phisicsTerrain: Phaser.GameObjects.Rectangle;
     private scene: Phaser.Scene
+    private enemyStoppingZone: Phaser.GameObjects.Zone
 
     constructor(scene: Scene) {
         this.scene = scene;
@@ -38,11 +43,59 @@ export class EnvironmentManager {
 
         const terrainBody = this.phisicsTerrain.body as Phaser.Physics.Arcade.Body;
         terrainBody.setImmovable(true);
+
+
+        this.enemyStoppingZone = this.scene.add.zone(
+            800,
+            (this.scene.game.config.height as number) - (70 as number),
+            100,
+            50
+        )
+
+        this.scene.physics.add.existing(this.enemyStoppingZone)
+
+
     }
 
     update() {
-        // this.backgroundLooping.tilePositionX += 0.1;
-        // this.terrainLooping.tilePositionX += 0.8
+    }
+
+    checkOverlapWithEnemyStoppingZone(enemyGroup: Group) {
+        console.log(enemyGroup)
+        this.scene.physics.add.overlap(this.enemyStoppingZone, enemyGroup, this.collideCallBack_0, this.processCallback_0, this)
+    }
+
+    private collideCallBack_0(enemyStoppingZone: Zone, enemy: Phaser.Physics.Arcade.Sprite) {
+
+        let currEnemy = enemy as BaseEnemy;
+        const type = currEnemy.getType()
+        this.scene.time.delayedCall(
+            this.calculateDelay(currEnemy.getData("indexEnemy")), () => {
+                currEnemy.setVelocity(0)
+                currEnemy.setTexture(`${type}Dude_idle_spritesheet`)
+                currEnemy.play(`${type}Dude_waiting`)
+            })
+
+        let randomShiftTime = Math.floor(Math.random() * (2000 - 1000 + 1)) + 1000
+
+        this.scene.time.delayedCall(randomShiftTime, () => {
+
+        })
+
+    }
+
+    private calculateDelay(indexEnemy: number) {
+        if (indexEnemy === 0) return 1000
+        if (indexEnemy === 1) return 800
+        if (indexEnemy === 2) return 600
+        if (indexEnemy === 3) return 400
+        if (indexEnemy === 4) return 200
+        if (indexEnemy === 5) return 50
+        return 100
+    }
+
+    private processCallback_0() {
+        return true;
     }
 
     public moveTerrain() {
@@ -77,6 +130,7 @@ export class EnvironmentManager {
 
     // @ts-ignore
     private collideCallback(sprite: Phaser.Physics.Arcade.Sprite, terrain: Phaser.GameObjects.GameObject) {
+
         console.log("uno sprite ha colliso con il terreno --->", sprite.getData("arrow"))
         sprite.setVelocity(0, 0)
         this.scene.time.delayedCall(300, () => {
