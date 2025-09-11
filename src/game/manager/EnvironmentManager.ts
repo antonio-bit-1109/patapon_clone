@@ -2,8 +2,6 @@ import {Scene} from "phaser";
 import Group = Phaser.GameObjects.Group;
 import Zone = Phaser.GameObjects.Zone;
 import {BaseEnemy} from "../entities/players/BaseEnemy.ts";
-import Sprite = Phaser.GameObjects.Sprite;
-
 
 export class EnvironmentManager {
 
