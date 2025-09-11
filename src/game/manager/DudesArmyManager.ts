@@ -111,7 +111,7 @@ export class DudesArmyManager {
                 currentDude.play(`${type}Dude_waiting_attack`)
 
                 const throwArrowRef = this.scene.add
-                    .sprite(currentDude.x, currentDude.y + 10, "blueDude_arm_throw_arrow")
+                    .sprite(currentDude.x - 10, currentDude.y + 10, "blueDude_arm_throw_arrow")
                     .setScale(2.5)
                     .play("blueDude_throw_arrow")
                     .setDepth(currentDude.depth)

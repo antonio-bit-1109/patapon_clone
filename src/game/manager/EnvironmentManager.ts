@@ -1,5 +1,4 @@
 import {Scene} from "phaser";
-import Sprite = Phaser.GameObjects.Sprite;
 
 
 export class EnvironmentManager {
@@ -72,17 +71,18 @@ export class EnvironmentManager {
     }
 
 
-    public addColliderWithTerrain(sprite: Phaser.GameObjects.Sprite) {
+    public addColliderWithTerrain(sprite: Phaser.Physics.Arcade.Sprite) {
         this.scene.physics.add.collider(sprite, this.phisicsTerrain, this.collideCallback, this.processCallback, this)
     }
 
-    private collideCallback(sprite: Sprite, terrain) {
+    private collideCallback(sprite: Phaser.Physics.Arcade.Sprite, terrain: Phaser.GameObjects.GameObject) {
         console.log("uno sprite ha colliso con il terreno --->", sprite.getData("arrow"))
         sprite.setVelocity(0)
-        this.scene.time.delayedCall(500, () => {
+        this.scene.time.delayedCall(300, () => {
             sprite.destroy()
         })
     }
+
 
     private processCallback() {
         return true;
