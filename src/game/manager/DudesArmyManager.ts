@@ -103,7 +103,7 @@ export class DudesArmyManager {
             const currentDude = dude as PinkDude | WhiteDude | BlueDude;
             let type = currentDude.getType();
 
-            if (type === 'blue') {
+            if (type === dudeponTypes.blue) {
 
                 currentDude.y -= 15;
                 currentDude.x += 3;
@@ -123,12 +123,41 @@ export class DudesArmyManager {
                     currentDude.play(`${type}Dude_waiting`)
                     throwArrowRef.destroy()
                     actionsManager.setIsActionInProgress(false)
-                    const arrow = weaponManager.createPhysicsWeapon("arrow", currentDude.x + 20, currentDude.y + 20, weaponTypes.arrow)
-                    environmentManager.applyGravityForceToSprite(20, 500, arrow)
+                    const arrow = weaponManager.createPhysicsThrowWeapon(
+                        "arrow",
+                        currentDude.x + 20,
+                        currentDude.y + 20,
+                        250,
+                        -500,
+                        weaponTypes.arrow,
+                        null
+                    )
+                    environmentManager.applyGravityForceToSprite(50, 500, arrow)
                     environmentManager.addColliderWithTerrain(arrow)
                 })
             }
 
+            if (type === dudeponTypes.pink) {
+                currentDude.setTexture("pinkDude_throw_rock")
+                currentDude.play(`${type}_throw_rock`);
+
+                currentDude.once('animationcomplete', () => {
+                    currentDude.setTexture(`${type}Dude_idle_spritesheet`)
+                    currentDude.play(`${type}Dude_waiting`)
+                    actionsManager.setIsActionInProgress(false)
+                    const rock = weaponManager.createPhysicsThrowWeapon(
+                        "rock",
+                        currentDude.x,
+                        currentDude.y,
+                        250,
+                        -500,
+                        weaponTypes.rock,
+                        2
+                    )
+                    environmentManager.applyGravityForceToSprite(60, 700, rock)
+                    environmentManager.addColliderWithTerrain(rock)
+                })
+            }
 
             return true;
         })
