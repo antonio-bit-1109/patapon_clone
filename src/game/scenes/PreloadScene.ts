@@ -34,6 +34,8 @@ export class PreloadScene extends Phaser.Scene {
         this.load.spritesheet("blueDude_idle_attack", assetPath + "/blueDude/Dude_Monster_Arrow_Idle_6.png", this.addFrameWidthHeight(42, 42))
         this.load.spritesheet("blueDude_arm_throw_arrow", assetPath + "/blueDude/Dude_Monster_Arrow_6.png", this.addFrameWidthHeight(42, 42))
 
+        this.load.spritesheet("pinkDude_throw_rock", assetPath + "/pinkDude/Pink_Monster_Throw_4.png", this.addFrameWidthHeight(32, 32))
+
         this.load.image("background_looping", assetPath + "/background_seamless.jpeg")
         this.load.image("terrain_looping", assetPath + "/terrain_seamless.png")
         this.load.image("stamp_w", assetPathStamp + "/timbro_w.png")
@@ -42,6 +44,7 @@ export class PreloadScene extends Phaser.Scene {
         this.load.image("stamp_d", assetPathStamp + "/timbro_d.png")
 
         this.load.image("arrow", assetPathWeapon + "/arrow.png")
+        this.load.image("rock", assetPathWeapon + "/rock.png")
 
         this.load.audio("intro_sound", assetPathSound + "/intros/Beat_of_the_Drums_0_cut.mp3")
         this.load.audio("choosing_player", assetPathSound + "/intros/Beat_of_the_drums_1.mp3")
@@ -68,6 +71,7 @@ export class PreloadScene extends Phaser.Scene {
 
         CommonMethodsClass.createAnimation(this, "blueDude_waiting_attack", "blueDude_idle_attack", 0, 5, 0)
         CommonMethodsClass.createAnimation(this, "blueDude_throw_arrow", "blueDude_arm_throw_arrow", 0, 5, 0)
+        CommonMethodsClass.createAnimation(this, "pink_throw_rock", "pinkDude_throw_rock", 0, 3, 0)
 
         SoundsManager.addAudio("intro_sound", {volume: 1, loop: true}, this)
         SoundsManager.addAudio("choosing_player", {volume: 1, loop: true}, this)
