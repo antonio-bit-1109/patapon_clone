@@ -3,8 +3,6 @@ import {WeaponType} from "../global/global_constant.ts";
 
 export class WeaponManager {
 
-    private ARROW_VELOCITY_X = 250
-    private ARROW_VELOCITY_Y = 500
 
     private scene: Scene;
 
@@ -12,25 +10,32 @@ export class WeaponManager {
         this.scene = scene;
     }
 
-    public createPhysicsWeapon(
+    public createPhysicsThrowWeapon(
         texture: string,
         xOrigin: number,
         yOrigin: number,
-        weaponType: WeaponType
+        initVelX: number,
+        initVelY: number,
+        weaponType: WeaponType,
+        scale?: number | null
     ) {
-        let arrow = this.scene.physics.add.sprite(xOrigin, yOrigin, texture)
+        let weapon = this.scene.physics.add.sprite(xOrigin, yOrigin, texture)
             .setData("weaponType", weaponType)
-            .setVelocityX(this.ARROW_VELOCITY_X)
-            .setVelocityY(-this.ARROW_VELOCITY_Y)
+            .setVelocityX(initVelX)
+            .setVelocityY(initVelY)
             .setRotation(Phaser.Math.DegToRad(-45))
 
+        if (scale) {
+            weapon.setScale(scale)
+        }
+
         this.scene.add.tween({
-            targets: arrow,
+            targets: weapon,
             rotation: Phaser.Math.DegToRad(70),
             duration: 2000
         })
 
-        return arrow;
+        return weapon;
     }
 
 
