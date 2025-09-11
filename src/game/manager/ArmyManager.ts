@@ -1,19 +1,22 @@
 import {Scene} from "phaser";
-import {PinkDude} from "../entities/PinkDude.ts";
-import {WhiteDude} from "../entities/WhiteDude.ts";
-import {BlueDude} from "../entities/BlueDude.ts";
+import {PinkDude} from "../entities/players/PinkDude.ts";
+import {WhiteDude} from "../entities/players/WhiteDude.ts";
+import {BlueDude} from "../entities/players/BlueDude.ts";
 import Group = Phaser.GameObjects.Group;
 import {ActionsManager} from "./ActionsManager.ts";
 import {WeaponManager} from "./WeaponManager.ts";
 import {dudeponTypes, weaponTypes} from "../global/global_constant.ts";
 import {EnvironmentManager} from "./EnvironmentManager.ts";
+import {BaseEnemy} from "../entities/players/BaseEnemy.ts";
 
 
-export class DudesArmyManager {
+export class ArmyManager {
 
     private dudesArmyGameplay_group: Phaser.GameObjects.Group;
+    private dudesArmyEnemy_group: Phaser.GameObjects.Group;
     private dudeDataPreviousScene: string[];
     private readonly scene: Scene;
+
 
     constructor(scene: Scene) {
         this.scene = scene;
@@ -24,12 +27,23 @@ export class DudesArmyManager {
         return this.dudesArmyGameplay_group
     }
 
+    public getDudesEnemyArmy(): Group {
+        return this.dudesArmyEnemy_group;
+    }
 
-    create(dudeDataPreviousScene: string[]) {
+
+    public generatePlayerArmy(dudeDataPreviousScene: string[]) {
         this.dudeDataPreviousScene = dudeDataPreviousScene;
         this.dudesArmyGameplay_group = this.scene.add.group();
         this.createDudesArmy()
+
     }
+
+    public generateEnemyArmy(numberEnemy: number) {
+        this.dudesArmyEnemy_group = this.scene.add.group()
+        this.createEnemyDudesArmy(numberEnemy)
+    }
+
 
     public createDudesArmy() {
 
@@ -79,6 +93,32 @@ export class DudesArmyManager {
             distance += 50;
             console.log(dudeGameplay)
         })
+    }
+
+    public createEnemyDudesArmy(numberEnemy: number) {
+        let index = 0;
+        let distance = 900
+
+        for (let i = 0; i < numberEnemy + 1; i++) {
+            let enemy = new BaseEnemy(
+                this.scene,
+                distance,
+                (this.scene.game.config.height as number) - (90 as number),
+                this.checkAndChangeTexture(dudeponTypes.pink)
+            )
+            enemy
+                .setScale(3)
+                .setDepth(1)
+                .setData("indexDude", index)
+                .setFlipX(true)
+                .play(this.addCorrectAnimation(dudeponTypes.pink))
+
+            this.dudesArmyEnemy_group.add(enemy);
+
+            console.log(enemy)
+            index++
+            distance -= 50;
+        }
     }
 
 
@@ -156,6 +196,19 @@ export class DudesArmyManager {
                     )
                     environmentManager.applyGravityForceToSprite(60, 700, rock)
                     environmentManager.addColliderWithTerrain(rock)
+                })
+            }
+
+            if (type === dudeponTypes.white) {
+
+
+                currentDude.setTexture(`${type}Dude_punch_attack`)
+                currentDude.play(`${type}_attack_punch`)
+
+                currentDude.once('animationcomplete', () => {
+                    currentDude.setTexture(`${type}Dude_idle_spritesheet`)
+                    currentDude.play(`${type}Dude_waiting`)
+                    actionsManager.setIsActionInProgress(false)
                 })
             }
 

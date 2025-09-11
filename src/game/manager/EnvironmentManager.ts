@@ -75,9 +75,10 @@ export class EnvironmentManager {
         this.scene.physics.add.collider(sprite, this.phisicsTerrain, this.collideCallback, this.processCallback, this)
     }
 
+    // @ts-ignore
     private collideCallback(sprite: Phaser.Physics.Arcade.Sprite, terrain: Phaser.GameObjects.GameObject) {
         console.log("uno sprite ha colliso con il terreno --->", sprite.getData("arrow"))
-        sprite.setVelocity(0)
+        sprite.setVelocity(0, 0)
         this.scene.time.delayedCall(300, () => {
             sprite.destroy()
         })

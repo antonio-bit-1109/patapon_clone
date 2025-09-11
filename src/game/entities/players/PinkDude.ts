@@ -14,6 +14,7 @@ export class PinkDude extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, texture);
         scene.physics.add.existing(this);
         scene.add.existing(this);
+        
     }
 
     getType() {

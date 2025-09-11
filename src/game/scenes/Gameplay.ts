@@ -1,7 +1,7 @@
 import {actions, sceneName} from "../global/global_constant.ts";
 import {IData} from "../global/interface.ts";
 import {EnvironmentManager} from "../manager/EnvironmentManager.ts";
-import {DudesArmyManager} from "../manager/DudesArmyManager.ts";
+import {ArmyManager} from "../manager/ArmyManager.ts";
 import {InputKeyboardManager} from "../manager/InputKeyboardManager.ts";
 import {SoundsManager} from "../manager/SoundsManager.ts";
 import {ActionsManager} from "../manager/ActionsManager.ts";
@@ -13,7 +13,7 @@ export class Gameplay extends Phaser.Scene {
 
     private oldDudesTypes: string[] = []
     private environmentManager: EnvironmentManager;
-    private dudesArmyManager: DudesArmyManager;
+    private dudesArmyManager: ArmyManager;
     private inputKeyboardManager: InputKeyboardManager;
     private actionsManager: ActionsManager;
     private lifePointsManager: LifePointsManager;
@@ -23,7 +23,7 @@ export class Gameplay extends Phaser.Scene {
     constructor() {
         super(sceneName.gameplay);
         this.environmentManager = new EnvironmentManager(this);
-        this.dudesArmyManager = new DudesArmyManager(this);
+        this.dudesArmyManager = new ArmyManager(this);
         this.inputKeyboardManager = new InputKeyboardManager(this);
         this.actionsManager = new ActionsManager(this);
         this.lifePointsManager = new LifePointsManager(this);
@@ -43,13 +43,16 @@ export class Gameplay extends Phaser.Scene {
         SoundsManager.playSound("march_gameplay_1");
 
         this.environmentManager.create();
-        this.dudesArmyManager.create(this.oldDudesTypes)
-        this.lifePointsManager.create(this.dudesArmyManager.getDudesArmy())
+        this.dudesArmyManager.generatePlayerArmy(this.oldDudesTypes) // creation playerdudes
+        this.dudesArmyManager.generateEnemyArmy(3)
+        this.lifePointsManager.createLifeBars(this.dudesArmyManager.getDudesArmy())
+        this.lifePointsManager.createLifeBars(this.dudesArmyManager.getDudesEnemyArmy())
         this.inputKeyboardManager.create()
+
     }
 
 
-    update(time: number, delta: number) {
+    update(_time: number, _delta: number) {
 
         this.actionsManager.update(this.inputKeyboardManager.getInputsContainer())
 

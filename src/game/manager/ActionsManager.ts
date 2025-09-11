@@ -3,6 +3,7 @@ import {actions} from "../global/global_constant.ts";
 
 export class ActionsManager {
 
+    // @ts-ignore
     private scene: Scene;
     private isActionInProgress: boolean = false;
     private actionToPerform: string | null = null;

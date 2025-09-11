@@ -1,7 +1,7 @@
 import {Scene} from "phaser";
-import {PinkDude} from "../entities/PinkDude.ts";
-import {WhiteDude} from "../entities/WhiteDude.ts";
-import {BlueDude} from "../entities/BlueDude.ts";
+import {PinkDude} from "../entities/players/PinkDude.ts";
+import {WhiteDude} from "../entities/players/WhiteDude.ts";
+import {BlueDude} from "../entities/players/BlueDude.ts";
 
 export class LifePointsManager {
 
@@ -12,7 +12,7 @@ export class LifePointsManager {
         this.scene = scene;
     }
 
-    public create(groupDude: Phaser.GameObjects.Group) {
+    public createLifeBars(groupDude: Phaser.GameObjects.Group) {
         this.buildLowerBar(groupDude)
         this.buildUpperBar(groupDude)
     }
