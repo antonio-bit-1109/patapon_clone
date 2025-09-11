@@ -2,7 +2,7 @@ import {Scene} from "phaser";
 import {actions} from "../global/global_constant.ts";
 
 export class ActionsManager {
-    
+
     private scene: Scene;
     private isActionInProgress: boolean = false;
     private actionToPerform: string | null = null;
@@ -11,9 +11,7 @@ export class ActionsManager {
         this.scene = scene;
     }
 
-
     // getter setter
-
     public getIsActionInProgress() {
         return this.isActionInProgress
     }
@@ -29,7 +27,6 @@ export class ActionsManager {
     public resetActionToPerform() {
         this.actionToPerform = null;
     }
-
 
     //----------------------
 
