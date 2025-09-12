@@ -85,4 +85,9 @@ export class CommonMethodsClass {
         scene.add.text(x, y, text, style)
             .setOrigin(origin.x, origin.y)
     }
+
+    public static addGraphicsCircle(scene: Phaser.Scene, x: number, y: number, radius: number, fillColor: number, fillAlpha: number) {
+        scene.add.circle(x, y, radius, fillColor, fillAlpha)
+
+    }
 }
