@@ -169,6 +169,56 @@ export class ChooseMainCharacter extends Phaser.Scene {
                 this.scene.stop(sceneName.choosemaincharacter)
                 this.scene.start(sceneName.maintitle)
             })
+
+
+        // sotto white dude
+        CommonMethodsClass.addText(
+            this,
+            CommonMethodsClass.adjustWidth(21, this),
+            CommonMethodsClass.adjustHeight(1.7, this),
+            "ATTACK",
+            {
+                color: '#fdfdfd',
+                stroke: '#ffffff',
+                fontSize: '18px',
+                strokeThickness: 1,
+                fontFamily: "pataponFont"
+            },
+            {x: 0.5, y: 0.5}
+        )
+
+
+        CommonMethodsClass.addText(
+            this,
+            CommonMethodsClass.adjustWidth(21, this),
+            CommonMethodsClass.adjustHeight(1.55, this),
+            "DEFENSE",
+            {
+                color: '#fdfdfd',
+                stroke: '#ffffff',
+                fontSize: '18px',
+                strokeThickness: 1,
+                fontFamily: "pataponFont"
+            },
+            {x: 0.5, y: 0.5}
+        )
+
+        CommonMethodsClass.addText(
+            this,
+            CommonMethodsClass.adjustWidth(21, this),
+            CommonMethodsClass.adjustHeight(1.42, this),
+            "HP",
+            {
+                color: '#fdfdfd',
+                stroke: '#ffffff',
+                fontSize: '18px',
+                strokeThickness: 1,
+                fontFamily: "pataponFont"
+            },
+            {x: 0.5, y: 0.5}
+        )
+
+
     }
 
     addSpriteIntoArray(sprite: Phaser.GameObjects.Sprite) {
