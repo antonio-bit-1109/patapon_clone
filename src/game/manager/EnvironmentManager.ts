@@ -121,7 +121,6 @@ export class EnvironmentManager {
         }
     }
 
-
     public addColliderWithTerrain(sprite: Phaser.Physics.Arcade.Sprite) {
         this.scene.physics.add.collider(sprite, this.phisicsTerrain, this.collideCallback, this.processCallback, this)
     }
