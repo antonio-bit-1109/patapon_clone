@@ -86,8 +86,32 @@ export class CommonMethodsClass {
             .setOrigin(origin.x, origin.y)
     }
 
+
     public static addGraphicsCircle(scene: Phaser.Scene, x: number, y: number, radius: number, fillColor: number, fillAlpha: number) {
         scene.add.circle(x, y, radius, fillColor, fillAlpha)
+    }
 
+    public static bulkCreateCircles(
+        iteration: number,
+        scene: Phaser.Scene,
+        initialX: number,
+        y: number,
+        xShift: number,
+        radius: number,
+        fillColor: number,
+        fillAlpha: number
+    ) {
+
+        for (let i = 0; i < iteration; i++) {
+
+            let shift = initialX - xShift
+
+            if (i !== 0) {
+                CommonMethodsClass.addGraphicsCircle(scene, shift, y, radius, fillColor, fillAlpha)
+                initialX = shift
+            }
+
+            CommonMethodsClass.addGraphicsCircle(scene, initialX, y, radius, fillColor, fillAlpha)
+        }
     }
 }
