@@ -25,4 +25,4 @@ dist-ssr
 
 
 #bundle.min.js
-./public/bundle.min.js
+/public/bundle.min.js
