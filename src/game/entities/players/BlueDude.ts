@@ -3,7 +3,7 @@ export class BlueDude extends Phaser.Physics.Arcade.Sprite {
 
     private _damage: number = 1;
     private _hp: number = 3;
-    private _defense: number = 2
+    private _defense: number = 4
     private readonly _type: string = "blue";
 
     private hp: number = 10 * this._hp;
