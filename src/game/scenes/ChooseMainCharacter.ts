@@ -171,7 +171,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
             })
 
 
-        // sotto white dude
+        // white dude attack text
         CommonMethodsClass.addText(
             this,
             CommonMethodsClass.adjustWidth(21, this),
@@ -187,7 +187,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
             {x: 0.5, y: 0.5}
         )
 
-
+// white dude defense text
         CommonMethodsClass.addText(
             this,
             CommonMethodsClass.adjustWidth(21, this),
@@ -203,6 +203,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
             {x: 0.5, y: 0.5}
         )
 
+        // white dude hp text
         CommonMethodsClass.addText(
             this,
             CommonMethodsClass.adjustWidth(21, this),
@@ -218,6 +219,213 @@ export class ChooseMainCharacter extends Phaser.Scene {
             {x: 0.5, y: 0.5}
         )
 
+
+        //bulk crate point for white - attack
+        CommonMethodsClass.bulkCreateCircles(
+            4,
+            this,
+            CommonMethodsClass.adjustWidth(9, this),
+            CommonMethodsClass.adjustHeight(1.7, this),
+            CommonMethodsClass.adjustWidth(9, this) - CommonMethodsClass.adjustWidth(7, this),
+            10,
+            0xfdfdfd,
+            1
+        )
+
+        //bulk create point for white - defense
+        CommonMethodsClass.bulkCreateCircles(
+            2,
+            this,
+            CommonMethodsClass.adjustWidth(9, this),
+            CommonMethodsClass.adjustHeight(1.55, this),
+            CommonMethodsClass.adjustWidth(9, this) - CommonMethodsClass.adjustWidth(7, this),
+            10,
+            0xfdfdfd,
+            1
+        )
+
+        //bulk crate point for white - hp
+        CommonMethodsClass.bulkCreateCircles(
+            2,
+            this,
+            CommonMethodsClass.adjustWidth(9, this),
+            CommonMethodsClass.adjustHeight(1.42, this),
+            CommonMethodsClass.adjustWidth(9, this) - CommonMethodsClass.adjustWidth(7, this),
+            10,
+            0xfdfdfd,
+            1
+        )
+
+
+        // pink dude attack text
+        CommonMethodsClass.addText(
+            this,
+            CommonMethodsClass.adjustWidth(2.3, this),
+            CommonMethodsClass.adjustHeight(1.7, this),
+            "ATTACK",
+            {
+                color: '#ce88e1',
+                stroke: '#ce88e1',
+                fontSize: '18px',
+                strokeThickness: 1,
+                fontFamily: "pataponFont"
+            },
+            {x: 0.5, y: 0.5}
+        )
+
+        // pink dude defense text
+        CommonMethodsClass.addText(
+            this,
+            CommonMethodsClass.adjustWidth(2.3, this),
+            CommonMethodsClass.adjustHeight(1.55, this),
+            "DEFENSE",
+            {
+                color: '#ce88e1',
+                stroke: '#ce88e1',
+                fontSize: '18px',
+                strokeThickness: 1,
+                fontFamily: "pataponFont"
+            },
+            {x: 0.5, y: 0.5}
+        )
+
+        // pink dude hp text
+        CommonMethodsClass.addText(
+            this,
+            CommonMethodsClass.adjustWidth(2.3, this),
+            CommonMethodsClass.adjustHeight(1.42, this),
+            "HP",
+            {
+                color: '#ce88e1',
+                stroke: '#ce88e1',
+                fontSize: '18px',
+                strokeThickness: 1,
+                fontFamily: "pataponFont"
+            },
+            {x: 0.5, y: 0.5}
+        )
+
+        // bulk circle for attack pink dude
+        CommonMethodsClass.bulkCreateCircles(
+            1,
+            this,
+            CommonMethodsClass.adjustWidth(2.01, this),
+            CommonMethodsClass.adjustHeight(1.7, this),
+            CommonMethodsClass.adjustWidth(9, this) - CommonMethodsClass.adjustWidth(7, this),
+            10,
+            0xce88e1,
+            1
+        )
+
+        // bulk circle for defense pink dude
+        CommonMethodsClass.bulkCreateCircles(
+            2,
+            this,
+            CommonMethodsClass.adjustWidth(2.01, this),
+            CommonMethodsClass.adjustHeight(1.55, this),
+            CommonMethodsClass.adjustWidth(9, this) - CommonMethodsClass.adjustWidth(7, this),
+            10,
+            0xce88e1,
+            1
+        )
+
+        // bulk circle for hp pink dude
+        CommonMethodsClass.bulkCreateCircles(
+            5,
+            this,
+            CommonMethodsClass.adjustWidth(2.01, this),
+            CommonMethodsClass.adjustHeight(1.42, this),
+            CommonMethodsClass.adjustWidth(9, this) - CommonMethodsClass.adjustWidth(7, this),
+            10,
+            0xce88e1,
+            1
+        )
+
+        // blue dude attack text
+        CommonMethodsClass.addText(
+            this,
+            CommonMethodsClass.adjustWidth(1.2, this),
+            CommonMethodsClass.adjustHeight(1.7, this),
+            "ATTACK",
+            {
+                color: '#2095e7',
+                stroke: '#2095e7',
+                fontSize: '18px',
+                strokeThickness: 1,
+                fontFamily: "pataponFont"
+            },
+            {x: 0.5, y: 0.5}
+        )
+
+        // blue dude defense text
+        CommonMethodsClass.addText(
+            this,
+            CommonMethodsClass.adjustWidth(1.2, this),
+            CommonMethodsClass.adjustHeight(1.55, this),
+            "DEFENSE",
+            {
+                color: '#2095e7',
+                stroke: '#2095e7',
+                fontSize: '18px',
+                strokeThickness: 1,
+                fontFamily: "pataponFont"
+            },
+            {x: 0.5, y: 0.5}
+        )
+
+
+        // blue dude hp text
+        CommonMethodsClass.addText(
+            this,
+            CommonMethodsClass.adjustWidth(1.2, this),
+            CommonMethodsClass.adjustHeight(1.42, this),
+            "HP",
+            {
+                color: '#2095e7',
+                stroke: '#2095e7',
+                fontSize: '18px',
+                strokeThickness: 1,
+                fontFamily: "pataponFont"
+            },
+            {x: 0.5, y: 0.5}
+        )
+
+
+        // bulk circle for attack blue dude
+        CommonMethodsClass.bulkCreateCircles(
+            1,
+            this,
+            CommonMethodsClass.adjustWidth(1.12, this),
+            CommonMethodsClass.adjustHeight(1.7, this),
+            CommonMethodsClass.adjustWidth(9, this) - CommonMethodsClass.adjustWidth(7, this),
+            10,
+            0x2095e7,
+            1
+        )
+
+        // bulk circle for defense blue dude
+        CommonMethodsClass.bulkCreateCircles(
+            4,
+            this,
+            CommonMethodsClass.adjustWidth(1.12, this),
+            CommonMethodsClass.adjustHeight(1.55, this),
+            CommonMethodsClass.adjustWidth(9, this) - CommonMethodsClass.adjustWidth(7, this),
+            10,
+            0x2095e7,
+            1
+        )
+
+        // bulk circle for hp blue dude
+        CommonMethodsClass.bulkCreateCircles(
+            3,
+            this,
+            CommonMethodsClass.adjustWidth(1.12, this),
+            CommonMethodsClass.adjustHeight(1.42, this),
+            CommonMethodsClass.adjustWidth(9, this) - CommonMethodsClass.adjustWidth(7, this),
+            10,
+            0x2095e7,
+            1
+        )
 
     }
 
