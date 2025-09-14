@@ -34,6 +34,14 @@ export enum EnumPositionTriggerZone {
     moreRight = "moreRight"
 }
 
+export const TriggerZoneState = {
+    none: "none",
+    stopping: "stopping",
+    stopped: "stopped",
+    repositioning: "repositioning"
+} as const
+
+export type TriggerZoneType = typeof TriggerZoneState[keyof typeof TriggerZoneState];
 
 export const assetPath: string = "assets/dudepon"
 export const assetPathSound: string = "assets/sounds"
