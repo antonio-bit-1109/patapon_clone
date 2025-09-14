@@ -48,7 +48,7 @@ export class PreloadScene extends Phaser.Scene {
         this.load.image("rock", assetPathWeapon + "/rock.png")
 
         this.load.audio("intro_sound", assetPathSound + "/intros/Beat_of_the_Drums_0_cut.mp3")
-        this.load.audio("choosing_player", assetPathSound + "/intros/Beat_of_the_drums_1.mp3")
+        this.load.audio("choosing_player", assetPathSound + "/intros/Beat_of_the_Drums_1.mp3")
         this.load.audio("march_gameplay_1", assetPathSound + "/march/Groovy_March_1.mp3")
 
         this.load.audio("W_sound", assetPathSound + "/letters/W_letter.mp3")

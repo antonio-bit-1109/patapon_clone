@@ -29,6 +29,11 @@ export const weaponTypes = {
 
 export type WeaponType = typeof weaponTypes[keyof typeof weaponTypes];
 
+export enum EnumPositionTriggerZone {
+    moreLeft = "moreLeft",
+    moreRight = "moreRight"
+}
+
 
 export const assetPath: string = "assets/dudepon"
 export const assetPathSound: string = "assets/sounds"

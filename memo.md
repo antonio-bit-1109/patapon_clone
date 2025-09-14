@@ -18,3 +18,6 @@ e tramite quelli ricostruisci gli sprite nella scena gameplay
 - uniforma i tipi di attacchi e dai al whitedude la spada come attacco
 - studia un modo intelligente per far spostare gli enemy e non farli stare sempre sullo stesso posto (environment
   manager)
+- controlla perchè gli enemydudes non visualizzano la barra della vita sopra la loro testa
+- capisci come fare per far muovere gli enemy dudes dentro alla trigger zone (assegna chiaramente le azioni dentro alla
+  triggerZone)

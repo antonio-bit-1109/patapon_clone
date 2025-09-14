@@ -2,6 +2,7 @@ import {Scene} from "phaser";
 import Group = Phaser.GameObjects.Group;
 import Zone = Phaser.GameObjects.Zone;
 import {BaseEnemy} from "../entities/players/BaseEnemy.ts";
+import {EnumPositionTriggerZone} from "../global/global_constant.ts";
 
 export class EnvironmentManager {
 
@@ -78,26 +79,22 @@ export class EnvironmentManager {
                     currEnemy.play(`${type}Dude_waiting`)
                 })
 
-        } else {
+        }
 
-            if (!currEnemy.getMoving()) {
-                this.scene.time.delayedCall(1000, () => {
+        if (currEnemy.body?.velocity.x === 0 && !currEnemy.getMoving()) {
+            this.scene.time.delayedCall(1000, () => {
 
-                    if (this.isEnemyIntoTriggerZone(currEnemy)) {
+                if (this.isEnemyIntoTriggerZone(currEnemy)) {
 
-                    }
-
-                    currEnemy.setVelocityX()
+                    const enemyPosition = this.checkWhereEnemyIsIntoTriggerZone(currEnemy)
+                    enemyPosition === EnumPositionTriggerZone.moreLeft && currEnemy.setVelocityX(150)
+                    enemyPosition === EnumPositionTriggerZone.moreRight && currEnemy.setVelocityX(-150)
                     currEnemy.setMoving(true);
                     currEnemy.setTexture(`${type}Dude_idle_spritesheet`)
                     currEnemy.play(`${type}Dude_waiting`)
-                })
-            }
+                }
 
-            if (currEnemy.getMoving()) {
-                currEnemy.setMoving(false)
-            }
-
+            })
         }
 
 
@@ -109,7 +106,7 @@ export class EnvironmentManager {
 
         if (enemy && enemy.body) {
             let triggerZoneBounds = this.enemyStoppingZone.getBounds();
-            return triggerZoneBounds.contains(enemy.body.x, enemy.body?.y)
+            return triggerZoneBounds.contains(enemy.body.x, enemy.body.y)
         }
 
 
@@ -120,9 +117,17 @@ export class EnvironmentManager {
 
         let triggerZoneBounds = this.enemyStoppingZone.getBounds();
         const centerXZone = triggerZoneBounds.centerX
-        const centerYZone = triggerZoneBounds.centerY
 
-        
+
+        if (enemy && enemy.body && enemy.body?.x > centerXZone) {
+            return EnumPositionTriggerZone.moreRight
+        }
+
+        if (enemy && enemy.body && enemy.body?.x < centerXZone) {
+            return EnumPositionTriggerZone.moreLeft
+        }
+
+        throw new Error("impossibile stabilire dove si trova il nemico. dentro o fuori la trigger zone ??")
     }
 
     private processCallback_0(enemyStoppingZone: Zone, enemy: Phaser.Physics.Arcade.Sprite) {
@@ -130,12 +135,12 @@ export class EnvironmentManager {
     }
 
     private calculateDelay(indexEnemy: number) {
-        if (indexEnemy === 0) return 2000
-        if (indexEnemy === 1) return 1800
-        if (indexEnemy === 2) return 1600
-        if (indexEnemy === 3) return 1400
-        if (indexEnemy === 4) return 1200
-        if (indexEnemy === 5) return 1000
+        if (indexEnemy === 0) return 1000
+        if (indexEnemy === 1) return 1200
+        if (indexEnemy === 2) return 1400
+        if (indexEnemy === 3) return 1600
+        if (indexEnemy === 4) return 1700
+        if (indexEnemy === 5) return 1800
         return 100
     }
 
@@ -173,7 +178,7 @@ export class EnvironmentManager {
     // @ts-ignore
     private collideCallback(sprite: Phaser.Physics.Arcade.Sprite, terrain: Phaser.GameObjects.GameObject) {
 
-        console.log("uno sprite ha colliso con il terreno --->", sprite.getData("arrow"))
+        console.log("uno sprite ha colliso con il terreno")
         sprite.setVelocity(0, 0)
         this.scene.time.delayedCall(300, () => {
             sprite.destroy()
