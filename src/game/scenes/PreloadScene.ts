@@ -17,6 +17,7 @@ export class PreloadScene extends Phaser.Scene {
 
     preload() {
         this.load.spritesheet("pinkDude_walk", assetPath + "/pinkDude/Pink_Monster_Walk_6.png", this.addFrameWidthHeight(32, 32))
+        this.load.spritesheet("pinkDude_walk_reverse", assetPath + "/pinkDude/Pink_Monster_Walk_reverse_6.png", this.addFrameWidthHeight(32, 32))
         this.load.spritesheet("blueDude_walk", assetPath + "/blueDude/Dude_Monster_Walk_6.png", this.addFrameWidthHeight(32, 32))
         this.load.spritesheet("whiteDude_walk", assetPath + "/whiteDude/Owlet_Monster_Walk_6.png", this.addFrameWidthHeight(32, 32))
 
@@ -62,6 +63,7 @@ export class PreloadScene extends Phaser.Scene {
 
         // load all the animations a need in the game
         CommonMethodsClass.createAnimation(this, "pinkWalk_infinite", "pinkDude_walk", 0, 5, -1)
+        CommonMethodsClass.createAnimation(this, "pinkWalk_infinite_reverse", "pinkDude_walk_reverse", 5, 0, -1)
         CommonMethodsClass.createAnimation(this, "pinkWalk", "pinkDude_walk", 0, 5, 2)
         CommonMethodsClass.createAnimation(this, "blueWalk", "blueDude_walk", 0, 5, 2)
         CommonMethodsClass.createAnimation(this, "whiteWalk", "whiteDude_walk", 0, 5, 2)

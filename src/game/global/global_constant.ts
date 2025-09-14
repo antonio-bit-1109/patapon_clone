@@ -38,7 +38,8 @@ export const TriggerZoneState = {
     stopping: "stopping",
     stopped: "stopped",
     repositioning: "repositioning",
-    repositioned: "repositioned"
+    repositioned: "repositioned",
+    none: "none"
 } as const
 
 export type TriggerZoneType = typeof TriggerZoneState[keyof typeof TriggerZoneState];
