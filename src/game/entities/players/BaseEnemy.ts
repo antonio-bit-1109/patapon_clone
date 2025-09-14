@@ -6,7 +6,7 @@ export class BaseEnemy extends PinkDude {
     public readonly tint: number = 0xff0000; //red tint
     private readonly role: string = "baseEnemy";
     private moving: boolean = false;
-    private zoneState: TriggerZoneType = 'none';
+    private zoneState: TriggerZoneType = 'repositioning';
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);

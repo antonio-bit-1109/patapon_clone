@@ -35,10 +35,10 @@ export enum EnumPositionTriggerZone {
 }
 
 export const TriggerZoneState = {
-    none: "none",
     stopping: "stopping",
     stopped: "stopped",
-    repositioning: "repositioning"
+    repositioning: "repositioning",
+    repositioned: "repositioned"
 } as const
 
 export type TriggerZoneType = typeof TriggerZoneState[keyof typeof TriggerZoneState];
