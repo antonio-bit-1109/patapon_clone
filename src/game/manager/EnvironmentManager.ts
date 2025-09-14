@@ -1,8 +1,8 @@
 import {Scene} from "phaser";
-import Group = Phaser.GameObjects.Group;
-import Zone = Phaser.GameObjects.Zone;
 import {BaseEnemy} from "../entities/players/BaseEnemy.ts";
 import {EnumPositionTriggerZone, TriggerZoneState} from "../global/global_constant.ts";
+import Group = Phaser.GameObjects.Group;
+import Zone = Phaser.GameObjects.Zone;
 
 export class EnvironmentManager {
 
@@ -124,6 +124,10 @@ export class EnvironmentManager {
 
         }
 
+        if (currEnemy.getZoneState() === TriggerZoneState.stopping) {
+
+        }
+
     }
 
 
@@ -153,6 +157,11 @@ export class EnvironmentManager {
 
         if (enemy && enemy.body && enemy.body?.x < centerXZone) {
             return EnumPositionTriggerZone.moreLeft
+        }
+
+        if (enemy && enemy.body && enemy.body?.x === centerXZone) {
+            let r = Math.random();
+            return r <= 0.5 ? EnumPositionTriggerZone.moreLeft : EnumPositionTriggerZone.moreRight
         }
 
         throw new Error("impossibile stabilire dove si trova il nemico. dentro o fuori la trigger zone ??")
