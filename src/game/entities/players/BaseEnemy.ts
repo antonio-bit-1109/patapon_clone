@@ -4,6 +4,7 @@ export class BaseEnemy extends PinkDude {
 
     public readonly tint: number = 0xff0000; //red tint
     private readonly role: string = "baseEnemy";
+    private moving: boolean = false;
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
@@ -20,6 +21,14 @@ export class BaseEnemy extends PinkDude {
 
     public getTint() {
         return this.tint;
+    }
+
+    getMoving() {
+        return this.moving
+    }
+
+    setMoving(val: boolean) {
+        this.moving = val;
     }
 
 }

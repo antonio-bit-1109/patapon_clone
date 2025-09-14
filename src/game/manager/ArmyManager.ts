@@ -127,6 +127,7 @@ export class ArmyManager {
                 currEnemy.setTexture(`${type}Dude_walk`)
                 currEnemy.play(`${type}Walk_infinite`)
                 currEnemy.setVelocityX(-150)
+                currEnemy.setMoving(true);
                 return true;
             })
         })

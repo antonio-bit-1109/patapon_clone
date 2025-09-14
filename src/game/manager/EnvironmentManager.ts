@@ -44,9 +44,9 @@ export class EnvironmentManager {
 
 
         this.enemyStoppingZone = this.scene.add.zone(
-            800,
+            700,
             (this.scene.game.config.height as number) - (70 as number),
-            100,
+            500,
             50
         )
 
@@ -60,6 +60,7 @@ export class EnvironmentManager {
 
     checkOverlapWithEnemyStoppingZone(enemyGroup: Group) {
         console.log(enemyGroup)
+        // @ts-ignore
         this.scene.physics.add.overlap(this.enemyStoppingZone, enemyGroup, this.collideCallBack_0, this.processCallback_0, this)
     }
 
@@ -67,34 +68,63 @@ export class EnvironmentManager {
 
         let currEnemy = enemy as BaseEnemy;
         const type = currEnemy.getType()
-        this.scene.time.delayedCall(
-            this.calculateDelay(currEnemy.getData("indexEnemy")), () => {
-                currEnemy.setVelocity(0)
-                currEnemy.setTexture(`${type}Dude_idle_spritesheet`)
-                currEnemy.play(`${type}Dude_waiting`)
-            })
 
-        let randomShiftTime = Math.floor(Math.random() * (2000 - 1000 + 1)) + 1000
+        if (currEnemy.body?.velocity.x !== 0) {
+            this.scene.time.delayedCall(
+                this.calculateDelay(currEnemy.getData("indexEnemy")), () => {
+                    currEnemy.setVelocity(0)
+                    currEnemy.setMoving(false)
+                    currEnemy.setTexture(`${type}Dude_idle_spritesheet`)
+                    currEnemy.play(`${type}Dude_waiting`)
+                })
 
-        this.scene.time.delayedCall(randomShiftTime, () => {
 
-        })
+        } else {
 
+            if (!currEnemy.getMoving()) {
+                this.scene.time.delayedCall(1000, () => {
+
+                     this.checkEnemyPositionIntoTriggerZone(currEnemy);
+
+                    currEnemy.setVelocityX()
+                    currEnemy.setMoving(true);
+                    currEnemy.setTexture(`${type}Dude_idle_spritesheet`)
+                    currEnemy.play(`${type}Dude_waiting`)
+                })
+            }
+
+            if (currEnemy.getMoving()) {
+                // this.scene.time.delayedCall(1000, () => {
+                currEnemy.setMoving(false)
+                // })
+            }
+
+        }
+
+
+    }
+
+
+    // prende i bounds della trigger zone e confrontarli con lo coord x e y del nemico
+    private checkEnemyPositionIntoTriggerZone(enemy: BaseEnemy){
+
+        if (enemy.body && enemy.body.x > this.enemyStoppingZone.x)
+    }
+
+    private processCallback_0(enemyStoppingZone: Zone, enemy: Phaser.Physics.Arcade.Sprite) {
+        return true;
     }
 
     private calculateDelay(indexEnemy: number) {
-        if (indexEnemy === 0) return 1000
-        if (indexEnemy === 1) return 800
-        if (indexEnemy === 2) return 600
-        if (indexEnemy === 3) return 400
-        if (indexEnemy === 4) return 200
-        if (indexEnemy === 5) return 50
+        if (indexEnemy === 0) return 2000
+        if (indexEnemy === 1) return 1800
+        if (indexEnemy === 2) return 1600
+        if (indexEnemy === 3) return 1400
+        if (indexEnemy === 4) return 1200
+        if (indexEnemy === 5) return 650
         return 100
     }
 
-    private processCallback_0() {
-        return true;
-    }
 
     public moveTerrain() {
 
@@ -122,6 +152,7 @@ export class EnvironmentManager {
     }
 
     public addColliderWithTerrain(sprite: Phaser.Physics.Arcade.Sprite) {
+        // @ts-ignore
         this.scene.physics.add.collider(sprite, this.phisicsTerrain, this.collideCallback, this.processCallback, this)
     }
 
