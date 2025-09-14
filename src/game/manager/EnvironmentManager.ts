@@ -69,7 +69,7 @@ export class EnvironmentManager {
         let currEnemy = enemy as BaseEnemy;
         const type = currEnemy.getType()
 
-        if (currEnemy.body?.velocity.x !== 0) {
+        if (currEnemy.body?.velocity.x !== 0 && currEnemy.getMoving()) {
             this.scene.time.delayedCall(
                 this.calculateDelay(currEnemy.getData("indexEnemy")), () => {
                     currEnemy.setVelocity(0)
@@ -78,13 +78,14 @@ export class EnvironmentManager {
                     currEnemy.play(`${type}Dude_waiting`)
                 })
 
-
         } else {
 
             if (!currEnemy.getMoving()) {
                 this.scene.time.delayedCall(1000, () => {
 
-                     this.checkEnemyPositionIntoTriggerZone(currEnemy);
+                    if (this.isEnemyIntoTriggerZone(currEnemy)) {
+
+                    }
 
                     currEnemy.setVelocityX()
                     currEnemy.setMoving(true);
@@ -94,9 +95,7 @@ export class EnvironmentManager {
             }
 
             if (currEnemy.getMoving()) {
-                // this.scene.time.delayedCall(1000, () => {
                 currEnemy.setMoving(false)
-                // })
             }
 
         }
@@ -106,9 +105,24 @@ export class EnvironmentManager {
 
 
     // prende i bounds della trigger zone e confrontarli con lo coord x e y del nemico
-    private checkEnemyPositionIntoTriggerZone(enemy: BaseEnemy){
+    private isEnemyIntoTriggerZone(enemy: BaseEnemy) {
 
-        if (enemy.body && enemy.body.x > this.enemyStoppingZone.x)
+        if (enemy && enemy.body) {
+            let triggerZoneBounds = this.enemyStoppingZone.getBounds();
+            return triggerZoneBounds.contains(enemy.body.x, enemy.body?.y)
+        }
+
+
+        throw new Error("impossibile trovare il body del nemico per vedere se si trova dentro la trigger zone.")
+    }
+
+    private checkWhereEnemyIsIntoTriggerZone(enemy: BaseEnemy) {
+
+        let triggerZoneBounds = this.enemyStoppingZone.getBounds();
+        const centerXZone = triggerZoneBounds.centerX
+        const centerYZone = triggerZoneBounds.centerY
+
+        
     }
 
     private processCallback_0(enemyStoppingZone: Zone, enemy: Phaser.Physics.Arcade.Sprite) {
@@ -121,7 +135,7 @@ export class EnvironmentManager {
         if (indexEnemy === 2) return 1600
         if (indexEnemy === 3) return 1400
         if (indexEnemy === 4) return 1200
-        if (indexEnemy === 5) return 650
+        if (indexEnemy === 5) return 1000
         return 100
     }
 

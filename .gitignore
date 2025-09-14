@@ -23,6 +23,3 @@ dist-ssr
 *.sln
 *.sw?
 
-
-#bundle.min.js
-/public/bundle.min.js
