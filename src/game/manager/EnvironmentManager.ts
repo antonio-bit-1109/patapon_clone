@@ -70,63 +70,69 @@ export class EnvironmentManager {
         let currEnemy = enemy as BaseEnemy;
         const type = currEnemy.getType()
 
+        switch (currEnemy.getZoneState()) {
 
-        if (currEnemy.getZoneState() === TriggerZoneState.none) {
+            case TriggerZoneState.none:
+                currEnemy.setZoneState(TriggerZoneState.stopping)
 
-            currEnemy.setZoneState(TriggerZoneState.stopping)
+                this.scene.time.delayedCall(
+                    this.calculateDelay(currEnemy.getData("indexEnemy"))
+                    //   1000
+                    , () => {
+                        currEnemy.setMoving(false); //enemy arrived into trigger zone
+                        currEnemy.setVelocity(0)
+                        currEnemy.setTexture(`${type}Dude_idle_spritesheet`)
+                        currEnemy.play(`${type}Dude_waiting`)
+                        currEnemy.setZoneState(TriggerZoneState.stopped)
+                    })
+                break;
 
-            this.scene.time.delayedCall(
-                this.calculateDelay(currEnemy.getData("indexEnemy"))
-                //   1000
-                , () => {
-                    currEnemy.setMoving(false); //enemy arrived into trigger zone
-                    currEnemy.setVelocity(0)
-                    currEnemy.setTexture(`${type}Dude_idle_spritesheet`)
-                    currEnemy.play(`${type}Dude_waiting`)
-                    currEnemy.setZoneState(TriggerZoneState.stopped)
-                })
+            case TriggerZoneState.stopped:
 
-        }
-        if (currEnemy.getZoneState() === TriggerZoneState.stopped) {
+                if (currEnemy.getMovingFunction() !== null) return;
 
-            this.scene.time.delayedCall(1500, () => {
-                if (this.isEnemyIntoTriggerZone(currEnemy)) {
-                    const enemyPosition = this.checkWhereEnemyIsIntoTriggerZone(currEnemy);
-                    currEnemy.setMoving(true)
+                const call = this.scene.time.delayedCall(1500, () => {
 
 
-                    if (enemyPosition === EnumPositionTriggerZone.moreRight) {
-                        // currEnemy.flipX = true;
-                        currEnemy.setTexture(`${type}Dude_walk_reverse`);
-                        currEnemy.play(`${type}Walk_infinite_reverse`);
-                        currEnemy.setVelocityX(-150);
-                        currEnemy.setZoneState(TriggerZoneState.repositioning);
+                    if (this.isEnemyIntoTriggerZone(currEnemy)) {
+                        const enemyPosition = this.checkWhereEnemyIsIntoTriggerZone(currEnemy);
+                        currEnemy.setMoving(true)
+
+
+                        if (enemyPosition === EnumPositionTriggerZone.moreRight) {
+                            // currEnemy.flipX = true;
+                            currEnemy.setTexture(`${type}Dude_walk_reverse`);
+                            currEnemy.play(`${type}Walk_infinite_reverse`);
+                            currEnemy.setVelocityX(-150);
+                            currEnemy.flipX = true;
+                            currEnemy.setZoneState(TriggerZoneState.repositioning);
+                        }
+                        if (enemyPosition === EnumPositionTriggerZone.moreLeft) {
+                            //  currEnemy.flipX = true;
+                            currEnemy.setTexture(`${type}Dude_walk`);
+                            currEnemy.play(`${type}Walk_infinite`);
+                            currEnemy.setVelocityX(150);
+                            currEnemy.setZoneState(TriggerZoneState.repositioning);
+                        }
+
+                        // Dopo un certo periodo di riposizionamento, torna allo stato di arresto
+                        this.scene.time.delayedCall(100, () => {
+                            currEnemy.setZoneState(TriggerZoneState.none);
+                            currEnemy.setMovingFunction(null)
+                        });
                     }
-                    if (enemyPosition === EnumPositionTriggerZone.moreLeft) {
-                        //  currEnemy.flipX = true;
-                        currEnemy.setTexture(`${type}Dude_walk`);
-                        currEnemy.play(`${type}Walk_infinite`);
-                        currEnemy.setVelocityX(150);
-                        currEnemy.setZoneState(TriggerZoneState.repositioning);
-                    }
+                });
+                currEnemy.setMovingFunction(call)
+                break;
 
-                    // Dopo un certo periodo di riposizionamento, torna allo stato di arresto
-                    this.scene.time.delayedCall(1000, () => {
-                        currEnemy.setZoneState(TriggerZoneState.none);
-                    });
-                }
-            });
-        }
-        if (currEnemy.getZoneState() === TriggerZoneState.repositioning) {
-
-        }
-        if (currEnemy.getZoneState() === TriggerZoneState.repositioned) {
-
+            case TriggerZoneState.repositioning :
+                break;
+            case TriggerZoneState.repositioned:
+                break;
+            case TriggerZoneState.stopping:
+                break;
         }
 
-        if (currEnemy.getZoneState() === TriggerZoneState.stopping) {
-
-        }
 
     }
 

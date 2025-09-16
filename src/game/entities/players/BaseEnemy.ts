@@ -7,15 +7,25 @@ export class BaseEnemy extends PinkDude {
     private readonly role: string = "baseEnemy";
     private moving: boolean = false;
     private zoneState: TriggerZoneType = 'none';
+    private movingFunction: Phaser.Time.TimerEvent | null;
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
         scene.physics.add.existing(this);
         scene.add.existing(this);
         this.setTint(this.tint)
+        this.movingFunction = null;
     }
 
     // getter setter
+
+    getMovingFunction() {
+        return this.movingFunction
+    }
+
+    setMovingFunction(val: Phaser.Time.TimerEvent | null) {
+        this.movingFunction = val;
+    }
 
     public getRole() {
         return this.role;
