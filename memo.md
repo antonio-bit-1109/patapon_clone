@@ -21,3 +21,7 @@ e tramite quelli ricostruisci gli sprite nella scena gameplay
 - controlla perchè gli enemydudes non visualizzano la barra della vita sopra la loro testa
 - capisci come fare per far muovere gli enemy dudes dentro alla trigger zone (assegna chiaramente le azioni dentro alla
   triggerZone)
+
+- implementa una classe comune per i dude del giocatore da far estendere poi a pink white e blue dude
+- il white dude non ha un arma, il suo danno base sarà maggiore perche non dotato di arma che può fare danno
+- prova ad implementare le collisioni tra weapon e enemy e vedo se riesci a fargli abbassare la vita

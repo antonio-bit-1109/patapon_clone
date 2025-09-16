@@ -65,6 +65,7 @@ export class EnvironmentManager {
         this.scene.physics.add.overlap(this.enemyStoppingZone, enemyGroup, this.collideCallBack_0, this.processCallback_0, this)
     }
 
+    // @ts-ignore
     private collideCallBack_0(enemyStoppingZone: Zone, enemy: Phaser.Physics.Arcade.Sprite) {
 
         let currEnemy = enemy as BaseEnemy;
@@ -173,6 +174,7 @@ export class EnvironmentManager {
         throw new Error("impossibile stabilire dove si trova il nemico. dentro o fuori la trigger zone ??")
     }
 
+    // @ts-ignore
     private processCallback_0(enemyStoppingZone: Zone, enemy: Phaser.Physics.Arcade.Sprite) {
         return true;
     }

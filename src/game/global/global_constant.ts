@@ -24,7 +24,8 @@ export const actions: IActions = {
 
 export const weaponTypes = {
     arrow: "arrow",
-    rock: "rock"
+    rock: "rock",
+    fist: "fist"
 } as const
 
 export type WeaponType = typeof weaponTypes[keyof typeof weaponTypes];
