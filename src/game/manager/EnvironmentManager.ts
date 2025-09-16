@@ -3,6 +3,13 @@ import {BaseEnemy} from "../entities/players/BaseEnemy.ts";
 import {EnumPositionTriggerZone, TriggerZoneState} from "../global/global_constant.ts";
 import Group = Phaser.GameObjects.Group;
 import Zone = Phaser.GameObjects.Zone;
+import {GeneralWeapon} from "../entities/weapons/GeneralWeapon.ts";
+import {PinkDude} from "../entities/players/PinkDude.ts";
+import {WhiteDude} from "../entities/players/WhiteDude.ts";
+import {BlueDude} from "../entities/players/BlueDude.ts";
+import {LifePointsManager} from "./LifePointsManager.ts";
+import {Arrow} from "../entities/weapons/Arrow.ts";
+import {Rock} from "../entities/weapons/Rock.ts";
 
 export class EnvironmentManager {
 
@@ -64,6 +71,30 @@ export class EnvironmentManager {
         // @ts-ignore
         this.scene.physics.add.overlap(this.enemyStoppingZone, enemyGroup, this.collideCallBack_0, this.processCallback_0, this)
     }
+
+    checkCollisionBetweenAllDudesAndWeapon(dudeGroup: Group, weapon: GeneralWeapon, lifePointsManager: LifePointsManager) {
+
+        this.scene.physics.add.overlap(
+            dudeGroup,
+            weapon,
+            (dude, weapon) => {
+                let currDude = dude as BaseEnemy | PinkDude | WhiteDude | BlueDude;
+                let wep = weapon as Rock | Arrow;
+
+                lifePointsManager.takeDamage(currDude, wep)
+              
+            }, () => {
+                return true
+            }, this)
+    }
+
+    // private collisionCallBack_1(dude: BaseEnemy | PinkDude | WhiteDude | BlueDude, weapon: GeneralWeapon) {
+    //
+    // }
+    //
+    // private processCallBack_1() {
+    //     return true;
+    // }
 
     // @ts-ignore
     private collideCallBack_0(enemyStoppingZone: Zone, enemy: Phaser.Physics.Arcade.Sprite) {

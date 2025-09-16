@@ -1,4 +1,6 @@
-export class Arrow extends Phaser.Physics.Arcade.Sprite {
+import {GeneralWeapon} from "./GeneralWeapon.ts";
+
+export class Arrow extends GeneralWeapon {
 
     private damage: number = 4;
 

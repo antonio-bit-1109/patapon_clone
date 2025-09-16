@@ -3,6 +3,8 @@ import {PinkDude} from "../entities/players/PinkDude.ts";
 import {WhiteDude} from "../entities/players/WhiteDude.ts";
 import {BlueDude} from "../entities/players/BlueDude.ts";
 import {BaseEnemy} from "../entities/players/BaseEnemy.ts";
+import {Arrow} from "../entities/weapons/Arrow.ts";
+import {Rock} from "../entities/weapons/Rock.ts";
 
 
 export class LifePointsManager {
@@ -67,8 +69,8 @@ export class LifePointsManager {
     }
 
     public takeDamage(
-        attackerDude: PinkDude | WhiteDude | BlueDude | BaseEnemy,
-        attackedDude: PinkDude | WhiteDude | BlueDude | BaseEnemy
+        attackedDude: PinkDude | WhiteDude | BlueDude | BaseEnemy,
+        weapon: Arrow | Rock
     ) {
 
         let upperBar = attackedDude.getHpUpperBar()
@@ -81,21 +83,27 @@ export class LifePointsManager {
                 x: attackedDude.x - 10,
                 y: attackedDude.y - 50
             })
-            upperBar.fillRect(0, 0, 30 - attackerDude.getDamage() + this.checkWhoIsAttacker(attackerDude), 5);
+            let dudeHp = attackedDude.getHp()
+            let residualHp = dudeHp - weapon.getDamage();
+            upperBar.fillRect(0, 0, residualHp, 5);
+            attackedDude.setHpUpperBar(upperBar)
+            attackedDude.setHp(residualHp)
         } else {
             throw new Error("nessuna barra della vita trovata! ERR!")
         }
+
+
     }
 
-    private checkWhoIsAttacker(attacker: PinkDude | WhiteDude | BlueDude | BaseEnemy): number {
-
-        if (attacker instanceof BlueDude || attacker instanceof PinkDude) {
-
-            return attacker.getWeaponDamage() ?? 0
-
-        } else {
-            return 0
-        }
-    }
+    // private checkWhoIsAttacker(attacker: PinkDude | WhiteDude | BlueDude | BaseEnemy): number {
+    //
+    //     if (attacker instanceof BlueDude || attacker instanceof PinkDude) {
+    //
+    //         return attacker.getWeaponDamage() ?? 0
+    //
+    //     } else {
+    //         return 0
+    //     }
+    // }
 
 }

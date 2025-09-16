@@ -10,6 +10,7 @@ import {EnvironmentManager} from "./EnvironmentManager.ts";
 import {BaseEnemy} from "../entities/players/BaseEnemy.ts";
 import {Rock} from "../entities/weapons/Rock.ts";
 import {Arrow} from "../entities/weapons/Arrow.ts";
+import {LifePointsManager} from "./LifePointsManager.ts";
 
 
 export class ArmyManager {
@@ -153,7 +154,7 @@ export class ArmyManager {
 
     }
 
-    public attackDudes(actionsManager: ActionsManager, weaponManager: WeaponManager, environmentManager: EnvironmentManager) {
+    public attackDudes(actionsManager: ActionsManager, weaponManager: WeaponManager, environmentManager: EnvironmentManager, lifePointManager: LifePointsManager) {
         this.dudesArmyGameplay_group.children.iterate((dude) => {
             const currentDude = dude as PinkDude | WhiteDude | BlueDude;
             let type = currentDude.getType();
@@ -178,7 +179,7 @@ export class ArmyManager {
                     currentDude.play(`${type}Dude_waiting`)
                     throwArrowRef.destroy()
                     actionsManager.setIsActionInProgress(false)
-                    const arrow: Arrow | Rock = weaponManager.createPhysicsThrowWeapon(
+                    const arrow: Arrow | Rock | null = weaponManager.createPhysicsThrowWeapon(
                         "arrow",
                         currentDude.x + 20,
                         currentDude.y + 20,
@@ -191,6 +192,8 @@ export class ArmyManager {
                         arrow && currentDude.setWeapon(arrow)
                         arrow && environmentManager.applyGravityForceToSprite(50, 500, arrow)
                         arrow && environmentManager.addColliderWithTerrain(arrow)
+                        arrow && environmentManager.checkCollisionBetweenAllDudesAndWeapon(this.getDudesEnemyArmy(), arrow, lifePointManager)
+
                     }
                 })
             }
@@ -203,7 +206,7 @@ export class ArmyManager {
                     currentDude.setTexture(`${type}Dude_idle_spritesheet`)
                     currentDude.play(`${type}Dude_waiting`)
                     actionsManager.setIsActionInProgress(false)
-                    const rock: Arrow | Rock = weaponManager.createPhysicsThrowWeapon(
+                    const rock: Arrow | Rock | null = weaponManager.createPhysicsThrowWeapon(
                         "rock",
                         currentDude.x,
                         currentDude.y,
@@ -216,6 +219,7 @@ export class ArmyManager {
                         rock && currentDude.setWeapon(rock);
                         rock && environmentManager.applyGravityForceToSprite(60, 700, rock);
                         rock && environmentManager.addColliderWithTerrain(rock);
+                        rock && environmentManager.checkCollisionBetweenAllDudesAndWeapon(this.getDudesEnemyArmy(), rock, lifePointManager)
                     }
                 })
             }

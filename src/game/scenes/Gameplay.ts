@@ -57,8 +57,6 @@ export class Gameplay extends Phaser.Scene {
         this.lifePointsManager.updatePositionBar(this.dudesArmyManager.getDudesArmy())
         this.lifePointsManager.updatePositionBar(this.dudesArmyManager.getDudesEnemyArmy())
 
-        this.lifePointsManager.takeDamage()
-
         //  this.lifePointsManager.updateLifeBarPosition(this.dudesArmyManager.getDudesEnemyArmy())
         this.actionsManager.update(this.inputKeyboardManager.getInputsContainer())
 
@@ -74,7 +72,7 @@ export class Gameplay extends Phaser.Scene {
                     break;
 
                 case actions.attack :
-                    this.dudesArmyManager.attackDudes(this.actionsManager, this.weaponManager, this.environmentManager)
+                    this.dudesArmyManager.attackDudes(this.actionsManager, this.weaponManager, this.environmentManager, this.lifePointsManager)
                     break;
 
                 case actions.defend :

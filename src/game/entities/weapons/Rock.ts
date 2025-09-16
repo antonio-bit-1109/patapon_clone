@@ -1,4 +1,6 @@
-export class Rock extends Phaser.Physics.Arcade.Sprite {
+import {GeneralWeapon} from "./GeneralWeapon.ts";
+
+export class Rock extends GeneralWeapon {
 
     private damage: number = 3;
 
