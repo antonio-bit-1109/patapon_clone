@@ -76,13 +76,15 @@ export class LifePointsManager {
         let upperBar = attackedDude.getHpUpperBar()
         if (upperBar) {
             upperBar.clear()
-            upperBar = null;
-            upperBar = this.scene.add.graphics({
-                fillStyle: {color: 0x008000, alpha: 1},
-                lineStyle: {width: 2, color: 0x82f72f, alpha: 1},
-                x: attackedDude.x - 10,
-                y: attackedDude.y - 50
-            })
+            upperBar.fillStyle(0x008000, 1)
+            upperBar.lineStyle(2, 0x82f72f, 1)
+            // upperBar = null;
+            // upperBar = this.scene.add.graphics({
+            //     fillStyle: {color: 0x008000, alpha: 1},
+            //     lineStyle: {width: 2, color: 0x82f72f, alpha: 1},
+            //     x: attackedDude.x - 10,
+            //     y: attackedDude.y - 50
+            // })
 
             // let residualHp = attackedDude.getMaxHp() * (attackedDude.getHp() - weapon.getDamage()) / 30
             // const dudeHp = attackedDude.getHp();
@@ -92,7 +94,7 @@ export class LifePointsManager {
             // const maxBarWidth = 30;
             // const proportionedHpOnLIfeBar = maxBarWidth * (remainingHp / attackedDude.getMaxHp());
 
-            upperBar.fillRect(0, 0, 30 - weapon.getDamage(), 5);
+            upperBar.fillRect(0, 0, , 5);
             attackedDude.setHpUpperBar(upperBar)
 
         } else {

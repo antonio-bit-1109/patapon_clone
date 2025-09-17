@@ -1,15 +1,11 @@
 export class WhiteDude extends Phaser.Physics.Arcade.Sprite {
-
-    private _damage: number = 4;
-    private _hp: number = 2;
-    private _defense: number = 2
-
+    
     private readonly _type: string = "white";
 
-    private hp: number = 10 * this._hp;
-    private maxHp: number = 10 * this._hp;
-    private damage: number = 2 * this._damage;
-    private defense: number = 1.5 * this._defense;
+    private hp: number = 20
+    private maxHp: number = 20
+    private damage: number = 8
+    private defense: number = 3
     private hpLowerBar: Phaser.GameObjects.Graphics | null;
     private hpUpperBar: Phaser.GameObjects.Graphics | null;
 

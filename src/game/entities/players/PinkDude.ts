@@ -3,15 +3,15 @@ import {Rock} from "../weapons/Rock.ts";
 export class PinkDude extends Phaser.Physics.Arcade.Sprite {
 
 
-    private _damage: number = 1;
-    private _hp: number = 5;
-    private _defense: number = 2
+    // private _damage: number = 1;
+    // private _hp: number = 5;
+    // private _defense: number = 2
     private readonly _type: string = "pink";
 
-    private hp: number = 10 * this._hp;
-    private maxHp: number = 10 * this._hp;
-    private damage: number = 2 * this._damage;
-    private defense: number = 1.5 * this._defense;
+    private hp: number = 50;
+    private maxHp: number = 50;
+    private damage: number = 2
+    private defense: number = 3
     protected hpLowerBar: Phaser.GameObjects.Graphics | null;
     protected hpUpperBar: Phaser.GameObjects.Graphics | null;
     private weapon: Rock | null;

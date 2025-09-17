@@ -1,17 +1,13 @@
 import {Arrow} from "../weapons/Arrow.ts";
 
 export class BlueDude extends Phaser.Physics.Arcade.Sprite {
-
-
-    private _damage: number = 1;
-    private _hp: number = 3;
-    private _defense: number = 4
+    
     private readonly _type: string = "blue";
 
-    private hp: number = 10 * this._hp;
-    private maxHp: number = 10 * this._hp;
-    private damage: number = 2 * this._damage;
-    private defense: number = 1.5 * this._defense;
+    private hp: number = 30
+    private maxHp: number = 30;
+    private damage: number = 2
+    private defense: number = 8;
     private hpLowerBar: Phaser.GameObjects.Graphics | null;
     private hpUpperBar: Phaser.GameObjects.Graphics | null;
     private weapon: Arrow | null;
