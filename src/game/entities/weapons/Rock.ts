@@ -4,6 +4,7 @@ export class Rock extends GeneralWeapon {
 
     private damage: number = 3;
 
+
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
         scene.physics.add.existing(this);
@@ -13,5 +14,6 @@ export class Rock extends GeneralWeapon {
     public getDamage() {
         return this.damage;
     }
+
 
 }

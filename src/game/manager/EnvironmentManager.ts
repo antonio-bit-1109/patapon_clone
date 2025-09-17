@@ -80,8 +80,7 @@ export class EnvironmentManager {
             (dude, weapon) => {
                 let currDude = dude as BaseEnemy | PinkDude | WhiteDude | BlueDude;
                 let wep = weapon as Rock | Arrow;
-
-                lifePointsManager.takeDamage(currDude, wep)
+                !wep.getHaveHittedOnce() && lifePointsManager.takeDamage(currDude, wep)
             }, () => {
                 return true
             }, this)
