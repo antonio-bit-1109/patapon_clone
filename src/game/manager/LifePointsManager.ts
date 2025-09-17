@@ -83,11 +83,18 @@ export class LifePointsManager {
                 x: attackedDude.x - 10,
                 y: attackedDude.y - 50
             })
-            let dudeHp = attackedDude.getHp()
-            let residualHp = dudeHp - weapon.getDamage();
-            upperBar.fillRect(0, 0, residualHp, 5);
+
+            // let residualHp = attackedDude.getMaxHp() * (attackedDude.getHp() - weapon.getDamage()) / 30
+            // const dudeHp = attackedDude.getHp();
+            // const remainingHp = dudeHp - weapon.getDamage()
+            // attackedDude.setHp(remainingHp)
+            //
+            // const maxBarWidth = 30;
+            // const proportionedHpOnLIfeBar = maxBarWidth * (remainingHp / attackedDude.getMaxHp());
+
+            upperBar.fillRect(0, 0, 30 - weapon.getDamage(), 5);
             attackedDude.setHpUpperBar(upperBar)
-            attackedDude.setHp(residualHp)
+
         } else {
             throw new Error("nessuna barra della vita trovata! ERR!")
         }
