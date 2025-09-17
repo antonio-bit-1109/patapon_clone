@@ -9,6 +9,7 @@ export class BlueDude extends Phaser.Physics.Arcade.Sprite {
     private readonly _type: string = "blue";
 
     private hp: number = 10 * this._hp;
+    private maxHp: number = 10 * this._hp;
     private damage: number = 2 * this._damage;
     private defense: number = 1.5 * this._defense;
     private hpLowerBar: Phaser.GameObjects.Graphics | null;
@@ -22,6 +23,10 @@ export class BlueDude extends Phaser.Physics.Arcade.Sprite {
         this.hpLowerBar = null;
         this.hpUpperBar = null;
         this.weapon = null;
+    }
+
+    public getMaxHp() {
+        return this.maxHp;
     }
 
     public getWeapon() {
