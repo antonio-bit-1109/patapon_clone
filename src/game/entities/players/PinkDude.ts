@@ -9,10 +9,11 @@ export class PinkDude extends Phaser.Physics.Arcade.Sprite {
     private readonly _type: string = "pink";
 
     private hp: number = 10 * this._hp;
+    private maxHp: number = 10 * this._hp;
     private damage: number = 2 * this._damage;
     private defense: number = 1.5 * this._defense;
-    private hpLowerBar: Phaser.GameObjects.Graphics | null;
-    private hpUpperBar: Phaser.GameObjects.Graphics | null;
+    protected hpLowerBar: Phaser.GameObjects.Graphics | null;
+    protected hpUpperBar: Phaser.GameObjects.Graphics | null;
     private weapon: Rock | null;
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
@@ -22,6 +23,10 @@ export class PinkDude extends Phaser.Physics.Arcade.Sprite {
         this.hpLowerBar = null;
         this.hpUpperBar = null;
         this.weapon = null;
+    }
+
+    public getMaxHp() {
+        return this.maxHp;
     }
 
     public getWeapon() {
