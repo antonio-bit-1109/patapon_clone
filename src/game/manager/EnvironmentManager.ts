@@ -81,6 +81,7 @@ export class EnvironmentManager {
                 let currDude = dude as BaseEnemy | PinkDude | WhiteDude | BlueDude;
                 let wep = weapon as Rock | Arrow;
                 !wep.getHaveHittedOnce() && lifePointsManager.takeDamage(currDude, wep)
+                wep.setHaveHittedOnce(true)
             }, () => {
                 return true
             }, this)
@@ -178,7 +179,7 @@ export class EnvironmentManager {
         }
 
 
-        throw new Error("impossibile trovare il body del nemico per vedere se si trova dentro la trigger zone.")
+        console.error("impossibile trovare il body del nemico per vedere se si trova dentro la trigger zone. Potrebbe essere appena morto")
     }
 
     private checkWhereEnemyIsIntoTriggerZone(enemy: BaseEnemy) {

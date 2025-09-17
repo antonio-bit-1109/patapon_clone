@@ -72,7 +72,10 @@ export class LifePointsManager {
         attackedDude: PinkDude | WhiteDude | BlueDude | BaseEnemy,
         weapon: Arrow | Rock
     ) {
-        weapon.setHaveHittedOnce(true)
+
+        this.showHurtAnimation(attackedDude);
+        this.checkIfDudeIsDeath(attackedDude)
+        
         let upperBar = attackedDude.getHpUpperBar()
         if (upperBar) {
             upperBar.clear()
@@ -88,7 +91,6 @@ export class LifePointsManager {
             console.log(proportionedLifePoints, "proportinated hp on the bar")
             upperBar.fillRect(0, 0, proportionedLifePoints, 5);
             attackedDude.setHpUpperBar(upperBar)
-
         } else {
             throw new Error("nessuna barra della vita trovata! ERR!")
         }
@@ -96,5 +98,21 @@ export class LifePointsManager {
 
     }
 
+    public showHurtAnimation(currDude: PinkDude | WhiteDude | BlueDude | BaseEnemy) {
+        if (currDude instanceof BaseEnemy) {
+            currDude.setTexture("pinkDudeTakeDamage")
+            currDude.play("pinkDude_damaged");
+        }
+    }
 
+
+    public checkIfDudeIsDeath(currDude: PinkDude | WhiteDude | BlueDude | BaseEnemy) {
+        if (currDude.getHp() <= 0) {
+            currDude.setTexture("pinkDudeDeath_spritesheet")
+                .play("pinkDudeDeath")
+                .on("animationcomplete", () => {
+                    currDude.destroy()
+                })
+        }
+    }
 }

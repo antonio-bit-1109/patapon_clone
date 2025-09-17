@@ -38,6 +38,9 @@ export class PreloadScene extends Phaser.Scene {
         this.load.spritesheet("pinkDude_throw_rock", assetPath + "/pinkDude/Pink_Monster_Throw_4.png", this.addFrameWidthHeight(32, 32))
         this.load.spritesheet("whiteDude_punch_attack", assetPath + "/whiteDude/Owlet_Monster_Attack2_6.png", this.addFrameWidthHeight(32, 32))
 
+        this.load.spritesheet("pinkDudeTakeDamage", assetPath + "/pinkDude/Pink_Monster_Hurt_4.png", this.addFrameWidthHeight(32, 32))
+        this.load.spritesheet("pinkDudeDeath_spritesheet", assetPath + "/pinkDude/Pink_Monster_Death_8.png", this.addFrameWidthHeight(32, 32))
+
         this.load.image("background_looping", assetPath + "/background_seamless.jpeg")
         this.load.image("terrain_looping", assetPath + "/terrain_seamless.png")
         this.load.image("stamp_w", assetPathStamp + "/timbro_w.png")
@@ -68,6 +71,9 @@ export class PreloadScene extends Phaser.Scene {
         CommonMethodsClass.createAnimation(this, "blueWalk", "blueDude_walk", 0, 5, 2)
         CommonMethodsClass.createAnimation(this, "whiteWalk", "whiteDude_walk", 0, 5, 2)
         CommonMethodsClass.createAnimation(this, "arrow_pulsing", "arrow_pulsing_spritesheet", 0, 19, -1)
+
+        CommonMethodsClass.createAnimation(this, "pinkDude_damaged", "pinkDudeTakeDamage", 0, 3, 0)
+        CommonMethodsClass.createAnimation(this, "pinkDudeDeath", "pinkDudeDeath_spritesheet", 0, 7, 0)
 
         CommonMethodsClass.createAnimation(this, "pinkDude_waiting", "pinkDude_idle_spritesheet", 0, 3, -1)
         CommonMethodsClass.createAnimation(this, "blueDude_waiting", "blueDude_idle_spritesheet", 0, 3, -1)
