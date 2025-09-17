@@ -8,8 +8,8 @@ export class BaseEnemy extends PinkDude {
     private moving: boolean = false;
     private zoneState: TriggerZoneType = 'none';
     private movingFunction: Phaser.Time.TimerEvent | null;
-    private hpLowerBar: Phaser.GameObjects.Graphics | null;
-    private hpUpperBar: Phaser.GameObjects.Graphics | null;
+    // private hpLowerBar: Phaser.GameObjects.Graphics | null;
+    // private hpUpperBar: Phaser.GameObjects.Graphics | null;
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
@@ -17,8 +17,7 @@ export class BaseEnemy extends PinkDude {
         scene.add.existing(this);
         this.setTint(this.tint)
         this.movingFunction = null;
-        this.hpLowerBar = null;
-        this.hpUpperBar = null;
+      
     }
 
     // getter setter
