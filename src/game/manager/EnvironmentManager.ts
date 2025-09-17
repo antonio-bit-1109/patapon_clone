@@ -82,7 +82,6 @@ export class EnvironmentManager {
                 let wep = weapon as Rock | Arrow;
 
                 lifePointsManager.takeDamage(currDude, wep)
-              
             }, () => {
                 return true
             }, this)
