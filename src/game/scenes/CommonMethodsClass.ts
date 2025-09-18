@@ -86,6 +86,15 @@ export class CommonMethodsClass {
             .setOrigin(origin.x, origin.y)
     }
 
+    public static addImage(scene: Scene, x: number, y: number, texture: string, scale?: number) {
+        const image = scene.add.image(x, y, texture)
+
+        if (scale) {
+            image.setScale(scale)
+        }
+        return image;
+    }
+
 
     public static addGraphicsCircle(scene: Phaser.Scene, x: number, y: number, radius: number, fillColor: number, fillAlpha: number) {
         scene.add.circle(x, y, radius, fillColor, fillAlpha)
