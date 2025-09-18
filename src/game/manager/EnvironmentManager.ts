@@ -199,12 +199,10 @@ export class EnvironmentManager {
 
     // @ts-ignore
     private processCallback_0(enemyStoppingZone: Zone, enemy: WhiteDude | PinkDude | BlueDude | BaseEnemy) {
-
         if (enemy.getIsDeath()) {
             return false
         } else
             return true;
-
     }
 
     private calculateDelay(indexEnemy: number) {

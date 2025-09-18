@@ -109,13 +109,13 @@ export class LifePointsManager {
 
     public checkIfDudeIsDeath(currDude: PinkDude | WhiteDude | BlueDude | BaseEnemy) {
         if (currDude.getHp() <= 0) {
+            currDude.setIsDeath(true)
             currDude.setTexture("pinkDudeDeath_spritesheet")
                 .play("pinkDudeDeath")
                 .on("animationcomplete", () => {
-                    currDude.setIsDeath(true)
                     currDude.getHpLowerBar()?.destroy(true)
                     currDude.getHpUpperBar()?.destroy(true)
-                    currDude.destroy()
+                    currDude.destroy(true)
                 })
         }
     }
