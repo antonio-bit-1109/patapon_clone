@@ -1,6 +1,8 @@
 import {Scene} from "phaser";
 import {SoundsManager} from "./SoundsManager.ts";
 import {StampsManager} from "./StampsManager.ts";
+import {CommonMethodsClass} from "../scenes/CommonMethodsClass.ts";
+import Group = Phaser.GameObjects.Group;
 
 export class InputKeyboardManager {
 
@@ -9,16 +11,20 @@ export class InputKeyboardManager {
     private s: Phaser.Input.Keyboard.Key | undefined;
     private d: Phaser.Input.Keyboard.Key | undefined;
     private inputsContainer: string[] = []
+    private readonly positionInputsX = [400, 500, 600, 700]
     private readonly scene: Scene;
     private stampsManager: StampsManager;
+    private refInputs_group: Group;
 
     public constructor(scene: Scene) {
         this.scene = scene;
         this.stampsManager = new StampsManager(scene)
+
     }
 
     public create() {
         this.stampsManager.create()
+        this.refInputs_group = this.scene.add.group()
         this.createInputKeys()
     }
 
@@ -79,6 +85,80 @@ export class InputKeyboardManager {
         );
 
 
+    }
+
+    public showStatusInputContainer() {
+        this.inputsContainer.map((s, index) => {
+
+                switch (s) {
+
+                    case "w":
+                        // if (this.w_ref) return
+                        // this.w_ref =
+
+                        const wRef = CommonMethodsClass.addImage(
+                            this.scene,
+                            this.positionInputsX[index],
+                            CommonMethodsClass.adjustHeight(11, this.scene),
+                            `stamp_${s}`,
+                            0.3
+                        )
+                        this.refInputs_group.add(wRef)
+                        break;
+
+                    case "a":
+                        // if (this.a_ref) return
+                        // this.a_ref =
+
+                        const aRef = CommonMethodsClass.addImage(
+                            this.scene,
+                            this.positionInputsX[index],
+                            CommonMethodsClass.adjustHeight(11, this.scene),
+                            `stamp_${s}`,
+                            0.3
+                        )
+                        this.refInputs_group.add(aRef)
+                        break;
+
+                    case "s":
+                        // if (this.s_ref) return
+                        // this.s_ref =
+                        const sRef = CommonMethodsClass.addImage(
+                            this.scene,
+                            this.positionInputsX[index],
+                            CommonMethodsClass.adjustHeight(11, this.scene),
+                            `stamp_${s}`,
+                            0.3
+                        )
+                        this.refInputs_group.add(sRef)
+                        break;
+
+                    case "d":
+                        // if (this.d_ref) return
+                        // this.d_ref =
+
+                        const dRef = CommonMethodsClass.addImage(
+                            this.scene,
+                            this.positionInputsX[index],
+                            CommonMethodsClass.adjustHeight(11, this.scene),
+                            `stamp_${s}`,
+                            0.3
+                        )
+                        this.refInputs_group.add(dRef)
+                        break;
+                }
+            }
+        )
+    }
+
+    public updateStatusInputContainer() {
+        if (this.inputsContainer.length === 0) {
+
+            this.scene.time.delayedCall(500, () => {
+                this.refInputs_group.clear(true, true);
+            })
+            
+        }
     }
 
     public getInputsContainer() {
