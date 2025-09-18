@@ -56,6 +56,8 @@ export class Gameplay extends Phaser.Scene {
 
         this.lifePointsManager.updatePositionBar(this.dudesArmyManager.getDudesArmy())
         this.lifePointsManager.updatePositionBar(this.dudesArmyManager.getDudesEnemyArmy())
+        this.inputKeyboardManager.showStatusInputContainer()
+        this.inputKeyboardManager.updateStatusInputContainer()
 
         //  this.lifePointsManager.updateLifeBarPosition(this.dudesArmyManager.getDudesEnemyArmy())
         this.actionsManager.update(this.inputKeyboardManager.getInputsContainer())
