@@ -1,5 +1,5 @@
 export class WhiteDude extends Phaser.Physics.Arcade.Sprite {
-    
+
     private readonly _type: string = "white";
 
     private hp: number = 20
@@ -8,7 +8,7 @@ export class WhiteDude extends Phaser.Physics.Arcade.Sprite {
     private defense: number = 3
     private hpLowerBar: Phaser.GameObjects.Graphics | null;
     private hpUpperBar: Phaser.GameObjects.Graphics | null;
-
+    private isDeath: boolean;
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
@@ -16,7 +16,15 @@ export class WhiteDude extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         this.hpLowerBar = null;
         this.hpUpperBar = null;
+        this.isDeath = false;
+    }
 
+    public getIsDeath() {
+        return this.isDeath
+    }
+
+    public setIsDeath(val: boolean) {
+        this.isDeath = val;
     }
 
     public getMaxHp() {

@@ -2,10 +2,6 @@ import {Rock} from "../weapons/Rock.ts";
 
 export class PinkDude extends Phaser.Physics.Arcade.Sprite {
 
-
-    // private _damage: number = 1;
-    // private _hp: number = 5;
-    // private _defense: number = 2
     private readonly _type: string = "pink";
 
     private hp: number = 50;
@@ -15,6 +11,7 @@ export class PinkDude extends Phaser.Physics.Arcade.Sprite {
     protected hpLowerBar: Phaser.GameObjects.Graphics | null;
     protected hpUpperBar: Phaser.GameObjects.Graphics | null;
     private weapon: Rock | null;
+    private isDeath: boolean;
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
@@ -23,6 +20,15 @@ export class PinkDude extends Phaser.Physics.Arcade.Sprite {
         this.hpLowerBar = null;
         this.hpUpperBar = null;
         this.weapon = null;
+        this.isDeath = false;
+    }
+
+    public getIsDeath() {
+        return this.isDeath
+    }
+
+    public setIsDeath(val: boolean) {
+        this.isDeath = val;
     }
 
     public getMaxHp() {

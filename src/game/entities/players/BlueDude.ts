@@ -1,7 +1,7 @@
 import {Arrow} from "../weapons/Arrow.ts";
 
 export class BlueDude extends Phaser.Physics.Arcade.Sprite {
-    
+
     private readonly _type: string = "blue";
 
     private hp: number = 30
@@ -11,6 +11,7 @@ export class BlueDude extends Phaser.Physics.Arcade.Sprite {
     private hpLowerBar: Phaser.GameObjects.Graphics | null;
     private hpUpperBar: Phaser.GameObjects.Graphics | null;
     private weapon: Arrow | null;
+    private isDeath: boolean;
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
@@ -19,6 +20,15 @@ export class BlueDude extends Phaser.Physics.Arcade.Sprite {
         this.hpLowerBar = null;
         this.hpUpperBar = null;
         this.weapon = null;
+        this.isDeath = false;
+    }
+
+    public getIsDeath() {
+        return this.isDeath
+    }
+
+    public setIsDeath(val: boolean) {
+        this.isDeath = val;
     }
 
     public getMaxHp() {

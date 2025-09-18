@@ -75,7 +75,7 @@ export class LifePointsManager {
 
         this.showHurtAnimation(attackedDude);
         this.checkIfDudeIsDeath(attackedDude)
-        
+
         let upperBar = attackedDude.getHpUpperBar()
         if (upperBar) {
             upperBar.clear()
@@ -83,7 +83,8 @@ export class LifePointsManager {
             upperBar.lineStyle(2, 0x82f72f, 1)
 
             const weaponDamage = weapon.getDamage();
-            const residualHp = attackedDude.getHp() - weaponDamage;
+            const ownerWeaponDamage = weapon.getOwnerBaseDamage();
+            const residualHp = attackedDude.getHp() - (weaponDamage + ownerWeaponDamage);
             attackedDude.setHp(residualHp);
             const proportionedLifePoints = 30 * residualHp / attackedDude.getMaxHp()
 
@@ -111,6 +112,9 @@ export class LifePointsManager {
             currDude.setTexture("pinkDudeDeath_spritesheet")
                 .play("pinkDudeDeath")
                 .on("animationcomplete", () => {
+                    currDude.setIsDeath(true)
+                    currDude.getHpLowerBar()?.destroy(true)
+                    currDude.getHpUpperBar()?.destroy(true)
                     currDude.destroy()
                 })
         }

@@ -189,6 +189,7 @@ export class ArmyManager {
                         null
                     )
                     if (currentDude instanceof BlueDude && arrow instanceof Arrow) {
+                        arrow && arrow.setOwnerBaseDamage(currentDude.getDamage())
                         arrow && currentDude.setWeapon(arrow)
                         arrow && environmentManager.applyGravityForceToSprite(50, 500, arrow)
                         arrow && environmentManager.addColliderWithTerrain(arrow)
@@ -216,6 +217,7 @@ export class ArmyManager {
                         2
                     )
                     if (currentDude instanceof PinkDude && rock instanceof Rock) {
+                        rock && rock.setOwnerBaseDamage(currentDude.getDamage())
                         rock && currentDude.setWeapon(rock);
                         rock && environmentManager.applyGravityForceToSprite(60, 700, rock);
                         rock && environmentManager.addColliderWithTerrain(rock);

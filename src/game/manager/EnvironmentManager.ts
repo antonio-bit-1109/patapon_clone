@@ -87,14 +87,6 @@ export class EnvironmentManager {
             }, this)
     }
 
-    // private collisionCallBack_1(dude: BaseEnemy | PinkDude | WhiteDude | BlueDude, weapon: GeneralWeapon) {
-    //
-    // }
-    //
-    // private processCallBack_1() {
-    //     return true;
-    // }
-
     // @ts-ignore
     private collideCallBack_0(enemyStoppingZone: Zone, enemy: Phaser.Physics.Arcade.Sprite) {
 
@@ -104,17 +96,18 @@ export class EnvironmentManager {
         switch (currEnemy.getZoneState()) {
 
             case TriggerZoneState.none:
-                currEnemy.setZoneState(TriggerZoneState.stopping)
+
+                currEnemy && currEnemy.setZoneState(TriggerZoneState.stopping)
 
                 this.scene.time.delayedCall(
                     this.calculateDelay(currEnemy.getData("indexEnemy"))
                     //   1000
                     , () => {
-                        currEnemy.setMoving(false); //enemy arrived into trigger zone
-                        currEnemy.setVelocity(0)
-                        currEnemy.setTexture(`${type}Dude_idle_spritesheet`)
-                        currEnemy.play(`${type}Dude_waiting`)
-                        currEnemy.setZoneState(TriggerZoneState.stopped)
+                        currEnemy && currEnemy.setMoving(false); //enemy arrived into trigger zone
+                        currEnemy && currEnemy.setVelocity(0)
+                        currEnemy && currEnemy.setTexture(`${type}Dude_idle_spritesheet`)
+                        currEnemy && currEnemy.play(`${type}Dude_waiting`)
+                        currEnemy && currEnemy.setZoneState(TriggerZoneState.stopped)
                     })
                 break;
 
@@ -127,33 +120,33 @@ export class EnvironmentManager {
 
                     if (this.isEnemyIntoTriggerZone(currEnemy)) {
                         const enemyPosition = this.checkWhereEnemyIsIntoTriggerZone(currEnemy);
-                        currEnemy.setMoving(true)
+                        currEnemy && currEnemy.setMoving(true)
 
 
                         if (enemyPosition === EnumPositionTriggerZone.moreRight) {
                             // currEnemy.flipX = true;
-                            currEnemy.setTexture(`${type}Dude_walk_reverse`);
-                            currEnemy.play(`${type}Walk_infinite_reverse`);
-                            currEnemy.setVelocityX(-150);
-                            currEnemy.flipX = true;
-                            currEnemy.setZoneState(TriggerZoneState.repositioning);
+                            currEnemy && currEnemy.setTexture(`${type}Dude_walk_reverse`);
+                            currEnemy && currEnemy.play(`${type}Walk_infinite_reverse`);
+                            currEnemy && currEnemy.setVelocityX(-150);
+                            if (currEnemy) currEnemy.flipX = true;
+                            currEnemy && currEnemy.setZoneState(TriggerZoneState.repositioning);
                         }
                         if (enemyPosition === EnumPositionTriggerZone.moreLeft) {
                             //  currEnemy.flipX = true;
-                            currEnemy.setTexture(`${type}Dude_walk`);
-                            currEnemy.play(`${type}Walk_infinite`);
-                            currEnemy.setVelocityX(150);
-                            currEnemy.setZoneState(TriggerZoneState.repositioning);
+                            currEnemy && currEnemy.setTexture(`${type}Dude_walk`);
+                            currEnemy && currEnemy.play(`${type}Walk_infinite`);
+                            currEnemy && currEnemy.setVelocityX(150);
+                            currEnemy && currEnemy.setZoneState(TriggerZoneState.repositioning);
                         }
 
                         // Dopo un certo periodo di riposizionamento, torna allo stato di arresto
                         this.scene.time.delayedCall(100, () => {
-                            currEnemy.setZoneState(TriggerZoneState.none);
-                            currEnemy.setMovingFunction(null)
+                            currEnemy && currEnemy.setZoneState(TriggerZoneState.none);
+                            currEnemy && currEnemy.setMovingFunction(null)
                         });
                     }
                 });
-                currEnemy.setMovingFunction(call)
+                currEnemy && currEnemy.setMovingFunction(call)
                 break;
 
             case TriggerZoneState.repositioning :
@@ -205,8 +198,13 @@ export class EnvironmentManager {
     }
 
     // @ts-ignore
-    private processCallback_0(enemyStoppingZone: Zone, enemy: Phaser.Physics.Arcade.Sprite) {
-        return true;
+    private processCallback_0(enemyStoppingZone: Zone, enemy: WhiteDude | PinkDude | BlueDude | BaseEnemy) {
+
+        if (enemy.getIsDeath()) {
+            return false
+        } else
+            return true;
+
     }
 
     private calculateDelay(indexEnemy: number) {
