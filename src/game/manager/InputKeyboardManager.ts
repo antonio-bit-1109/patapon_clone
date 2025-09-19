@@ -10,11 +10,13 @@ export class InputKeyboardManager {
     private a: Phaser.Input.Keyboard.Key | undefined;
     private s: Phaser.Input.Keyboard.Key | undefined;
     private d: Phaser.Input.Keyboard.Key | undefined;
+    private p: Phaser.Input.Keyboard.Key | undefined;
     private inputsContainer: string[] = []
     private readonly positionInputsX = [400, 500, 600, 700]
     private readonly scene: Scene;
     private stampsManager: StampsManager;
     private refInputs_group: Group;
+
 
     public constructor(scene: Scene) {
         this.scene = scene;
@@ -34,6 +36,7 @@ export class InputKeyboardManager {
         this.a = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.s = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.d = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.p = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.P)
 
         this.w?.on('down', () => {
                 console.log("hai premuto w")
@@ -84,7 +87,12 @@ export class InputKeyboardManager {
             }
         );
 
+        this.p?.on('down', () => {
 
+                console.log("GIOCO IN PAUSA")
+
+            }
+        );
     }
 
     public showStatusInputContainer() {
@@ -157,7 +165,7 @@ export class InputKeyboardManager {
             this.scene.time.delayedCall(500, () => {
                 this.refInputs_group.clear(true, true);
             })
-            
+
         }
     }
 
