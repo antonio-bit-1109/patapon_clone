@@ -15,8 +15,8 @@ import {LifePointsManager} from "./LifePointsManager.ts";
 
 export class ArmyManager {
 
-    private dudesArmyGameplay_group: Phaser.GameObjects.Group;
-    private dudesArmyEnemy_group: Phaser.GameObjects.Group;
+    private dudesArmyGameplay_group: Phaser.Physics.Arcade.Group;
+    private dudesArmyEnemy_group: Phaser.Physics.Arcade.Group;
     private dudeDataPreviousScene: string[];
     private readonly scene: Scene;
 
@@ -154,9 +154,10 @@ export class ArmyManager {
 
     }
 
-    public attackDudes(actionsManager: ActionsManager, weaponManager: WeaponManager, environmentManager: EnvironmentManager, lifePointManager: LifePointsManager) {
+    public attackDudes(enemyGroup: Phaser.Physics.Arcade.Group, actionsManager: ActionsManager, weaponManager: WeaponManager, environmentManager: EnvironmentManager, lifePointManager: LifePointsManager) {
         this.dudesArmyGameplay_group.children.iterate((dude) => {
             const currentDude = dude as PinkDude | WhiteDude | BlueDude;
+
             let type = currentDude.getType();
 
             if (type === dudeponTypes.blue) {
@@ -228,16 +229,39 @@ export class ArmyManager {
 
             if (type === dudeponTypes.white) {
 
+                const currDude = currentDude as WhiteDude
+                const closestEnemy = this.scene.physics.closest(currentDude, enemyGroup.getChildren());
+                const enemy = closestEnemy as BaseEnemy;
 
-                currentDude.setTexture(`${type}Dude_punch_attack`)
-                currentDude.play(`${type}_attack_punch`)
+                if (!currDude || !currDude.body || !enemy || !enemy.body) return;
 
-                currentDude.once('animationcomplete', () => {
-                    currentDude.setTexture(`${type}Dude_idle_spritesheet`)
-                    currentDude.play(`${type}Dude_waiting`)
-                    actionsManager.setIsActionInProgress(false)
+                // if (!enemy.getMovingFunction()) return;
+
+                currDude.setTexture(`${type}Dude_walk`)
+                currDude.play(`${type}Walk_infinite`)
+                currDude.setInitialPosition(currDude.body.x, currDude.body.y)
+
+                this.scene.add.tween({
+                    targets: currDude,
+                    duration: 1000,
+                    x: enemy.body?.x - 5
 
                 })
+
+                // 1. usare un tween per portarlo vicino al nemico
+                // 2. fai animazione di attacco
+                // 3. registra l evento di danno sul nemico
+                // 4. ritorna alla initial position
+                //
+                // currentDude.setTexture(`${type}Dude_punch_attack`)
+                // currentDude.play(`${type}_attack_punch`)
+                //
+                // currentDude.once('animationcomplete', () => {
+                //     currentDude.setTexture(`${type}Dude_idle_spritesheet`)
+                //     currentDude.play(`${type}Dude_waiting`)
+                //     actionsManager.setIsActionInProgress(false)
+                //
+                // })
             }
 
             return true;

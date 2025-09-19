@@ -70,6 +70,8 @@ export class PreloadScene extends Phaser.Scene {
         CommonMethodsClass.createAnimation(this, "pinkWalk", "pinkDude_walk", 0, 5, 2)
         CommonMethodsClass.createAnimation(this, "blueWalk", "blueDude_walk", 0, 5, 2)
         CommonMethodsClass.createAnimation(this, "whiteWalk", "whiteDude_walk", 0, 5, 2)
+        CommonMethodsClass.createAnimation(this, "whiteWalk_infinite", "whiteDude_walk", 0, 5, -1)
+
         CommonMethodsClass.createAnimation(this, "arrow_pulsing", "arrow_pulsing_spritesheet", 0, 19, -1)
 
         CommonMethodsClass.createAnimation(this, "pinkDude_damaged", "pinkDudeTakeDamage", 0, 3, 0)

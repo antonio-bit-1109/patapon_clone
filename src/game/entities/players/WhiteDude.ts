@@ -9,6 +9,7 @@ export class WhiteDude extends Phaser.Physics.Arcade.Sprite {
     private hpLowerBar: Phaser.GameObjects.Graphics | null;
     private hpUpperBar: Phaser.GameObjects.Graphics | null;
     private isDeath: boolean;
+    private initialPosition: { x: number, y: number } | null;
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
@@ -17,6 +18,15 @@ export class WhiteDude extends Phaser.Physics.Arcade.Sprite {
         this.hpLowerBar = null;
         this.hpUpperBar = null;
         this.isDeath = false;
+        this.initialPosition = null;
+    }
+
+    public getInitialPosition(): { x: number, y: number } | null {
+        return this.initialPosition
+    }
+
+    public setInitialPosition(x: number, y: number) {
+        this.initialPosition = {x: x, y: y}
     }
 
     public getIsDeath() {

@@ -74,7 +74,13 @@ export class Gameplay extends Phaser.Scene {
                     break;
 
                 case actions.attack :
-                    this.dudesArmyManager.attackDudes(this.actionsManager, this.weaponManager, this.environmentManager, this.lifePointsManager)
+                    this.dudesArmyManager.attackDudes(
+                        this.dudesArmyManager.getDudesEnemyArmy(),
+                        this.actionsManager,
+                        this.weaponManager,
+                        this.environmentManager,
+                        this.lifePointsManager
+                    )
                     break;
 
                 case actions.defend :
