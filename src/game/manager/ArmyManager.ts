@@ -239,45 +239,35 @@ export class ArmyManager {
 
                 currDude.setTexture(`${type}Dude_walk`)
                 currDude.play(`${type}Walk_infinite`)
-                currDude.setInitialPosition(currDude.body.x, currDude.body.y)
+                currDude.setInitialPosition(currDude.x, currDude.y)
 
-                const tween = this.scene.add.tween({
+                console.log(currDude.getInitialPositionX(), "initial position X")
+
+                console.log(currDude.getInitialPositionY(), "initial position Y")
+
+                this.scene.add.tween({
                     targets: currDude,
                     duration: 1000,
-                    x: enemy.body?.x,
+                    x: enemy.x,
 
                     onComplete: () => {
-                        currentDude.setTexture(`${type}Dude_punch_attack`)
-                        currentDude.play(`${type}_attack_punch`)
-                        currentDude.once("animationcomplete", () => {
-                            currentDude.setTexture(`${type}Dude_idle_spritesheet`)
-                            currentDude.play(`${type}Dude_waiting`)
+                        currDude.setTexture(`${type}Dude_punch_attack`)
+                        currDude.play(`${type}_attack_punch`)
+                        currDude.once("animationcomplete", () => {
+                            currDude.setTexture(`${type}Dude_idle_spritesheet`)
+                            currDude.play(`${type}Dude_waiting`)
 
                             this.scene.add.tween({
                                 targets: currDude,
                                 duration: 500,
                                 x: currDude.getInitialPositionX(),
+
+                                onComplete: () => actionsManager.setIsActionInProgress(false)
                             })
                         })
                     }
 
                 })
-
-
-                // 1. usare un tween per portarlo vicino al nemico
-                // 2. fai animazione di attacco
-                // 3. registra l evento di danno sul nemico
-                // 4. ritorna alla initial position
-                //
-                // currentDude.setTexture(`${type}Dude_punch_attack`)
-                // currentDude.play(`${type}_attack_punch`)
-                //
-                // currentDude.once('animationcomplete', () => {
-                //     currentDude.setTexture(`${type}Dude_idle_spritesheet`)
-                //     currentDude.play(`${type}Dude_waiting`)
-                //     actionsManager.setIsActionInProgress(false)
-                //
-                // })
             }
 
             return true;
