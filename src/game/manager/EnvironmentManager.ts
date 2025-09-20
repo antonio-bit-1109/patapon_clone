@@ -178,13 +178,26 @@ export class EnvironmentManager {
             }, this)
     }
 
-    // // @ts-ignore
-    // private collideCallBack_0(enemyStoppingZone: Zone, enemy: Phaser.Physics.Arcade.Sprite) {
-    //
-    //
-    //
-    // }
+    public checkCollisionBetweenWhiteDudeAndEnemy(playerDudeGroup: Group, enemyDudeGroup: Group, lifePointsManager: LifePointsManager) {
+        this.scene.physics.add.overlap(
+            playerDudeGroup,
+            enemyDudeGroup,
+            (playerDude, enemyDude) => {
+                
 
+            },
+            (playerDude, enemyDude) => {
+                const dudePlayer = playerDude as PinkDude | WhiteDude | BlueDude
+                if (!(dudePlayer instanceof WhiteDude)) {
+
+                    return false;
+                }
+                return true;
+
+            },
+            this
+        )
+    }
 
     // prende i bounds della trigger zone e confrontarli con lo coord x e y del nemico
     private isEnemyIntoTriggerZone(enemy: BaseEnemy) {

@@ -2,7 +2,6 @@ import {Scene} from "phaser";
 import {PinkDude} from "../entities/players/PinkDude.ts";
 import {WhiteDude} from "../entities/players/WhiteDude.ts";
 import {BlueDude} from "../entities/players/BlueDude.ts";
-import Group = Phaser.GameObjects.Group;
 import {ActionsManager} from "./ActionsManager.ts";
 import {WeaponManager} from "./WeaponManager.ts";
 import {dudeponTypes, weaponTypes} from "../global/global_constant.ts";
@@ -11,12 +10,13 @@ import {BaseEnemy} from "../entities/players/BaseEnemy.ts";
 import {Rock} from "../entities/weapons/Rock.ts";
 import {Arrow} from "../entities/weapons/Arrow.ts";
 import {LifePointsManager} from "./LifePointsManager.ts";
+import Group = Phaser.GameObjects.Group;
 
 
 export class ArmyManager {
 
-    private dudesArmyGameplay_group: Phaser.Physics.Arcade.Group;
-    private dudesArmyEnemy_group: Phaser.Physics.Arcade.Group;
+    private dudesArmyGameplay_group: Group;
+    private dudesArmyEnemy_group: Group;
     private dudeDataPreviousScene: string[];
     private readonly scene: Scene;
 
@@ -26,11 +26,11 @@ export class ArmyManager {
 
     }
 
-    public getDudesArmy(): Group {
+    public getDudesArmy() {
         return this.dudesArmyGameplay_group
     }
 
-    public getDudesEnemyArmy(): Group {
+    public getDudesEnemyArmy() {
         return this.dudesArmyEnemy_group;
     }
 
@@ -155,6 +155,7 @@ export class ArmyManager {
     }
 
     public attackDudes(enemyGroup: Phaser.Physics.Arcade.Group, actionsManager: ActionsManager, weaponManager: WeaponManager, environmentManager: EnvironmentManager, lifePointManager: LifePointsManager) {
+        // @ts-ignore
         this.dudesArmyGameplay_group.children.iterate((dude) => {
             const currentDude = dude as PinkDude | WhiteDude | BlueDude;
 

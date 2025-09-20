@@ -26,3 +26,7 @@ e tramite quelli ricostruisci gli sprite nella scena gameplay
 - il white dude non ha un arma, il suo danno base sarà maggiore perche non dotato di arma che può fare danno
 - prova ad implementare le collisioni tra weapon e enemy e vedo se riesci a fargli abbassare la vita
 - aggiungere la feature di pausa del gioco
+- [] ripensa all ereditarietà delle entità all interno del progetto
+- (una classe nemico base) ,
+- una classe (player dude base)
+- ripensa tutti i cast che vengono fatti ( elabora magari una classe che sia un castHelperManager)
