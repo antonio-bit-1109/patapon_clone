@@ -235,18 +235,34 @@ export class ArmyManager {
 
                 if (!currDude || !currDude.body || !enemy || !enemy.body) return;
 
-                // if (!enemy.getMovingFunction()) return;
+                if (!enemy.getMovingFunction()) return;
 
                 currDude.setTexture(`${type}Dude_walk`)
                 currDude.play(`${type}Walk_infinite`)
                 currDude.setInitialPosition(currDude.body.x, currDude.body.y)
 
-                this.scene.add.tween({
+                const tween = this.scene.add.tween({
                     targets: currDude,
                     duration: 1000,
-                    x: enemy.body?.x - 5
+                    x: enemy.body?.x,
+
+                    onComplete: () => {
+                        currentDude.setTexture(`${type}Dude_punch_attack`)
+                        currentDude.play(`${type}_attack_punch`)
+                        currentDude.once("animationcomplete", () => {
+                            currentDude.setTexture(`${type}Dude_idle_spritesheet`)
+                            currentDude.play(`${type}Dude_waiting`)
+
+                            this.scene.add.tween({
+                                targets: currDude,
+                                duration: 500,
+                                x: currDude.getInitialPositionX(),
+                            })
+                        })
+                    }
 
                 })
+
 
                 // 1. usare un tween per portarlo vicino al nemico
                 // 2. fai animazione di attacco

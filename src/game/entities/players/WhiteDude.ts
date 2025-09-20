@@ -21,9 +21,14 @@ export class WhiteDude extends Phaser.Physics.Arcade.Sprite {
         this.initialPosition = null;
     }
 
-    public getInitialPosition(): { x: number, y: number } | null {
-        return this.initialPosition
+    public getInitialPositionX() {
+        return this.initialPosition?.x
     }
+
+    public getInitialPositionY() {
+        return this.initialPosition?.y
+    }
+
 
     public setInitialPosition(x: number, y: number) {
         this.initialPosition = {x: x, y: y}
