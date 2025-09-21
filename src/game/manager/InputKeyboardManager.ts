@@ -39,10 +39,14 @@ export class InputKeyboardManager {
         this.stampsManager.create()
         this.refInputs_group = this.scene.add.group()
         this.createInputKeys()
-        this.createSwitchArrowRange()
     }
 
-    public createSwitchArrowRange() {
+    public createSwitchArrowRange(arrOldDudeTypes: string[]) {
+
+        if (!arrOldDudeTypes.some(string => string === "blue")) {
+            return
+        }
+        
         this.chooseArrowRange_ref = CommonMethodsClass.addImage(
             this.scene,
             CommonMethodsClass.adjustWidth(1.2, this.scene),

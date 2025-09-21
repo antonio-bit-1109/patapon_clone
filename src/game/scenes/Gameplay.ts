@@ -45,6 +45,7 @@ export class Gameplay extends Phaser.Scene {
 
         SoundsManager.playSound("march_gameplay_1");
 
+
         this.environmentManager.create();
         this.dudesArmyManager.generatePlayerArmy(this.oldDudesTypes) // creation playerdudes
         this.dudesArmyManager.generateEnemyArmy(3)
@@ -55,6 +56,7 @@ export class Gameplay extends Phaser.Scene {
             this.dudesArmyManager.getDudesEnemyArmy(),
             this.environmentManager.getEnemyStoppingZone()
         )
+        this.inputKeyboardManager.createSwitchArrowRange(this.oldDudesTypes);
     }
 
 
