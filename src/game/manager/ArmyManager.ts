@@ -1,16 +1,17 @@
 import {Scene} from "phaser";
-import {PinkDude} from "../entities/players/PinkDude.ts";
-import {WhiteDude} from "../entities/players/WhiteDude.ts";
-import {BlueDude} from "../entities/players/BlueDude.ts";
+import {PinkDude} from "../entities/players/child/PinkDude.ts";
+import {WhiteDude} from "../entities/players/child/WhiteDude.ts";
+import {BlueDude} from "../entities/players/child/BlueDude.ts";
 import {ActionsManager} from "./ActionsManager.ts";
 import {WeaponManager} from "./WeaponManager.ts";
 import {dudeponTypes, weaponTypes} from "../global/global_constant.ts";
 import {EnvironmentManager} from "./EnvironmentManager.ts";
-import {BaseEnemy} from "../entities/players/BaseEnemy.ts";
+import {BaseEnemy} from "../entities/players/root/BaseEnemy.ts";
 import {Rock} from "../entities/weapons/Rock.ts";
 import {Arrow} from "../entities/weapons/Arrow.ts";
 import {LifePointsManager} from "./LifePointsManager.ts";
 import Group = Phaser.GameObjects.Group;
+import {EnemyDude} from "../entities/players/child/EnemyDude.ts";
 
 
 export class ArmyManager {
@@ -103,7 +104,7 @@ export class ArmyManager {
         let distance = 2000
 
         for (let i = 0; i < numberEnemy + 1; i++) {
-            let enemy = new BaseEnemy(
+            let enemy = new EnemyDude(
                 this.scene,
                 distance,
                 (this.scene.game.config.height as number) - (90 as number),
@@ -125,7 +126,7 @@ export class ArmyManager {
 
         this.scene.time.delayedCall(3000, () => {
             this.dudesArmyEnemy_group.children.iterate(enemy => {
-                const currEnemy = enemy as BaseEnemy
+                const currEnemy = enemy as EnemyDude
                 let type = currEnemy.getType()
                 currEnemy.setTexture(`${type}Dude_walk`)
                 currEnemy.play(`${type}Walk_infinite`)
@@ -154,7 +155,7 @@ export class ArmyManager {
 
     }
 
-    public attackDudes(enemyGroup: Phaser.Physics.Arcade.Group, actionsManager: ActionsManager, weaponManager: WeaponManager, environmentManager: EnvironmentManager, lifePointManager: LifePointsManager) {
+    public attackDudes(enemyGroup: Phaser.GameObjects.Group, actionsManager: ActionsManager, weaponManager: WeaponManager, environmentManager: EnvironmentManager, lifePointManager: LifePointsManager) {
         // @ts-ignore
         this.dudesArmyGameplay_group.children.iterate((dude) => {
             const currentDude = dude as PinkDude | WhiteDude | BlueDude;
@@ -242,10 +243,6 @@ export class ArmyManager {
                 currDude.play(`${type}Walk_infinite`)
                 currDude.setInitialPosition(currDude.x, currDude.y)
 
-                console.log(currDude.getInitialPositionX(), "initial position X")
-
-                console.log(currDude.getInitialPositionY(), "initial position Y")
-
                 this.scene.add.tween({
                     targets: currDude,
                     duration: 1000,
@@ -255,6 +252,8 @@ export class ArmyManager {
                         currDude.setTexture(`${type}Dude_punch_attack`)
                         currDude.play(`${type}_attack_punch`)
                         currDude.once("animationcomplete", () => {
+                            environmentManager.checkCollisionBetweenWhiteDudeAndEnemy(currDude, this.getDudesEnemyArmy(), lifePointManager)
+
                             currDude.setTexture(`${type}Dude_idle_spritesheet`)
                             currDude.play(`${type}Dude_waiting`)
 
@@ -263,7 +262,10 @@ export class ArmyManager {
                                 duration: 500,
                                 x: currDude.getInitialPositionX(),
 
-                                onComplete: () => actionsManager.setIsActionInProgress(false)
+                                onComplete: () => {
+                                    actionsManager.setIsActionInProgress(false)
+                                    currDude.setHaveHitted(false)
+                                }
                             })
                         })
                     }

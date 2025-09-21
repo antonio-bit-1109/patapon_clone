@@ -1,14 +1,15 @@
 import {Scene} from "phaser";
-import {BaseEnemy} from "../entities/players/BaseEnemy.ts";
+import {BaseEnemy} from "../entities/players/root/BaseEnemy.ts";
 import {EnumPositionTriggerZone, TriggerZoneState} from "../global/global_constant.ts";
 import Group = Phaser.GameObjects.Group;
 import {GeneralWeapon} from "../entities/weapons/GeneralWeapon.ts";
-import {PinkDude} from "../entities/players/PinkDude.ts";
-import {WhiteDude} from "../entities/players/WhiteDude.ts";
-import {BlueDude} from "../entities/players/BlueDude.ts";
+import {PinkDude} from "../entities/players/child/PinkDude.ts";
+import {WhiteDude} from "../entities/players/child/WhiteDude.ts";
+import {BlueDude} from "../entities/players/child/BlueDude.ts";
 import {LifePointsManager} from "./LifePointsManager.ts";
 import {Arrow} from "../entities/weapons/Arrow.ts";
 import {Rock} from "../entities/weapons/Rock.ts";
+import {EnemyDude} from "../entities/players/child/EnemyDude.ts";
 
 export class EnvironmentManager {
 
@@ -74,7 +75,7 @@ export class EnvironmentManager {
             (zone, enemy) => {
 
                 console.log(zone)
-                let currEnemy = enemy as BaseEnemy;
+                let currEnemy = enemy as EnemyDude;
                 const type = currEnemy.getType()
 
                 switch (currEnemy.getZoneState()) {
@@ -169,7 +170,7 @@ export class EnvironmentManager {
             dudeGroup,
             weapon,
             (dude, weapon) => {
-                let currDude = dude as BaseEnemy | PinkDude | WhiteDude | BlueDude;
+                let currDude = dude as EnemyDude | PinkDude | WhiteDude | BlueDude;
                 let wep = weapon as Rock | Arrow;
                 !wep.getHaveHittedOnce() && lifePointsManager.takeDamage(currDude, wep)
                 wep.setHaveHittedOnce(true)
@@ -178,21 +179,27 @@ export class EnvironmentManager {
             }, this)
     }
 
-    public checkCollisionBetweenWhiteDudeAndEnemy(playerDudeGroup: Group, enemyDudeGroup: Group, lifePointsManager: LifePointsManager) {
+    public checkCollisionBetweenWhiteDudeAndEnemy(whiteDude: WhiteDude, enemyDudeGroup: Group, lifePointsManager: LifePointsManager) {
         this.scene.physics.add.overlap(
-            playerDudeGroup,
+            whiteDude,
             enemyDudeGroup,
             (playerDude, enemyDude) => {
-                
 
+                const whiteDude = playerDude as WhiteDude;
+                const enemy = enemyDude as EnemyDude;
+
+                lifePointsManager.takeDamage(enemy, null, whiteDude)
+                whiteDude.setHaveHitted(true);
             },
-            (playerDude, enemyDude) => {
-                const dudePlayer = playerDude as PinkDude | WhiteDude | BlueDude
-                if (!(dudePlayer instanceof WhiteDude)) {
 
-                    return false;
+            (playerDude, enemyDude) => {
+
+                const whiteDude = playerDude as WhiteDude;
+                if (!whiteDude.getHaveHitted()) {
+                    return true;
                 }
-                return true;
+
+                return false;
 
             },
             this
