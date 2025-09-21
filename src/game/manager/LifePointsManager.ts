@@ -100,8 +100,16 @@ export class LifePointsManager {
 
             }
 
+            if (residualHp <= 0) {
+                residualHp = 0;
+            }
+
             attackedDude.setHp(residualHp);
             proportionedLifePoints = 30 * residualHp / attackedDude.getMaxHp()
+
+            if (proportionedLifePoints <= 0) {
+                proportionedLifePoints = 0;
+            }
 
             console.log(proportionedLifePoints, "proportinated hp on the bar")
             upperBar.fillRect(0, 0, proportionedLifePoints, 5);
@@ -109,8 +117,7 @@ export class LifePointsManager {
         } else {
             throw new Error("nessuna barra della vita trovata! ERR!")
         }
-
-
+        
     }
 
     public showHurtAnimation(currDude: PinkDude | WhiteDude | BlueDude | BaseEnemy) {
