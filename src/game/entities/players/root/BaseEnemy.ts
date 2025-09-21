@@ -1,27 +1,28 @@
-import {PinkDude} from "./PinkDude.ts";
-import {TriggerZoneType} from "../../global/global_constant.ts";
+import {TriggerZoneType} from "../../../global/global_constant.ts";
+import {BaseCharacter} from "./BaseCharacter.ts";
 
-export class BaseEnemy extends PinkDude {
 
-    public readonly tint: number = 0xff0000; //red tint
-    private readonly role: string = "baseEnemy";
+export abstract class BaseEnemy extends BaseCharacter {
+
+    private readonly role: string = "Enemy";
+
     private moving: boolean = false;
     private zoneState: TriggerZoneType = 'none';
     private movingFunction: Phaser.Time.TimerEvent | null;
 
-    constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
+    protected constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
         scene.physics.add.existing(this);
         scene.add.existing(this);
         this.setTint(this.tint)
         this.movingFunction = null;
-
+        this.isDeath = false;
 
     }
 
     // getter setter
 
-    
+
     getHpLowerBar() {
         return this.hpLowerBar;
     }
@@ -70,4 +71,6 @@ export class BaseEnemy extends PinkDude {
     public setZoneState(val: TriggerZoneType) {
         this.zoneState = val;
     }
+
+
 }
