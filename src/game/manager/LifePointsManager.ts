@@ -1,10 +1,12 @@
 import {Scene} from "phaser";
-import {PinkDude} from "../entities/players/PinkDude.ts";
-import {WhiteDude} from "../entities/players/WhiteDude.ts";
-import {BlueDude} from "../entities/players/BlueDude.ts";
-import {BaseEnemy} from "../entities/players/BaseEnemy.ts";
+import {PinkDude} from "../entities/players/child/PinkDude.ts";
+import {WhiteDude} from "../entities/players/child/WhiteDude.ts";
+import {BlueDude} from "../entities/players/child/BlueDude.ts";
+import {BaseEnemy} from "../entities/players/root/BaseEnemy.ts";
 import {Arrow} from "../entities/weapons/Arrow.ts";
 import {Rock} from "../entities/weapons/Rock.ts";
+import {BasePlayer} from "../entities/players/root/BasePlayer.ts";
+import {EnemyDude} from "../entities/players/child/EnemyDude.ts";
 
 
 export class LifePointsManager {
@@ -69,8 +71,9 @@ export class LifePointsManager {
     }
 
     public takeDamage(
-        attackedDude: PinkDude | WhiteDude | BlueDude | BaseEnemy,
-        weapon: Arrow | Rock
+        attackedDude: PinkDude | WhiteDude | BlueDude | EnemyDude,
+        weapon?: Arrow | Rock | null,
+        attackerDude?: BasePlayer | null
     ) {
 
         this.showHurtAnimation(attackedDude);
@@ -82,12 +85,23 @@ export class LifePointsManager {
             upperBar.fillStyle(0x008000, 1)
             upperBar.lineStyle(2, 0x82f72f, 1)
 
-            const weaponDamage = weapon.getDamage();
-            const ownerWeaponDamage = weapon.getOwnerBaseDamage();
-            const residualHp = attackedDude.getHp() - (weaponDamage + ownerWeaponDamage);
-            attackedDude.setHp(residualHp);
-            const proportionedLifePoints = 30 * residualHp / attackedDude.getMaxHp()
+            let proportionedLifePoints;
+            let residualHp = 50;
+            if (weapon && !attackerDude) {
+                const weaponDamage = weapon.getDamage();
+                const ownerWeaponDamage = weapon.getOwnerBaseDamage();
+                residualHp = attackedDude.getHp() - (weaponDamage + ownerWeaponDamage);
 
+            }
+
+            if (!weapon && attackerDude) {
+                const damage = attackedDude.getDamage()
+                residualHp = attackedDude.getHp() - damage;
+
+            }
+
+            attackedDude.setHp(residualHp);
+            proportionedLifePoints = 30 * residualHp / attackedDude.getMaxHp()
 
             console.log(proportionedLifePoints, "proportinated hp on the bar")
             upperBar.fillRect(0, 0, proportionedLifePoints, 5);
