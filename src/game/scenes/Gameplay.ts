@@ -7,6 +7,7 @@ import {SoundsManager} from "../manager/SoundsManager.ts";
 import {ActionsManager} from "../manager/ActionsManager.ts";
 import {LifePointsManager} from "../manager/LifePointsManager.ts";
 import {WeaponManager} from "../manager/WeaponManager.ts";
+import {InteractionManager} from "../manager/InteractionManager.ts";
 
 
 export class Gameplay extends Phaser.Scene {
@@ -18,6 +19,7 @@ export class Gameplay extends Phaser.Scene {
     private actionsManager: ActionsManager;
     private lifePointsManager: LifePointsManager;
     private weaponManager: WeaponManager;
+    private interactionManager: InteractionManager;
 
 
     constructor() {
@@ -28,6 +30,7 @@ export class Gameplay extends Phaser.Scene {
         this.actionsManager = new ActionsManager(this);
         this.lifePointsManager = new LifePointsManager(this);
         this.weaponManager = new WeaponManager(this);
+        this.interactionManager = new InteractionManager(this);
     }
 
     init(data: IData) {
@@ -48,7 +51,10 @@ export class Gameplay extends Phaser.Scene {
         this.lifePointsManager.createLifeBars(this.dudesArmyManager.getDudesArmy())
         this.lifePointsManager.createLifeBars(this.dudesArmyManager.getDudesEnemyArmy())
         this.inputKeyboardManager.create()
-        this.environmentManager.checkOverlapWithEnemyStoppingZone(this.dudesArmyManager.getDudesEnemyArmy())
+        this.interactionManager.checkOverlapWithEnemyStoppingZone(
+            this.dudesArmyManager.getDudesEnemyArmy(),
+            this.environmentManager.getEnemyStoppingZone()
+        )
     }
 
 
@@ -79,7 +85,8 @@ export class Gameplay extends Phaser.Scene {
                         this.actionsManager,
                         this.weaponManager,
                         this.environmentManager,
-                        this.lifePointsManager
+                        this.lifePointsManager,
+                        this.interactionManager
                     )
                     break;
 

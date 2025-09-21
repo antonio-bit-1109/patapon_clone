@@ -12,6 +12,7 @@ import {Arrow} from "../entities/weapons/Arrow.ts";
 import {LifePointsManager} from "./LifePointsManager.ts";
 import Group = Phaser.GameObjects.Group;
 import {EnemyDude} from "../entities/players/child/EnemyDude.ts";
+import {InteractionManager} from "./InteractionManager.ts";
 
 
 export class ArmyManager {
@@ -155,7 +156,14 @@ export class ArmyManager {
 
     }
 
-    public attackDudes(enemyGroup: Phaser.GameObjects.Group, actionsManager: ActionsManager, weaponManager: WeaponManager, environmentManager: EnvironmentManager, lifePointManager: LifePointsManager) {
+    public attackDudes(
+        enemyGroup: Phaser.GameObjects.Group,
+        actionsManager: ActionsManager,
+        weaponManager: WeaponManager,
+        environmentManager: EnvironmentManager,
+        lifePointManager: LifePointsManager,
+        interactionManager: InteractionManager
+    ) {
         // @ts-ignore
         this.dudesArmyGameplay_group.children.iterate((dude) => {
             const currentDude = dude as PinkDude | WhiteDude | BlueDude;
@@ -196,7 +204,7 @@ export class ArmyManager {
                         arrow && currentDude.setWeapon(arrow)
                         arrow && environmentManager.applyGravityForceToSprite(50, 500, arrow)
                         arrow && environmentManager.addColliderWithTerrain(arrow)
-                        arrow && environmentManager.checkCollisionBetweenAllDudesAndWeapon(this.getDudesEnemyArmy(), arrow, lifePointManager)
+                        arrow && interactionManager.checkCollisionBetweenAllDudesAndWeapon(this.getDudesEnemyArmy(), arrow, lifePointManager)
 
                     }
                 })
@@ -224,7 +232,7 @@ export class ArmyManager {
                         rock && currentDude.setWeapon(rock);
                         rock && environmentManager.applyGravityForceToSprite(60, 700, rock);
                         rock && environmentManager.addColliderWithTerrain(rock);
-                        rock && environmentManager.checkCollisionBetweenAllDudesAndWeapon(this.getDudesEnemyArmy(), rock, lifePointManager)
+                        rock && interactionManager.checkCollisionBetweenAllDudesAndWeapon(this.getDudesEnemyArmy(), rock, lifePointManager)
                     }
                 })
             }
@@ -269,10 +277,8 @@ export class ArmyManager {
                             })
                         })
                     }
-
                 })
             }
-
             return true;
         })
     }
