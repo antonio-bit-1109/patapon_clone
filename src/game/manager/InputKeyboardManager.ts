@@ -44,7 +44,7 @@ export class InputKeyboardManager {
 
     public createSwitchArrowRange(arrOldDudeTypes: string[]) {
 
-        if (!arrOldDudeTypes.some(string => string === "blue")) {
+        if (!arrOldDudeTypes.some(string => string === "blue" || "pink")) {
             return
         }
 
