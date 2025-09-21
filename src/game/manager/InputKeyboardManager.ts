@@ -18,7 +18,8 @@ export class InputKeyboardManager {
     private stampsManager: StampsManager;
     private refInputs_group: Group;
 
-    private chooseArrowRange_ref: Image;
+    private switch_ref: Image;
+    private switchText_ref: Phaser.GameObjects.Text;
     private statusSwitcher: boolean = false;
 
     public getStatusSwitcher() {
@@ -46,10 +47,23 @@ export class InputKeyboardManager {
         if (!arrOldDudeTypes.some(string => string === "blue")) {
             return
         }
-        
-        this.chooseArrowRange_ref = CommonMethodsClass.addImage(
-            this.scene,
+
+        this.switchText_ref = this.scene.add.text(
             CommonMethodsClass.adjustWidth(1.2, this.scene),
+            CommonMethodsClass.adjustHeight(15, this.scene),
+            `Short range`,
+            {
+                color: '#e30d0d',
+                stroke: '#000000',
+                strokeThickness: 1,
+                fontSize: '20px', // Ora puoi aggiungere anche questa
+                fontFamily: "pataponFont"
+            }
+        )
+
+        this.switch_ref = CommonMethodsClass.addImage(
+            this.scene,
+            CommonMethodsClass.adjustWidth(1.3, this.scene),
             CommonMethodsClass.adjustHeight(10, this.scene),
             "switch_off_image",
             0.2
@@ -58,10 +72,32 @@ export class InputKeyboardManager {
                 console.log("sto cliccando")
 
                 if (this.getStatusSwitcher()) {
-                    this.chooseArrowRange_ref.setTexture("switch_off_image")
+                    this.switch_ref.setTexture("switch_off_image")
+                    this.switchText_ref.setPosition(
+                        CommonMethodsClass.adjustWidth(1.2, this.scene),
+                        CommonMethodsClass.adjustHeight(15, this.scene)
+                    ).setStyle({
+                        color: '#e30d0d',
+                        stroke: '#000000',
+                        strokeThickness: 1,
+                        fontSize: '20px', // Ora puoi aggiungere anche questa
+                        fontFamily: "pataponFont"
+                    }).setText(`Short range`)
+
+
                     this.setStatusSwitcher(false)
                 } else {
-                    this.chooseArrowRange_ref.setTexture("switch_on_image")
+                    this.switch_ref.setTexture("switch_on_image")
+                    this.switchText_ref.setPosition(
+                        CommonMethodsClass.adjustWidth(1.2, this.scene),
+                        CommonMethodsClass.adjustHeight(10, this.scene)
+                    ).setStyle({
+                        color: '#c99b28',
+                        stroke: '#000000',
+                        strokeThickness: 1,
+                        fontSize: '20px', // Ora puoi aggiungere anche questa
+                        fontFamily: "pataponFont"
+                    }).setText(`Long range`)
                     this.setStatusSwitcher(true)
                 }
 
