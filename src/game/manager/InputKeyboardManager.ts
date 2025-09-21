@@ -3,6 +3,7 @@ import {SoundsManager} from "./SoundsManager.ts";
 import {StampsManager} from "./StampsManager.ts";
 import {CommonMethodsClass} from "../scenes/CommonMethodsClass.ts";
 import Group = Phaser.GameObjects.Group;
+import Image = Phaser.GameObjects.Image;
 
 export class InputKeyboardManager {
 
@@ -17,6 +18,16 @@ export class InputKeyboardManager {
     private stampsManager: StampsManager;
     private refInputs_group: Group;
 
+    private chooseArrowRange_ref: Image;
+    private statusSwitcher: boolean = false;
+
+    public getStatusSwitcher() {
+        return this.statusSwitcher
+    }
+
+    public setStatusSwitcher(val: boolean) {
+        this.statusSwitcher = val;
+    }
 
     public constructor(scene: Scene) {
         this.scene = scene;
@@ -28,8 +39,30 @@ export class InputKeyboardManager {
         this.stampsManager.create()
         this.refInputs_group = this.scene.add.group()
         this.createInputKeys()
+        this.createSwitchArrowRange()
     }
 
+    public createSwitchArrowRange() {
+        this.chooseArrowRange_ref = CommonMethodsClass.addImage(
+            this.scene,
+            CommonMethodsClass.adjustWidth(1.2, this.scene),
+            CommonMethodsClass.adjustHeight(10, this.scene),
+            "switch_off_image",
+            0.2
+        ).setInteractive({cursor: "pointer"})
+            .on("pointerdown", () => {
+                console.log("sto cliccando")
+
+                if (this.getStatusSwitcher()) {
+                    this.chooseArrowRange_ref.setTexture("switch_off_image")
+                    this.setStatusSwitcher(false)
+                } else {
+                    this.chooseArrowRange_ref.setTexture("switch_on_image")
+                    this.setStatusSwitcher(true)
+                }
+
+            })
+    }
 
     public createInputKeys() {
         this.w = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.W);

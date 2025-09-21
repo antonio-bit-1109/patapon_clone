@@ -49,3 +49,4 @@ export const assetPath: string = "assets/dudepon"
 export const assetPathSound: string = "assets/sounds"
 export const assetPathStamp: string = "assets/stamps"
 export const assetPathWeapon: string = "assets/dudepon/weapon"
+export const assetPathSwitch: string = "assets/dudepon/switch";

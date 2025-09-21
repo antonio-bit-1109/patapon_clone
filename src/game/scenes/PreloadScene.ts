@@ -1,5 +1,12 @@
 import Phaser from "phaser";
-import {assetPath, assetPathSound, assetPathStamp, assetPathWeapon, sceneName} from "../global/global_constant.ts";
+import {
+    assetPath,
+    assetPathSound,
+    assetPathStamp,
+    assetPathSwitch,
+    assetPathWeapon,
+    sceneName
+} from "../global/global_constant.ts";
 import {CommonMethodsClass} from "./CommonMethodsClass.ts";
 import {SoundsManager} from "../manager/SoundsManager.ts";
 
@@ -47,6 +54,8 @@ export class PreloadScene extends Phaser.Scene {
         this.load.image("stamp_a", assetPathStamp + "/timbro_a.png")
         this.load.image("stamp_s", assetPathStamp + "/timbro_s.png")
         this.load.image("stamp_d", assetPathStamp + "/timbro_d.png")
+        this.load.image("switch_off_image", assetPathSwitch + "/switch_off.png")
+        this.load.image("switch_on_image", assetPathSwitch + "/switch_on.png")
 
         this.load.image("arrow", assetPathWeapon + "/arrow.png")
         this.load.image("rock", assetPathWeapon + "/rock.png")
