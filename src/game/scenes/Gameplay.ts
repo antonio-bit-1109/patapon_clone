@@ -53,7 +53,7 @@ export class Gameplay extends Phaser.Scene {
         this.lifePointsManager.createLifeBars(this.dudesArmyManager.getDudesEnemyArmy())
         this.inputKeyboardManager.create()
         this.interactionManager.checkOverlapWithEnemyStoppingZone(
-            this.dudesArmyManager.getDudesEnemyArmy(),
+            this.dudesArmyManager,
             this.environmentManager.getEnemyStoppingZone()
         )
         this.inputKeyboardManager.createSwitchArrowRange(this.oldDudesTypes);

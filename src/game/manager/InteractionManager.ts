@@ -11,6 +11,7 @@ import {WhiteDude} from "../entities/players/child/WhiteDude.ts";
 import {BlueDude} from "../entities/players/child/BlueDude.ts";
 import {Rock} from "../entities/weapons/Rock.ts";
 import {Arrow} from "../entities/weapons/Arrow.ts";
+import {ArmyManager} from "./ArmyManager.ts";
 
 export class InteractionManager {
 
@@ -36,8 +37,10 @@ export class InteractionManager {
     }
 
 
-    public checkOverlapWithEnemyStoppingZone(enemyGroup: Group, enemyStoppingZone: Zone) {
-        console.log(enemyGroup)
+    public checkOverlapWithEnemyStoppingZone(armyManager: ArmyManager, enemyStoppingZone: Zone) {
+
+        const enemyGroup = armyManager.getDudesEnemyArmy();
+
         // @ts-ignore
         this.scene.physics.add.overlap(
             enemyStoppingZone,
@@ -73,6 +76,12 @@ export class InteractionManager {
 
                         if (currEnemy.getMovingFunction() !== null) return;
 
+                        // the enemy throw an attack (a rock probably)
+                        this.scene.time.delayedCall(100, () => {
+
+                            // utilizza la classe army manager per chiamare il metodo per far attacc
+                            armyManager.baseEnemyAttack()
+                        })
 
                         const call = this.scene.time.delayedCall(1500, () => {
 
