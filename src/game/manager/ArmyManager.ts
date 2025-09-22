@@ -13,6 +13,7 @@ import {LifePointsManager} from "./LifePointsManager.ts";
 import Group = Phaser.GameObjects.Group;
 import {EnemyDude} from "../entities/players/child/EnemyDude.ts";
 import {InteractionManager} from "./InteractionManager.ts";
+import {InputKeyboardManager} from "./InputKeyboardManager.ts";
 
 
 export class ArmyManager {
@@ -162,7 +163,8 @@ export class ArmyManager {
         weaponManager: WeaponManager,
         environmentManager: EnvironmentManager,
         lifePointManager: LifePointsManager,
-        interactionManager: InteractionManager
+        interactionManager: InteractionManager,
+        inputKeyboardManager: InputKeyboardManager
     ) {
         // @ts-ignore
         this.dudesArmyGameplay_group.children.iterate((dude) => {
@@ -202,7 +204,7 @@ export class ArmyManager {
                     if (currentDude instanceof BlueDude && arrow instanceof Arrow) {
                         arrow && arrow.setOwnerBaseDamage(currentDude.getDamage())
                         arrow && currentDude.setWeapon(arrow)
-                        arrow && environmentManager.applyGravityForceToSprite(50, 500, arrow)
+                        arrow && environmentManager.applyGravityForceToSprite(50, 500, arrow, inputKeyboardManager)
                         arrow && environmentManager.addColliderWithTerrain(arrow)
                         arrow && interactionManager.checkCollisionBetweenAllDudesAndWeapon(this.getDudesEnemyArmy(), arrow, lifePointManager)
 
@@ -230,7 +232,7 @@ export class ArmyManager {
                     if (currentDude instanceof PinkDude && rock instanceof Rock) {
                         rock && rock.setOwnerBaseDamage(currentDude.getDamage())
                         rock && currentDude.setWeapon(rock);
-                        rock && environmentManager.applyGravityForceToSprite(60, 700, rock);
+                        rock && environmentManager.applyGravityForceToSprite(60, 600, rock, inputKeyboardManager);
                         rock && environmentManager.addColliderWithTerrain(rock);
                         rock && interactionManager.checkCollisionBetweenAllDudesAndWeapon(this.getDudesEnemyArmy(), rock, lifePointManager)
                     }

@@ -3,6 +3,7 @@ import Group = Phaser.GameObjects.Group;
 import {WhiteDude} from "../entities/players/child/WhiteDude.ts";
 import {LifePointsManager} from "./LifePointsManager.ts";
 import {EnemyDude} from "../entities/players/child/EnemyDude.ts";
+import {InputKeyboardManager} from "./InputKeyboardManager.ts";
 
 export class EnvironmentManager {
 
@@ -110,11 +111,19 @@ export class EnvironmentManager {
         })
     }
 
-    public applyGravityForceToSprite(nX: number, nY: number, sprite: Phaser.Physics.Arcade.Sprite) {
-        if (sprite && sprite.body) {
-            sprite.body.gravity.x = nX;
-            sprite.body.gravity.y = nY;
+    public applyGravityForceToSprite(gX: number, gY: number, sprite: Phaser.Physics.Arcade.Sprite, inputKeyboardManager: InputKeyboardManager) {
+        if (!sprite || !sprite.body) return
+
+        if (inputKeyboardManager.getIsRangeLong()) {
+            gX = gX - 20;
+            gY = gY - 100
+        } else {
+            gX = gX + 10;
+            gY = gY + 50;
         }
+
+        sprite.body.gravity.x = gX;
+        sprite.body.gravity.y = gY;
     }
 
     public addColliderWithTerrain(sprite: Phaser.Physics.Arcade.Sprite) {

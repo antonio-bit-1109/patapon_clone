@@ -88,7 +88,8 @@ export class Gameplay extends Phaser.Scene {
                         this.weaponManager,
                         this.environmentManager,
                         this.lifePointsManager,
-                        this.interactionManager
+                        this.interactionManager,
+                        this.inputKeyboardManager
                     )
                     break;
 

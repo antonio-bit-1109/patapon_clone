@@ -20,14 +20,14 @@ export class InputKeyboardManager {
 
     private switch_ref: Image;
     private switchText_ref: Phaser.GameObjects.Text;
-    private statusSwitcher: boolean = false;
+    private isRangeLong: boolean = false;
 
-    public getStatusSwitcher() {
-        return this.statusSwitcher
+    public getIsRangeLong() {
+        return this.isRangeLong
     }
 
-    public setStatusSwitcher(val: boolean) {
-        this.statusSwitcher = val;
+    public setIsRangeLong(val: boolean) {
+        this.isRangeLong = val;
     }
 
     public constructor(scene: Scene) {
@@ -71,7 +71,7 @@ export class InputKeyboardManager {
             .on("pointerdown", () => {
                 console.log("sto cliccando")
 
-                if (this.getStatusSwitcher()) {
+                if (this.getIsRangeLong()) {
                     this.switch_ref.setTexture("switch_off_image")
                     this.switchText_ref.setPosition(
                         CommonMethodsClass.adjustWidth(1.2, this.scene),
@@ -83,9 +83,8 @@ export class InputKeyboardManager {
                         fontSize: '20px', // Ora puoi aggiungere anche questa
                         fontFamily: "pataponFont"
                     }).setText(`Short range`)
+                    this.setIsRangeLong(false)
 
-
-                    this.setStatusSwitcher(false)
                 } else {
                     this.switch_ref.setTexture("switch_on_image")
                     this.switchText_ref.setPosition(
@@ -98,7 +97,7 @@ export class InputKeyboardManager {
                         fontSize: '20px', // Ora puoi aggiungere anche questa
                         fontFamily: "pataponFont"
                     }).setText(`Long range`)
-                    this.setStatusSwitcher(true)
+                    this.setIsRangeLong(true)
                 }
 
             })
