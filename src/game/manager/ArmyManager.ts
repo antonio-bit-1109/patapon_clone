@@ -245,7 +245,10 @@ export class ArmyManager {
 
                 if (!currDude || !currDude.body || !enemy || !enemy.body) return;
 
-                if (!enemy.getMovingFunction()) return;
+
+                let absoluteDistance = Math.abs(currDude.x - enemy.x);
+
+                if (absoluteDistance > 800) return
 
                 currDude.setTexture(`${type}Dude_walk`)
                 currDude.play(`${type}Walk_infinite`)
