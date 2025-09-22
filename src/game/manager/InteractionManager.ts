@@ -73,6 +73,7 @@ export class InteractionManager {
 
                         if (currEnemy.getMovingFunction() !== null) return;
 
+
                         const call = this.scene.time.delayedCall(1500, () => {
 
                             if (!currEnemy || !currEnemy.active) return;

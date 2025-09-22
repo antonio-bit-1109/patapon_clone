@@ -157,6 +157,11 @@ export class ArmyManager {
 
     }
 
+    public baseEnemyAttack() {
+
+    }
+
+
     public attackDudes(
         enemyGroup: Phaser.GameObjects.Group,
         actionsManager: ActionsManager,
