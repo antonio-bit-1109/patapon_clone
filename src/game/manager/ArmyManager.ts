@@ -105,7 +105,7 @@ export class ArmyManager {
         let index = 0;
         let distance = 2000
 
-        for (let i = 0; i < numberEnemy + 1; i++) {
+        for (let i = 0; i < numberEnemy; i++) {
             let enemy = new EnemyDude(
                 this.scene,
                 distance,

@@ -48,7 +48,7 @@ export class Gameplay extends Phaser.Scene {
 
         this.environmentManager.create();
         this.dudesArmyManager.generatePlayerArmy(this.oldDudesTypes) // creation playerdudes
-        this.dudesArmyManager.generateEnemyArmy(3)
+        this.dudesArmyManager.generateEnemyArmy(4)
         this.lifePointsManager.createLifeBars(this.dudesArmyManager.getDudesArmy())
         this.lifePointsManager.createLifeBars(this.dudesArmyManager.getDudesEnemyArmy())
         this.inputKeyboardManager.create()
