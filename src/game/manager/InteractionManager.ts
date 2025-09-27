@@ -76,12 +76,12 @@ export class InteractionManager {
 
                         if (currEnemy.getMovingFunction() !== null) return;
 
-                        // the enemy throw an attack (a rock probably)
-                        this.scene.time.delayedCall(100, () => {
-
-                            // utilizza la classe army manager per chiamare il metodo per far attacc
-                            armyManager.baseEnemyAttack()
-                        })
+                        // // the enemy throw an attack (a rock probably)
+                        // this.scene.time.delayedCall(100, () => {
+                        //
+                        //     // utilizza la classe army manager per chiamare il metodo per far attacc
+                        //     armyManager.baseEnemyAttack()
+                        // })
 
                         const call = this.scene.time.delayedCall(1500, () => {
 

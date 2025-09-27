@@ -30,3 +30,4 @@ e tramite quelli ricostruisci gli sprite nella scena gameplay
 -[x] ripensa tutti i cast che vengono fatti ( elabora magari una classe che sia un castHelperManager)
  -[] separa le responsabilità di environment manager fa troppe cose!
  [ ]aggiungere la feature di pausa del gioco
+- [] impostare timer azioni che puoi fare un comando solo ogni 2 secondi

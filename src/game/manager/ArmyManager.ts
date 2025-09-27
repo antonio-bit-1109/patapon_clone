@@ -157,9 +157,9 @@ export class ArmyManager {
 
     }
 
-    public baseEnemyAttack() {
-
-    }
+    // public baseEnemyAttack() {
+    //
+    // }
 
 
     public attackDudes(
