@@ -9,7 +9,8 @@ export interface ISceneName {
     maintitle: string;
     choosemaincharacter: string;
     preloadscene: string
-    gameplay: string
+    gameplay: string;
+    startthegame: string
 }
 
 export interface IActions {
