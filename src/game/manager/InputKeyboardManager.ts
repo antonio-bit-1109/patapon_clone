@@ -26,6 +26,7 @@ export class InputKeyboardManager {
 
     private circleCountDown_lower_ref: Phaser.GameObjects.Arc;
     private circleCountDown_upper_ref: Phaser.GameObjects.Graphics;
+    private tween_ref: null | any = null;
 
     private switch_ref: Image;
     private switchText_ref: Phaser.GameObjects.Text;
@@ -57,6 +58,7 @@ export class InputKeyboardManager {
         this.stampsManager.create()
         this.refInputs_group = this.scene.add.group()
         this.createInputKeys()
+        this.createCircleCountDown()
     }
 
 
@@ -266,21 +268,35 @@ export class InputKeyboardManager {
             20,
             0x008000,
             1
-        )
+        ).setVisible(false)
 
         this.circleCountDown_upper_ref = this.scene.add.graphics()
+            .setVisible(false)
     }
 
     private startCircleCountDown() {
 
         let degree = {deg: 270};
 
-        this.scene.tweens.add({
+        if (this.tween_ref) return;
+
+        this.tween_ref = this.scene.tweens.add({
             targets: degree,
-            duration: 2000,
+            duration: 2500,
             deg: -90,
+            onStart: () => {
+                this.circleCountDown_upper_ref.setVisible(true);
+                this.circleCountDown_lower_ref.setVisible(true);
+            },
             onUpdate: () => {
                 this.drawCirclePiece(degree.deg)
+            },
+            onComplete: () => {
+                this.setIsKeysLocked(false)
+                this.indexIteration = 0;
+                this.tween_ref = null;
+                this.circleCountDown_lower_ref.setVisible(false)
+                this.circleCountDown_upper_ref.setVisible(false);
             }
         })
     }
@@ -298,8 +314,8 @@ export class InputKeyboardManager {
             this.centerXCircleCountDown,
             this.centerYCircleCountDown,
             20,
-            -90,
-            degreeValue,
+            Phaser.Math.DegToRad(-90),
+            Phaser.Math.DegToRad(degreeValue),
             false,
         );
         this.circleCountDown_upper_ref.fillPath();
@@ -311,12 +327,7 @@ export class InputKeyboardManager {
 
             if (this.indexIteration >= 4) {
                 this.setIsKeysLocked(true)
-                this.createCircleCountDown()
                 this.startCircleCountDown()
-                this.scene.time.delayedCall(2000, () => {
-                    this.setIsKeysLocked(false)
-                    this.indexIteration = 0;
-                })
             }
 
             this.scene.time.delayedCall(500, () => {
