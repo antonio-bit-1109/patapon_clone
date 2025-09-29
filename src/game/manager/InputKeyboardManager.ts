@@ -12,11 +12,13 @@ export class InputKeyboardManager {
     private s: Phaser.Input.Keyboard.Key | undefined;
     private d: Phaser.Input.Keyboard.Key | undefined;
     private p: Phaser.Input.Keyboard.Key | undefined;
-    private inputsContainer: string[] = []
+    private readonly inputsContainer: string[] = []
     private readonly positionInputsX = [400, 500, 600, 700]
     private readonly scene: Scene;
-    private stampsManager: StampsManager;
+    private readonly stampsManager: StampsManager;
     private refInputs_group: Group;
+    private indexIteration = 0;
+    private isKeysLocked = false;
 
     private switch_ref: Image;
     private switchText_ref: Phaser.GameObjects.Text;
@@ -28,6 +30,14 @@ export class InputKeyboardManager {
 
     public setIsRangeLong(val: boolean) {
         this.isRangeLong = val;
+    }
+
+    public setIsKeysLocked(val: boolean) {
+        this.isKeysLocked = val;
+    }
+
+    public getIsKeysLocked() {
+        return this.isKeysLocked
     }
 
     public constructor(scene: Scene) {
@@ -111,6 +121,11 @@ export class InputKeyboardManager {
         this.p = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.P)
 
         this.w?.on('down', () => {
+
+                this.indexIteration++
+
+                if (this.getIsKeysLocked()) return;
+
                 console.log("hai premuto w")
                 if (this.inputsContainer.length < 4) {
                     this.inputsContainer.push("w");
@@ -122,6 +137,11 @@ export class InputKeyboardManager {
         );
 
         this.a?.on('down', () => {
+
+                this.indexIteration++
+
+                if (this.getIsKeysLocked()) return;
+
                 console.log("hai premuto a")
                 if (this.inputsContainer.length < 4) {
                     this.inputsContainer.push("a");
@@ -133,6 +153,10 @@ export class InputKeyboardManager {
         );
 
         this.s?.on('down', () => {
+
+                this.indexIteration++
+
+                if (this.getIsKeysLocked()) return;
 
                 if (this.inputsContainer.length < 4) {
                     this.inputsContainer.push("s");
@@ -146,6 +170,10 @@ export class InputKeyboardManager {
         );
 
         this.d?.on('down', () => {
+
+                this.indexIteration++
+
+                if (this.getIsKeysLocked()) return;
 
                 if (this.inputsContainer.length < 4) {
                     this.inputsContainer.push("d");
@@ -168,13 +196,11 @@ export class InputKeyboardManager {
     }
 
     public showStatusInputContainer() {
-        this.inputsContainer.map((s, index) => {
+        this.inputsContainer.forEach((s, index) => {
 
                 switch (s) {
 
                     case "w":
-                        // if (this.w_ref) return
-                        // this.w_ref =
 
                         const wRef = CommonMethodsClass.addImage(
                             this.scene,
@@ -187,8 +213,6 @@ export class InputKeyboardManager {
                         break;
 
                     case "a":
-                        // if (this.a_ref) return
-                        // this.a_ref =
 
                         const aRef = CommonMethodsClass.addImage(
                             this.scene,
@@ -201,8 +225,6 @@ export class InputKeyboardManager {
                         break;
 
                     case "s":
-                        // if (this.s_ref) return
-                        // this.s_ref =
                         const sRef = CommonMethodsClass.addImage(
                             this.scene,
                             this.positionInputsX[index],
@@ -214,8 +236,6 @@ export class InputKeyboardManager {
                         break;
 
                     case "d":
-                        // if (this.d_ref) return
-                        // this.d_ref =
 
                         const dRef = CommonMethodsClass.addImage(
                             this.scene,
@@ -233,6 +253,14 @@ export class InputKeyboardManager {
 
     public updateStatusInputContainer() {
         if (this.inputsContainer.length === 0) {
+
+            if (this.indexIteration >= 4) {
+                this.setIsKeysLocked(true)
+                this.scene.time.delayedCall(2000, () => {
+                    this.setIsKeysLocked(false)
+                    this.indexIteration = 0;
+                })
+            }
 
             this.scene.time.delayedCall(500, () => {
                 this.refInputs_group.clear(true, true);

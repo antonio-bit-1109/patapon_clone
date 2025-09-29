@@ -13,13 +13,13 @@ import {InteractionManager} from "../manager/InteractionManager.ts";
 export class Gameplay extends Phaser.Scene {
 
     private oldDudesTypes: string[] = []
-    private environmentManager: EnvironmentManager;
-    private dudesArmyManager: ArmyManager;
-    private inputKeyboardManager: InputKeyboardManager;
-    private actionsManager: ActionsManager;
-    private lifePointsManager: LifePointsManager;
-    private weaponManager: WeaponManager;
-    private interactionManager: InteractionManager;
+    private readonly environmentManager: EnvironmentManager;
+    private readonly dudesArmyManager: ArmyManager;
+    private readonly inputKeyboardManager: InputKeyboardManager;
+    private readonly actionsManager: ActionsManager;
+    private readonly lifePointsManager: LifePointsManager;
+    private readonly weaponManager: WeaponManager;
+    private readonly interactionManager: InteractionManager;
 
 
     constructor() {
