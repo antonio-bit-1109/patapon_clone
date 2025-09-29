@@ -29,8 +29,8 @@ export class EnemyDude extends BaseEnemy {
         return this.isAttacking
     }
 
-    getWeapon(): GeneralWeapon | null {
-        return this.weapon;
+    getWeapon(): GeneralWeapon {
+        return this.weapon as GeneralWeapon;
     }
 
     setWeapon(val: GeneralWeapon): void {
