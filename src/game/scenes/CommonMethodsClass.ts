@@ -81,9 +81,13 @@ export class CommonMethodsClass {
     }
 
 
-    public static addText(scene: Phaser.Scene, x: number, y: number, text: string, style: IStyleText, origin: OriginObj) {
-        scene.add.text(x, y, text, style)
+    public static addText(scene: Phaser.Scene, x: number, y: number, text: string, style: IStyleText, origin: OriginObj, rotation?: number) {
+        const text_ref = scene.add.text(x, y, text, style)
             .setOrigin(origin.x, origin.y)
+
+        if (rotation) {
+            text_ref.setRotation(Phaser.Math.DegToRad(rotation))
+        }
     }
 
     public static addImage(scene: Scene, x: number, y: number, texture: string, scale?: number) {

@@ -64,6 +64,22 @@ export class ChooseMainCharacter extends Phaser.Scene {
 
         CommonMethodsClass.addText(
             this,
+            CommonMethodsClass.adjustWidth(8.5, this),
+            CommonMethodsClass.adjustHeight(4.6, this),
+            "Melee",
+            {
+                color: '#ee0c0c',
+                stroke: '#000000',
+                strokeThickness: 1,
+                fontSize: '30px', // Ora puoi aggiungere anche questa
+                fontFamily: "pataponFont"
+            },
+            {x: 0.5, y: 0.5},
+            -6
+        )
+
+        CommonMethodsClass.addText(
+            this,
             CommonMethodsClass.adjustWidth(2, this),
             CommonMethodsClass.adjustHeight(3.5, this),
             "PINK",
