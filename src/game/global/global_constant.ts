@@ -25,7 +25,8 @@ export const actions: IActions = {
 
 export const weaponTypes = {
     arrow: "arrow",
-    rock: "rock"
+    rock: "rock",
+    shuriken: "shuriken"
 
 } as const
 

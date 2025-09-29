@@ -12,6 +12,9 @@ import {BlueDude} from "../entities/players/child/BlueDude.ts";
 import {Rock} from "../entities/weapons/Rock.ts";
 import {Arrow} from "../entities/weapons/Arrow.ts";
 import {ArmyManager} from "./ArmyManager.ts";
+import {EnvironmentManager} from "./EnvironmentManager.ts";
+import {WeaponManager} from "./WeaponManager.ts";
+import {InputKeyboardManager} from "./InputKeyboardManager.ts";
 
 export class InteractionManager {
 
@@ -37,7 +40,13 @@ export class InteractionManager {
     }
 
 
-    public checkOverlapWithEnemyStoppingZone(armyManager: ArmyManager, enemyStoppingZone: Zone) {
+    public checkOverlapWithEnemyStoppingZone(
+        armyManager: ArmyManager,
+        enemyStoppingZone: Zone,
+        environmentManager: EnvironmentManager,
+        weaponManager: WeaponManager,
+        inputKeyboardManager: InputKeyboardManager
+    ) {
 
         const enemyGroup = armyManager.getDudesEnemyArmy();
 
@@ -76,12 +85,12 @@ export class InteractionManager {
 
                         if (currEnemy.getMovingFunction() !== null) return;
 
-                        // // the enemy throw an attack (a rock probably)
-                        // this.scene.time.delayedCall(100, () => {
-                        //
-                        //     // utilizza la classe army manager per chiamare il metodo per far attacc
-                        //     armyManager.baseEnemyAttack()
-                        // })
+                        // the enemy throw an attack (a rock probably)
+                        this.scene.time.delayedCall(50, () => {
+
+                            // utilizza la classe army manager per chiamare il metodo per far attacc
+                            armyManager.baseEnemyAttack(currEnemy, environmentManager, weaponManager, inputKeyboardManager)
+                        })
 
                         const call = this.scene.time.delayedCall(1500, () => {
 
@@ -157,7 +166,7 @@ export class InteractionManager {
 
 
     // prende i bounds della trigger zone e confrontarli con lo coord x e y del nemico
-    private isEnemyIntoTriggerZone(enemy: BaseEnemy, stoppingZone: Zone) {
+    private isEnemyIntoTriggerZone(enemy: EnemyDude, stoppingZone: Zone) {
 
         if (enemy && enemy.body) {
             console.log("sono dentro isEnemyIntoTriggerZone")
@@ -171,7 +180,7 @@ export class InteractionManager {
     }
 
 
-    private checkWhereEnemyIsIntoTriggerZone(enemy: BaseEnemy, enemyStoppingZone: Zone) {
+    private checkWhereEnemyIsIntoTriggerZone(enemy: EnemyDude, enemyStoppingZone: Zone) {
 
         let triggerZoneBounds = enemyStoppingZone.getBounds();
         const centerXZone = triggerZoneBounds.centerX

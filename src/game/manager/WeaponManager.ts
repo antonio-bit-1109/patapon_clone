@@ -2,6 +2,7 @@ import {Scene} from "phaser";
 import {WeaponType} from "../global/global_constant.ts";
 import {Arrow} from "../entities/weapons/Arrow.ts";
 import {Rock} from "../entities/weapons/Rock.ts";
+import {Shuriken} from "../entities/weapons/Shuriken.ts";
 
 export class WeaponManager {
 
@@ -38,6 +39,14 @@ export class WeaponManager {
                 .setVelocityX(initVelX)
                 .setVelocityY(initVelY)
                 .setRotation(Phaser.Math.DegToRad(-45))
+        }
+
+        if (weaponType === 'shuriken') {
+            weapon = new Shuriken(this.scene, xOrigin, yOrigin, texture)
+                .setData("weaponType", weaponType)
+                .setVelocityX(initVelX)
+                .setVelocityY(initVelY)
+                .setRotation(Phaser.Math.DegToRad(0))
         }
 
         if (scale && weapon) {
