@@ -20,6 +20,13 @@ export class InputKeyboardManager {
     private indexIteration = 0;
     private isKeysLocked = false;
 
+    private centerXCircleCountDown: number = 100;
+    private centerYCircleCountDown: number = 100;
+
+
+    private circleCountDown_lower_ref: Phaser.GameObjects.Arc;
+    private circleCountDown_upper_ref: Phaser.GameObjects.Graphics;
+
     private switch_ref: Image;
     private switchText_ref: Phaser.GameObjects.Text;
     private isRangeLong: boolean = false;
@@ -51,6 +58,7 @@ export class InputKeyboardManager {
         this.refInputs_group = this.scene.add.group()
         this.createInputKeys()
     }
+
 
     public createSwitchArrowRange(arrOldDudeTypes: string[]) {
 
@@ -251,11 +259,60 @@ export class InputKeyboardManager {
         )
     }
 
+    private createCircleCountDown() {
+        this.circleCountDown_lower_ref = this.scene.add.circle(
+            this.centerXCircleCountDown,
+            this.centerYCircleCountDown,
+            20,
+            0x008000,
+            1
+        )
+
+        this.circleCountDown_upper_ref = this.scene.add.graphics()
+    }
+
+    private startCircleCountDown() {
+
+        let degree = {deg: 270};
+
+        this.scene.tweens.add({
+            targets: degree,
+            duration: 2000,
+            deg: -90,
+            onUpdate: () => {
+                this.drawCirclePiece(degree.deg)
+            }
+        })
+    }
+
+    private drawCirclePiece(degreeValue: number) {
+
+        this.circleCountDown_upper_ref.clear();
+        this.circleCountDown_upper_ref.fillStyle(0xff0000, 1);
+        this.circleCountDown_upper_ref.beginPath();
+        this.circleCountDown_upper_ref.moveTo(
+            this.centerXCircleCountDown,
+            this.centerYCircleCountDown,
+        )
+        this.circleCountDown_upper_ref.arc(
+            this.centerXCircleCountDown,
+            this.centerYCircleCountDown,
+            20,
+            -90,
+            degreeValue,
+            false,
+        );
+        this.circleCountDown_upper_ref.fillPath();
+        this.circleCountDown_upper_ref.strokePath();
+    }
+
     public updateStatusInputContainer() {
         if (this.inputsContainer.length === 0) {
 
             if (this.indexIteration >= 4) {
                 this.setIsKeysLocked(true)
+                this.createCircleCountDown()
+                this.startCircleCountDown()
                 this.scene.time.delayedCall(2000, () => {
                     this.setIsKeysLocked(false)
                     this.indexIteration = 0;
@@ -275,11 +332,6 @@ export class InputKeyboardManager {
 
     public resetInputsContainer() {
         this.inputsContainer.length = 0;
-    }
-
-    update() {
-
-
     }
 
 
