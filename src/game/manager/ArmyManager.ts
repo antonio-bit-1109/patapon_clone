@@ -14,6 +14,7 @@ import Group = Phaser.GameObjects.Group;
 import {EnemyDude} from "../entities/players/child/EnemyDude.ts";
 import {InteractionManager} from "./InteractionManager.ts";
 import {InputKeyboardManager} from "./InputKeyboardManager.ts";
+import {Shuriken} from "../entities/weapons/Shuriken.ts";
 
 
 export class ArmyManager {
@@ -157,9 +158,45 @@ export class ArmyManager {
 
     }
 
-    // public baseEnemyAttack() {
-    //
-    // }
+    public baseEnemyAttack(
+        enemy: EnemyDude,
+        environmentManager: EnvironmentManager,
+        weaponManager: WeaponManager,
+        inputKeyboardManager: InputKeyboardManager
+    ) {
+
+        enemy.setTexture("pinkDude_throw_rock")
+        enemy.play("pink_throw_rock")
+            .on("animationcomplete", () => {
+                const shuriken = weaponManager.createPhysicsThrowWeapon(
+                    "shuriken",
+                    enemy.x + 20,
+                    enemy.y + 20,
+                    250,
+                    -500,
+                    weaponTypes.shuriken,
+                    0.022
+                )
+
+                this.scene.add.tween({
+                    targets: shuriken,
+                    duration: 1000,
+                    rotation: 270
+                })
+
+                enemy.setTexture("pinkDude_idle_spritesheet")
+                    .play("pinkDude_waiting")
+                if (shuriken instanceof Shuriken) {
+                    shuriken && shuriken.setOwnerBaseDamage(enemy.getDamage())
+                    shuriken && enemy.setWeapon(shuriken)
+                    shuriken && environmentManager.applyGravityForceToSprite(-4000, -200, shuriken, inputKeyboardManager)
+                    // shuriken && environmentManager.addColliderWithTerrain(shuriken)
+                    // arrow && interactionManager.checkCollisionBetweenAllDudesAndWeapon(this.getDudesEnemyArmy(), arrow, lifePointManager)
+
+                }
+            })
+
+    }
 
 
     public attackDudes(
@@ -197,7 +234,7 @@ export class ArmyManager {
                     currentDude.play(`${type}Dude_waiting`)
                     throwArrowRef.destroy()
                     actionsManager.setIsActionInProgress(false)
-                    const arrow: Arrow | Rock | null = weaponManager.createPhysicsThrowWeapon(
+                    const arrow: Arrow | Rock | Shuriken | null = weaponManager.createPhysicsThrowWeapon(
                         "arrow",
                         currentDude.x + 20,
                         currentDude.y + 20,
@@ -225,7 +262,7 @@ export class ArmyManager {
                     currentDude.setTexture(`${type}Dude_idle_spritesheet`)
                     currentDude.play(`${type}Dude_waiting`)
                     actionsManager.setIsActionInProgress(false)
-                    const rock: Arrow | Rock | null = weaponManager.createPhysicsThrowWeapon(
+                    const rock: Arrow | Rock | Shuriken | null = weaponManager.createPhysicsThrowWeapon(
                         "rock",
                         currentDude.x,
                         currentDude.y,
