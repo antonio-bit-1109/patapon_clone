@@ -10,6 +10,7 @@ export abstract class BaseEnemy extends BaseCharacter {
     private zoneState: TriggerZoneType = 'none';
     private movingFunction: Phaser.Time.TimerEvent | null;
 
+
     protected constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
         scene.physics.add.existing(this);
@@ -17,7 +18,6 @@ export abstract class BaseEnemy extends BaseCharacter {
         this.setTint(this.tint)
         this.movingFunction = null;
         this.isDeath = false;
-
     }
 
     // getter setter
