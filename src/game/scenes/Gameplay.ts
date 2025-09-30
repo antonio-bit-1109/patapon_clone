@@ -57,7 +57,8 @@ export class Gameplay extends Phaser.Scene {
             this.environmentManager.getEnemyStoppingZone(),
             this.environmentManager,
             this.weaponManager,
-            this.inputKeyboardManager
+            this.interactionManager,
+            this.lifePointsManager
         )
         this.inputKeyboardManager.createSwitchArrowRange(this.oldDudesTypes);
     }

@@ -7,7 +7,8 @@ export class EnemyDude extends BaseEnemy {
 
     public readonly tint: number = 0xff0000; //red tint
     private readonly _type: string = "pink";
-    private isAttacking: boolean = false;
+
+    // private isAttacking: boolean = false;
 
     public constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
@@ -21,13 +22,13 @@ export class EnemyDude extends BaseEnemy {
         this.setDefense(this.getDefense() + 3)
     }
 
-    public setIsAttacking(val: boolean) {
-        this.isAttacking = val;
-    }
-
-    public getIsAttacking() {
-        return this.isAttacking
-    }
+    // public setIsAttacking(val: boolean) {
+    //     this.isAttacking = val;
+    // }
+    //
+    // public getIsAttacking() {
+    //     return this.isAttacking
+    // }
 
     getWeapon(): GeneralWeapon {
         return this.weapon as GeneralWeapon;

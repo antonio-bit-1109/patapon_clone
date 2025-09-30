@@ -14,14 +14,43 @@ import {Arrow} from "../entities/weapons/Arrow.ts";
 import {ArmyManager} from "./ArmyManager.ts";
 import {EnvironmentManager} from "./EnvironmentManager.ts";
 import {WeaponManager} from "./WeaponManager.ts";
-import {InputKeyboardManager} from "./InputKeyboardManager.ts";
 
 export class InteractionManager {
 
-    private scene: Scene;
+    private readonly scene: Scene;
 
     constructor(scene: Scene) {
         this.scene = scene;
+    }
+
+
+    public checkCollisionBetweenShurikenAndPlayerGroup(
+        dudeGroup: Group,
+        weapon: GeneralWeapon,
+        lifepointManager: LifePointsManager
+    ) {
+
+        this.scene.physics.add.overlap(
+            dudeGroup,
+            weapon,
+            (dude, weapon) => {
+
+                weapon.destroy()
+                console.log("dudeplayer colpito!!")
+            },
+            (dude, weapon) => {
+                const playerDude = dude as PinkDude | WhiteDude | BlueDude;
+                if (playerDude.getType() === 'pink' ||
+                    playerDude.getType() === 'white' ||
+                    playerDude.getType() === 'blue'
+                ) {
+                    return true;
+                }
+
+                return false;
+            },
+            this
+        )
     }
 
     checkCollisionBetweenAllDudesAndWeapon(dudeGroup: Group, weapon: GeneralWeapon, lifePointsManager: LifePointsManager) {
@@ -45,7 +74,8 @@ export class InteractionManager {
         enemyStoppingZone: Zone,
         environmentManager: EnvironmentManager,
         weaponManager: WeaponManager,
-        inputKeyboardManager: InputKeyboardManager
+        interactionManager: InteractionManager,
+        lifepointsManager: LifePointsManager
     ) {
 
         const enemyGroup = armyManager.getDudesEnemyArmy();
@@ -85,14 +115,7 @@ export class InteractionManager {
 
                         if (currEnemy.getMovingFunction() !== null) return;
 
-                        // the enemy throw an attack (a rock probably)
-                        this.scene.time.delayedCall(50, () => {
-
-                            // utilizza la classe army manager per chiamare il metodo per far attacc
-                            armyManager.baseEnemyAttack(currEnemy, environmentManager, weaponManager, inputKeyboardManager)
-                        })
-
-                        const call = this.scene.time.delayedCall(1500, () => {
+                        const movingCall = this.scene.time.delayedCall(1500, () => {
 
                             if (!currEnemy || !currEnemy.active) return;
 
@@ -130,14 +153,35 @@ export class InteractionManager {
                                 });
                             }
                         });
-                        currEnemy && currEnemy.setMovingFunction(call)
+                        currEnemy && currEnemy.setMovingFunction(movingCall)
                         break;
 
                     case TriggerZoneState.repositioning :
+
+                        if (currEnemy.getAttackingFunction() !== null) return;
+                        // the enemy throw an attack (a rock probably)
+
+                        const attackingCall = this.scene.time.addEvent({
+                            delay: 4000,
+                            callbackScope: this,
+                            loop: true,
+                            callback: () => {
+                                armyManager.baseEnemyAttack(
+                                    currEnemy,
+                                    environmentManager,
+                                    weaponManager,
+                                    interactionManager,
+                                    lifepointsManager
+                                )
+                            }
+                        })
+                        currEnemy.setAttackingFunction(attackingCall);
+
                         break;
                     case TriggerZoneState.repositioned:
                         break;
                     case TriggerZoneState.stopping:
+
                         break;
                 }
             },

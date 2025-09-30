@@ -20,8 +20,8 @@ export class InputKeyboardManager {
     private indexIteration = 0;
     private isKeysLocked = false;
 
-    private centerXCircleCountDown: number = 100;
-    private centerYCircleCountDown: number = 100;
+    private readonly centerXCircleCountDown: number = 100;
+    private readonly centerYCircleCountDown: number = 100;
 
 
     private circleCountDown_lower_ref: Phaser.GameObjects.Arc;

@@ -162,7 +162,8 @@ export class ArmyManager {
         enemy: EnemyDude,
         environmentManager: EnvironmentManager,
         weaponManager: WeaponManager,
-        inputKeyboardManager: InputKeyboardManager
+        interactionManager: InteractionManager,
+        lifePointManager: LifePointsManager,
     ) {
 
         enemy.setTexture("pinkDude_throw_rock")
@@ -180,7 +181,7 @@ export class ArmyManager {
 
                 this.scene.add.tween({
                     targets: shuriken,
-                    duration: 1000,
+                    duration: 4000,
                     rotation: 270
                 })
 
@@ -189,10 +190,8 @@ export class ArmyManager {
                 if (shuriken instanceof Shuriken) {
                     shuriken && shuriken.setOwnerBaseDamage(enemy.getDamage())
                     shuriken && enemy.setWeapon(shuriken)
-                    shuriken && environmentManager.applyGravityForceToSprite(-4000, -200, shuriken, inputKeyboardManager)
-                    // shuriken && environmentManager.addColliderWithTerrain(shuriken)
-                    // arrow && interactionManager.checkCollisionBetweenAllDudesAndWeapon(this.getDudesEnemyArmy(), arrow, lifePointManager)
-
+                    shuriken && environmentManager.applyVelocityToWeapon(shuriken, -200, 0)
+                    shuriken && interactionManager.checkCollisionBetweenShurikenAndPlayerGroup(this.getDudesArmy(), shuriken, lifePointManager)
                 }
             })
 

@@ -9,7 +9,7 @@ export abstract class BaseEnemy extends BaseCharacter {
     private moving: boolean = false;
     private zoneState: TriggerZoneType = 'none';
     private movingFunction: Phaser.Time.TimerEvent | null;
-
+    private attackingFunction: Phaser.Time.TimerEvent | null;
 
     protected constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
@@ -21,7 +21,13 @@ export abstract class BaseEnemy extends BaseCharacter {
     }
 
     // getter setter
+    public getAttackingFunction() {
+        return this.attackingFunction
+    }
 
+    public setAttackingFunction(val: Phaser.Time.TimerEvent) {
+        this.attackingFunction = val;
+    }
 
     getHpLowerBar() {
         return this.hpLowerBar;

@@ -10,7 +10,7 @@ export class EnvironmentManager {
     private backgroundLooping: Phaser.GameObjects.TileSprite;
     private terrainLooping: Phaser.GameObjects.TileSprite;
     private phisicsTerrain: Phaser.GameObjects.Rectangle;
-    private scene: Phaser.Scene
+    private readonly scene: Phaser.Scene
     private enemyStoppingZone: Phaser.GameObjects.Zone
 
     constructor(scene: Scene) {
@@ -52,7 +52,7 @@ export class EnvironmentManager {
         this.enemyStoppingZone = this.scene.add.zone(
             700,
             (this.scene.game.config.height as number) - (90 as number),
-            500,
+            600,
             120
         )
 
@@ -111,8 +111,18 @@ export class EnvironmentManager {
         })
     }
 
-    public applyGravityForceToSprite(gX: number, gY: number, sprite: Phaser.Physics.Arcade.Sprite, inputKeyboardManager: InputKeyboardManager) {
-        if (!sprite || !sprite.body) return
+    public applyVelocityToWeapon(sprite: Phaser.Physics.Arcade.Sprite, velocityValueX: number, velocityValueY: number) {
+        sprite.setVelocity(velocityValueX, velocityValueY)
+    }
+
+    public applyGravityForceToSprite(
+        gX: number,
+        gY: number,
+        sprite: Phaser.Physics.Arcade.Sprite,
+        inputKeyboardManager: InputKeyboardManager
+    ) {
+        if (!sprite) return
+        if (!sprite.body) return
 
         if (inputKeyboardManager.getIsRangeLong()) {
             gX = gX - 20;

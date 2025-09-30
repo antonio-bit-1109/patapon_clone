@@ -2,7 +2,7 @@ import {GeneralWeapon} from "./GeneralWeapon.ts";
 
 export class Shuriken extends GeneralWeapon {
 
-    private damage: number = 3;
+    private damage: number = 1;
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
