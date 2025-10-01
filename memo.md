@@ -28,6 +28,8 @@ e tramite quelli ricostruisci gli sprite nella scena gameplay
 -[x] prova ad implementare le collisioni tra weapon e enemy e vedo se riesci a fargli abbassare la vita
 -[x] ripensa all ereditarietà delle entità all interno del progetto
 -[x] ripensa tutti i cast che vengono fatti ( elabora magari una classe che sia un castHelperManager)
- -[] separa le responsabilità di environment manager fa troppe cose!
+-[x] separa le responsabilità di environment manager fa troppe cose!
  [ ]aggiungere la feature di pausa del gioco
-- [] impostare timer azioni che puoi fare un comando solo ogni 2 secondi
+- [x] impostare timer azioni che puoi fare un comando solo ogni 2 secondi
+- [] scrivi collisioni tra shuriken nemico e dude player
+- [] implementa salto dei dudeplayer
