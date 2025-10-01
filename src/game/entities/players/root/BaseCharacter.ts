@@ -8,11 +8,13 @@ export abstract class BaseCharacter extends Phaser.Physics.Arcade.Sprite {
     private damage: number = 1
     private defense: number = 1;
 
+
     protected constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
         scene.physics.add.existing(this);
         scene.add.existing(this);
     }
+
 
     public getDamage(): number {
         return this.damage;

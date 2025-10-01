@@ -158,11 +158,14 @@ export class InteractionManager {
 
                     case TriggerZoneState.repositioning :
 
-                        if (currEnemy.getAttackingFunction() !== null) return;
+
+                        if (currEnemy.getAttackingFunction()) {
+                            return;
+                        }
                         // the enemy throw an attack (a rock probably)
 
                         const attackingCall = this.scene.time.addEvent({
-                            delay: 4000,
+                            delay: 6000,
                             callbackScope: this,
                             loop: true,
                             callback: () => {

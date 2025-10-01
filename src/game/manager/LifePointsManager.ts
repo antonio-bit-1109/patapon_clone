@@ -117,7 +117,7 @@ export class LifePointsManager {
         } else {
             throw new Error("nessuna barra della vita trovata! ERR!")
         }
-        
+
     }
 
     public showHurtAnimation(currDude: PinkDude | WhiteDude | BlueDude | BaseEnemy) {
@@ -131,6 +131,7 @@ export class LifePointsManager {
     public checkIfDudeIsDeath(currDude: PinkDude | WhiteDude | BlueDude | BaseEnemy) {
         if (currDude.getHp() <= 0) {
             currDude.setIsDeath(true)
+            currDude.getAttackingFunction()?.destroy()
             currDude.setTexture("pinkDudeDeath_spritesheet")
                 .play("pinkDudeDeath")
                 .on("animationcomplete", () => {

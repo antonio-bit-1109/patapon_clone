@@ -25,7 +25,7 @@ export abstract class BaseEnemy extends BaseCharacter {
         return this.attackingFunction
     }
 
-    public setAttackingFunction(val: Phaser.Time.TimerEvent) {
+    public setAttackingFunction(val: Phaser.Time.TimerEvent | null) {
         this.attackingFunction = val;
     }
 
