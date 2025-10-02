@@ -332,7 +332,51 @@ export class ArmyManager {
     public defendDudes() {
     }
 
-    public jumpDudes() {
+    public jumpDudes(actionManager: ActionsManager) {
+
+        this.dudesArmyGameplay_group.children.iterate(dude => {
+            const currentDude = dude as PinkDude | WhiteDude | BlueDude;
+            let type = currentDude.getType();
+            currentDude.setInitialPosition(currentDude.x, currentDude.y);
+            currentDude.setTexture(`${type}DudeJump`)
+
+            // currentDude.setVelocityY(500)
+            //
+            // this.scene.add.tween({
+            //     targets: currentDude,
+            //     duration: 500,
+            //     y: currentDude.getInitialPositionY(),
+            //     onUpdate: () => {
+            //         if (currentDude && currentDude.body && currentDude.body?.gravity.y !== 0) {
+            //             currentDude.setGravityY(0)
+            //
+            //         }
+            //     },
+            //
+            // })
+
+            //
+            // this.scene.time.delayedCall(300, () => {
+            //     currentDude.setGravityY(+1000)
+            //     this.scene.add.tween({
+            //         targets: currentDude,
+            //         duration: 500,
+            //         y: currentDude.getInitialPositionY(),
+            //         onComplete: () => {
+            //             currentDude.setGravityY(0)
+            //         }
+            //     })
+            // })
+            currentDude.play(`${type}Dude_Do_Jump`)
+
+            currentDude.on("animationcomplete", () => {
+                currentDude.setTexture(`${type}Dude_idle_spritesheet`)
+                currentDude.play(`${type}Dude_waiting`)
+                actionManager.setIsActionInProgress(false)
+            })
+
+            return true;
+        })
     }
 
     public idleDudes(actionsManager: ActionsManager) {
