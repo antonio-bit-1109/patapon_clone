@@ -70,7 +70,7 @@ export class ActionsManager {
                 console.log("i dudes difendono")
                 this.actionToPerform = actions.defend
                 break;
-            case "wwss":
+            case "ssww":
                 console.log("i dudes saltano")
                 this.actionToPerform = actions.jump
                 break;

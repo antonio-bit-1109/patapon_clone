@@ -102,7 +102,7 @@ export class Gameplay extends Phaser.Scene {
                     break;
 
                 case actions.jump :
-                    this.dudesArmyManager.jumpDudes()
+                    this.dudesArmyManager.jumpDudes(this.actionsManager)
                     break;
                 default:
                     this.dudesArmyManager.idleDudes(this.actionsManager)

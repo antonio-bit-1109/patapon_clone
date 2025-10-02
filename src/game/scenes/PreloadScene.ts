@@ -48,6 +48,11 @@ export class PreloadScene extends Phaser.Scene {
         this.load.spritesheet("pinkDudeTakeDamage", assetPath + "/pinkDude/Pink_Monster_Hurt_4.png", this.addFrameWidthHeight(32, 32))
         this.load.spritesheet("pinkDudeDeath_spritesheet", assetPath + "/pinkDude/Pink_Monster_Death_8.png", this.addFrameWidthHeight(32, 32))
 
+        this.load.spritesheet("pinkDudeJump", assetPath + "/pinkDude/Pink_Monster_Jump_8.png", this.addFrameWidthHeight(32, 32))
+        this.load.spritesheet("whiteDudeJump", assetPath + "/whiteDude/Owlet_Monster_Jump_8.png", this.addFrameWidthHeight(32, 32))
+        this.load.spritesheet("blueDudeJump", assetPath + "/blueDude/Dude_Monster_Jump_8.png", this.addFrameWidthHeight(32, 32))
+
+
         this.load.image("background_looping", assetPath + "/background_seamless.jpeg")
         this.load.image("terrain_looping", assetPath + "/terrain_seamless.png")
         this.load.image("stamp_w", assetPathStamp + "/timbro_w.png")
@@ -95,6 +100,10 @@ export class PreloadScene extends Phaser.Scene {
         CommonMethodsClass.createAnimation(this, "blueDude_throw_arrow", "blueDude_arm_throw_arrow", 0, 5, 0)
         CommonMethodsClass.createAnimation(this, "pink_throw_rock", "pinkDude_throw_rock", 0, 3, 0)
         CommonMethodsClass.createAnimation(this, "white_attack_punch", "whiteDude_punch_attack", 0, 5, 0)
+
+        CommonMethodsClass.createAnimation(this, "blueDude_Do_Jump", "blueDudeJump", 0, 7, 0)
+        CommonMethodsClass.createAnimation(this, "whiteDude_Do_Jump", "whiteDudeJump", 0, 7, 0)
+        CommonMethodsClass.createAnimation(this, "pinkDude_Do_Jump", "pinkDudeJump", 0, 7, 0)
 
         SoundsManager.addAudio("intro_sound", {volume: 1, loop: true}, this)
         SoundsManager.addAudio("choosing_player", {volume: 1, loop: true}, this)
