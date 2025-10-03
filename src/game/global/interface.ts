@@ -36,5 +36,7 @@ export interface IConfigSound {
 }
 
 export interface IBasicTweenObj {
+    duration: number,
+
     [key: string]: string | any;
 }

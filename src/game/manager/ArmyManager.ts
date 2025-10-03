@@ -15,6 +15,7 @@ import {EnemyDude} from "../entities/players/child/EnemyDude.ts";
 import {InteractionManager} from "./InteractionManager.ts";
 import {InputKeyboardManager} from "./InputKeyboardManager.ts";
 import {Shuriken} from "../entities/weapons/Shuriken.ts";
+import {CommonMethodsClass} from "../scenes/CommonMethodsClass.ts";
 
 
 export class ArmyManager {
@@ -337,36 +338,24 @@ export class ArmyManager {
         this.dudesArmyGameplay_group.children.iterate(dude => {
             const currentDude = dude as PinkDude | WhiteDude | BlueDude;
             let type = currentDude.getType();
-            currentDude.setInitialPosition(currentDude.x, currentDude.y);
             currentDude.setTexture(`${type}DudeJump`)
+            
+            CommonMethodsClass.chainTweens(
+                this.scene,
+                currentDude,
+                -0,
+                [
+                    {
+                        y: '-=100',
+                        duration: 500
+                    },
+                    {
+                        y: '+=100',
+                        duration: 300
+                    }
+                ]
+            )
 
-            // currentDude.setVelocityY(500)
-            //
-            // this.scene.add.tween({
-            //     targets: currentDude,
-            //     duration: 500,
-            //     y: currentDude.getInitialPositionY(),
-            //     onUpdate: () => {
-            //         if (currentDude && currentDude.body && currentDude.body?.gravity.y !== 0) {
-            //             currentDude.setGravityY(0)
-            //
-            //         }
-            //     },
-            //
-            // })
-
-            //
-            // this.scene.time.delayedCall(300, () => {
-            //     currentDude.setGravityY(+1000)
-            //     this.scene.add.tween({
-            //         targets: currentDude,
-            //         duration: 500,
-            //         y: currentDude.getInitialPositionY(),
-            //         onComplete: () => {
-            //             currentDude.setGravityY(0)
-            //         }
-            //     })
-            // })
             currentDude.play(`${type}Dude_Do_Jump`)
 
             currentDude.on("animationcomplete", () => {

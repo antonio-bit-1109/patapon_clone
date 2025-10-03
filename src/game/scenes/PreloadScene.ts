@@ -101,9 +101,9 @@ export class PreloadScene extends Phaser.Scene {
         CommonMethodsClass.createAnimation(this, "pink_throw_rock", "pinkDude_throw_rock", 0, 3, 0)
         CommonMethodsClass.createAnimation(this, "white_attack_punch", "whiteDude_punch_attack", 0, 5, 0)
 
-        CommonMethodsClass.createAnimation(this, "blueDude_Do_Jump", "blueDudeJump", 0, 7, 0)
-        CommonMethodsClass.createAnimation(this, "whiteDude_Do_Jump", "whiteDudeJump", 0, 7, 0)
-        CommonMethodsClass.createAnimation(this, "pinkDude_Do_Jump", "pinkDudeJump", 0, 7, 0)
+        CommonMethodsClass.createAnimation(this, "blueDude_Do_Jump", "blueDudeJump", 0, 7, 0, 9)
+        CommonMethodsClass.createAnimation(this, "whiteDude_Do_Jump", "whiteDudeJump", 0, 7, 0, 9)
+        CommonMethodsClass.createAnimation(this, "pinkDude_Do_Jump", "pinkDudeJump", 0, 7, 0, 9)
 
         SoundsManager.addAudio("intro_sound", {volume: 1, loop: true}, this)
         SoundsManager.addAudio("choosing_player", {volume: 1, loop: true}, this)
