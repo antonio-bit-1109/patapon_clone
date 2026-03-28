@@ -70,21 +70,24 @@ export class ArmyManager {
                     this.scene,
                     distance,
                     (this.scene.game.config.height as number) - (90 as number),
-                    this.checkAndChangeTexture(typeDudes)
+                    this.checkAndChangeTexture(typeDudes),
+                    true
                 )
             } else if (typeDudes === "white") {
                 dudeGameplay = new WhiteDude(
                     this.scene,
                     distance,
                     (this.scene.game.config.height as number) - (90 as number),
-                    this.checkAndChangeTexture(typeDudes)
+                    this.checkAndChangeTexture(typeDudes),
+                    true
                 )
             } else if (typeDudes === "blue") {
                 dudeGameplay = new BlueDude(
                     this.scene,
                     distance,
                     (this.scene.game.config.height as number) - (90 as number),
-                    this.checkAndChangeTexture(typeDudes)
+                    this.checkAndChangeTexture(typeDudes),
+                    true
                 )
             } else {
                 throw new Error("errore durante inizializzazione del dude. tipo passato sconosciuto. --> " + typeDudes)
@@ -339,19 +342,19 @@ export class ArmyManager {
             const currentDude = dude as PinkDude | WhiteDude | BlueDude;
             let type = currentDude.getType();
             currentDude.setTexture(`${type}DudeJump`)
-            
+
             CommonMethodsClass.chainTweens(
                 this.scene,
                 currentDude,
                 -0,
                 [
                     {
-                        y: '-=100',
-                        duration: 500
+                        y: '-=400',
+                        duration: 800
                     },
                     {
-                        y: '+=100',
-                        duration: 300
+                        y: '+=400',
+                        duration: 1500
                     }
                 ]
             )

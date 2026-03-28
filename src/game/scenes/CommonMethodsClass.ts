@@ -1,4 +1,4 @@
-import {OriginObj, IStyleText, IBasicTweenObj} from "../global/interface.ts";
+import {OriginObj, IBasicTweenObj} from "../global/interface.ts";
 import Phaser, {Scene} from "phaser";
 
 //static class
@@ -81,7 +81,7 @@ export class CommonMethodsClass {
     }
 
 
-    public static addText(scene: Phaser.Scene, x: number, y: number, text: string, style: IStyleText, origin: OriginObj, rotation?: number) {
+    public static addText(scene: Phaser.Scene, x: number, y: number, text: string, style: any, origin: OriginObj, rotation?: number) {
         const text_ref = scene.add.text(x, y, text, style)
             .setOrigin(origin.x, origin.y)
 
@@ -127,4 +127,5 @@ export class CommonMethodsClass {
             CommonMethodsClass.addGraphicsCircle(scene, initialX, y, radius, fillColor, fillAlpha)
         }
     }
+
 }

@@ -18,6 +18,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
     private possiblePositionsCopies = [300, 400, 500, 600, 700]
     private notificationOnDelete: Phaser.GameObjects.Text;
 
+
     constructor() {
         super(sceneName.choosemaincharacter);
     }

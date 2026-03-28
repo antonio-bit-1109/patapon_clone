@@ -31,5 +31,10 @@ e tramite quelli ricostruisci gli sprite nella scena gameplay
 -[x] separa le responsabilità di environment manager fa troppe cose!
  [ ]aggiungere la feature di pausa del gioco
 - [x] impostare timer azioni che puoi fare un comando solo ogni 2 secondi
-- [] scrivi collisioni tra shuriken nemico e dude player
-- [] implementa salto dei dudeplayer
+- [x] scrivi collisioni tra shuriken nemico e dude player
+- [x] implementa salto dei dudeplayer
+
+-[] capisci perche ogni tanto fai delle animazioni ma il player è morto e crasha
+- [x]capisci perche se white dude prende la pozione perde un po di vita
+
+- []aggiungi suono di refill hp

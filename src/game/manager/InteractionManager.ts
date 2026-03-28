@@ -14,10 +14,12 @@ import {Arrow} from "../entities/weapons/Arrow.ts";
 import {ArmyManager} from "./ArmyManager.ts";
 import {EnvironmentManager} from "./EnvironmentManager.ts";
 import {WeaponManager} from "./WeaponManager.ts";
+import {Shuriken} from "../entities/weapons/Shuriken.ts";
 
 export class InteractionManager {
 
     private readonly scene: Scene;
+
 
     constructor(scene: Scene) {
         this.scene = scene;
@@ -27,18 +29,21 @@ export class InteractionManager {
     public checkCollisionBetweenShurikenAndPlayerGroup(
         dudeGroup: Group,
         weapon: GeneralWeapon,
-        lifepointManager: LifePointsManager
+        lifepointsManager: LifePointsManager
     ) {
 
         this.scene.physics.add.overlap(
             dudeGroup,
             weapon,
             (dude, weapon) => {
-
-                weapon.destroy()
+                let currDude = dude as EnemyDude | PinkDude | WhiteDude | BlueDude;
+                let wep = weapon as Shuriken;
                 console.log("dudeplayer colpito!!")
+                !wep.getHaveHittedOnce() && lifepointsManager.takeDamage(currDude, wep)
+                wep.setHaveHittedOnce(true)
+                weapon.destroy();
             },
-            (dude, weapon) => {
+            (dude, _) => {
                 const playerDude = dude as PinkDude | WhiteDude | BlueDude;
                 if (playerDude.getType() === 'pink' ||
                     playerDude.getType() === 'white' ||

@@ -7,6 +7,7 @@ import {Arrow} from "../entities/weapons/Arrow.ts";
 import {Rock} from "../entities/weapons/Rock.ts";
 import {BasePlayer} from "../entities/players/root/BasePlayer.ts";
 import {EnemyDude} from "../entities/players/child/EnemyDude.ts";
+import {Shuriken} from "../entities/weapons/Shuriken.ts";
 
 
 export class LifePointsManager {
@@ -70,9 +71,22 @@ export class LifePointsManager {
 
     }
 
+    public updateUpperbarHp(dude: PinkDude | WhiteDude | BlueDude) {
+        const upperBar = dude.getHpUpperBar();
+        upperBar?.clear()
+        const newBar = this.scene.add.graphics({
+            fillStyle: {color: 0x008000, alpha: 1},
+            lineStyle: {width: 2, color: 0x82f72f, alpha: 1},
+            x: dude.x - 10,
+            y: dude.y - 50
+        })
+        newBar.fillRect(0, 0, 30, 5);
+        dude.setHpUpperBar(newBar);
+    }
+
     public takeDamage(
         attackedDude: PinkDude | WhiteDude | BlueDude | EnemyDude,
-        weapon?: Arrow | Rock | null,
+        weapon?: Arrow | Rock | null | Shuriken,
         attackerDude?: BasePlayer | null
     ) {
 
@@ -121,6 +135,9 @@ export class LifePointsManager {
     }
 
     public showHurtAnimation(currDude: PinkDude | WhiteDude | BlueDude | BaseEnemy) {
+
+        if (!currDude) return;
+
         if (currDude instanceof BaseEnemy) {
             currDude.setTexture("pinkDudeTakeDamage")
             currDude.play("pinkDude_damaged");
@@ -129,9 +146,15 @@ export class LifePointsManager {
 
 
     public checkIfDudeIsDeath(currDude: PinkDude | WhiteDude | BlueDude | BaseEnemy) {
+
+        if (!currDude || currDude.getIsDeath()) return;
+
         if (currDude.getHp() <= 0) {
             currDude.setIsDeath(true)
-            currDude.getAttackingFunction()?.destroy()
+            currDude.getAttackingFunction()?.destroy();
+
+            if (!currDude) return;
+
             currDude.setTexture("pinkDudeDeath_spritesheet")
                 .play("pinkDudeDeath")
                 .on("animationcomplete", () => {

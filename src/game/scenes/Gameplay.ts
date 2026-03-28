@@ -8,6 +8,8 @@ import {ActionsManager} from "../manager/ActionsManager.ts";
 import {LifePointsManager} from "../manager/LifePointsManager.ts";
 import {WeaponManager} from "../manager/WeaponManager.ts";
 import {InteractionManager} from "../manager/InteractionManager.ts";
+import {LegendaManager} from "../manager/LegendaManager.ts";
+import {PotionManager} from "../manager/PotionManager.ts";
 
 
 export class Gameplay extends Phaser.Scene {
@@ -20,6 +22,8 @@ export class Gameplay extends Phaser.Scene {
     private readonly lifePointsManager: LifePointsManager;
     private readonly weaponManager: WeaponManager;
     private readonly interactionManager: InteractionManager;
+    private readonly legendaManager: LegendaManager;
+    private readonly potionmanager: PotionManager;
 
 
     constructor() {
@@ -31,6 +35,8 @@ export class Gameplay extends Phaser.Scene {
         this.lifePointsManager = new LifePointsManager(this);
         this.weaponManager = new WeaponManager(this);
         this.interactionManager = new InteractionManager(this);
+        this.legendaManager = new LegendaManager(this)
+        this.potionmanager = new PotionManager(this);
     }
 
     init(data: IData) {
@@ -45,8 +51,8 @@ export class Gameplay extends Phaser.Scene {
 
         SoundsManager.playSound("march_gameplay_1");
 
-
         this.environmentManager.create();
+        this.legendaManager.showCommands() // mostra comandi di gioco
         this.dudesArmyManager.generatePlayerArmy(this.oldDudesTypes) // creation playerdudes
         this.dudesArmyManager.generateEnemyArmy(4)
         this.lifePointsManager.createLifeBars(this.dudesArmyManager.getDudesArmy())
@@ -61,6 +67,12 @@ export class Gameplay extends Phaser.Scene {
             this.lifePointsManager
         )
         this.inputKeyboardManager.createSwitchArrowRange(this.oldDudesTypes);
+
+        this.potionmanager.spawnPotionToGiveHealth(
+            this.environmentManager.getPhisicsTerrain(),
+            this.dudesArmyManager.getDudesArmy(), this.lifePointsManager
+        )
+
     }
 
 

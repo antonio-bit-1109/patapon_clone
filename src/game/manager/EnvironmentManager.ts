@@ -13,12 +13,17 @@ export class EnvironmentManager {
     private readonly scene: Phaser.Scene
     private enemyStoppingZone: Phaser.GameObjects.Zone
 
+
     constructor(scene: Scene) {
         this.scene = scene;
     }
 
     public getEnemyStoppingZone() {
         return this.enemyStoppingZone
+    }
+
+    public getPhisicsTerrain() {
+        return this.phisicsTerrain;
     }
 
     create() {

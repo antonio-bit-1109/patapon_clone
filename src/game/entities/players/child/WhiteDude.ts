@@ -5,8 +5,9 @@ export class WhiteDude extends BasePlayer {
     private readonly _type: string = "white";
     // private initialPosition: { x: number, y: number } | null;
     private haveHitted: boolean = false;
+    private readonly fullHp = 20;
 
-    constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
+    constructor(scene: Phaser.Scene, x: number, y: number, texture: string, mainPlayer?: boolean) {
         super(scene, x, y, texture);
         scene.physics.add.existing(this);
         scene.add.existing(this);
@@ -15,6 +16,13 @@ export class WhiteDude extends BasePlayer {
         this.setMaxHp(this.getMaxHp() + 10)
         this.setDamage(this.getDamage() + 12)
         this.setDefense(this.getDefense() + 2)
+        mainPlayer && this.setMainChar(mainPlayer)
+
+    }
+
+
+    public refullHp() {
+        this.setHp(this.fullHp);
     }
 
     public getHaveHitted() {

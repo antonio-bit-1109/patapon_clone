@@ -5,14 +5,14 @@ export abstract class BasePlayer extends BaseCharacter {
     private attackingFunction: Phaser.Time.TimerEvent | null;
     private initialPosition: { x: number, y: number } | null;
 
-
     protected constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
         super(scene, x, y, texture);
         scene.physics.add.existing(this);
         scene.add.existing(this);
         this.initialPosition = null;
     }
-    
+
+
     public getAttackingFunction() {
         return this.attackingFunction
     }

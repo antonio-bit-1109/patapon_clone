@@ -7,6 +7,7 @@ export abstract class BaseCharacter extends Phaser.Physics.Arcade.Sprite {
     private maxHp: number = 10;
     private damage: number = 1
     private defense: number = 1;
+    private mainChar = false;
 
 
     protected constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
@@ -15,6 +16,13 @@ export abstract class BaseCharacter extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
     }
 
+    public getMainChar() {
+        return this.mainChar;
+    }
+
+    public setMainChar(val: boolean) {
+        this.mainChar = val;
+    }
 
     public getDamage(): number {
         return this.damage;

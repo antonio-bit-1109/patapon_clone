@@ -46,12 +46,19 @@ export class PreloadScene extends Phaser.Scene {
         this.load.spritesheet("whiteDude_punch_attack", assetPath + "/whiteDude/Owlet_Monster_Attack2_6.png", this.addFrameWidthHeight(32, 32))
 
         this.load.spritesheet("pinkDudeTakeDamage", assetPath + "/pinkDude/Pink_Monster_Hurt_4.png", this.addFrameWidthHeight(32, 32))
+        this.load.spritesheet("blueDudeTakeDamage", assetPath + "/blueDude/Dude_Monster_Hurt_4.png", this.addFrameWidthHeight(32, 32))
+        this.load.spritesheet("whiteDudeTakeDamage", assetPath + "/whiteDude/Owlet_Monster_Hurt_4.png", this.addFrameWidthHeight(32, 32))
+
         this.load.spritesheet("pinkDudeDeath_spritesheet", assetPath + "/pinkDude/Pink_Monster_Death_8.png", this.addFrameWidthHeight(32, 32))
+        this.load.spritesheet("blueDudeDeath_spritesheet", assetPath + "/blueDude/Dude_Monster_Death_8.png", this.addFrameWidthHeight(32, 32))
+        this.load.spritesheet("whiteDudeDeath_spritesheet", assetPath + "/whiteDude/Owlet_Monster_Death_8.png", this.addFrameWidthHeight(32, 32))
+
 
         this.load.spritesheet("pinkDudeJump", assetPath + "/pinkDude/Pink_Monster_Jump_8.png", this.addFrameWidthHeight(32, 32))
         this.load.spritesheet("whiteDudeJump", assetPath + "/whiteDude/Owlet_Monster_Jump_8.png", this.addFrameWidthHeight(32, 32))
         this.load.spritesheet("blueDudeJump", assetPath + "/blueDude/Dude_Monster_Jump_8.png", this.addFrameWidthHeight(32, 32))
 
+        this.load.spritesheet("red_potion_spritesheet", assetPath + "/potions/full_red_potion.png", this.addFrameWidthHeight(16, 16))
 
         this.load.image("background_looping", assetPath + "/background_seamless.jpeg")
         this.load.image("terrain_looping", assetPath + "/terrain_seamless.png")
@@ -80,7 +87,9 @@ export class PreloadScene extends Phaser.Scene {
     create() {
 
         // load all the animations a need in the game
+        CommonMethodsClass.createAnimation(this, "red_potion", "red_potion_spritesheet", 0, 7, -1)
         CommonMethodsClass.createAnimation(this, "pinkWalk_infinite", "pinkDude_walk", 0, 5, -1)
+
         CommonMethodsClass.createAnimation(this, "pinkWalk_infinite_reverse", "pinkDude_walk_reverse", 5, 0, -1)
         CommonMethodsClass.createAnimation(this, "pinkWalk", "pinkDude_walk", 0, 5, 2)
         CommonMethodsClass.createAnimation(this, "blueWalk", "blueDude_walk", 0, 5, 2)
