@@ -30,7 +30,7 @@ export class PotionManager {
 
         // ogni due minuti spawna una red potion che cura il tuo party
         this.scene.time.addEvent({
-            delay: 10000, // ogni 5sec chiama callback
+            delay: 40000, // ogni 5sec chiama callback
             callback: () => {
                 this.spawnPotion(physicsTerrain, dudesArmyGroup, lifePointsManager);
             },

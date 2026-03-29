@@ -149,7 +149,12 @@ export class ArmyManager {
     public moveDudes(actionsManager: ActionsManager) {
 
         this.dudesArmyGameplay_group.children.iterate((dude) => {
+
+
             const currentDude = dude as PinkDude | WhiteDude | BlueDude;
+
+            if (this.isDudeDeathOrIsDying(currentDude)) return false;
+
             let type = currentDude.getType();
             currentDude.play(`${type}Walk`)
             currentDude.once("animationcomplete", () => {
@@ -216,6 +221,8 @@ export class ArmyManager {
             const currentDude = dude as PinkDude | WhiteDude | BlueDude;
 
             let type = currentDude.getType();
+
+            if (this.isDudeDeathOrIsDying(currentDude)) return;
 
             if (type === dudeponTypes.blue) {
 
@@ -292,6 +299,7 @@ export class ArmyManager {
 
                 if (!currDude || !currDude.body || !enemy || !enemy.body) return;
 
+                if (this.isDudeDeathOrIsDying(currentDude)) return;
 
                 let absoluteDistance = Math.abs(currDude.x - enemy.x);
 
@@ -301,12 +309,15 @@ export class ArmyManager {
                 currDude.play(`${type}Walk_infinite`)
                 currDude.setInitialPosition(currDude.x, currDude.y)
 
+                if (this.isDudeDeathOrIsDying(currentDude)) return;
+
                 this.scene.add.tween({
                     targets: currDude,
                     duration: 1000,
                     x: enemy.x,
 
                     onComplete: () => {
+                        if (this.isDudeDeathOrIsDying(currentDude)) return;
                         currDude.setTexture(`${type}Dude_punch_attack`)
                         currDude.play(`${type}_attack_punch`)
                         currDude.once("animationcomplete", () => {
@@ -321,6 +332,7 @@ export class ArmyManager {
                                 x: currDude.getInitialPositionX(),
 
                                 onComplete: () => {
+                                    if (this.isDudeDeathOrIsDying(currentDude)) return;
                                     actionsManager.setIsActionInProgress(false)
                                     currDude.setHaveHitted(false)
                                 }
@@ -334,12 +346,16 @@ export class ArmyManager {
     }
 
     public defendDudes() {
+        // non implementato
     }
 
     public jumpDudes(actionManager: ActionsManager) {
 
         this.dudesArmyGameplay_group.children.iterate(dude => {
             const currentDude = dude as PinkDude | WhiteDude | BlueDude;
+
+            if (this.isDudeDeathOrIsDying(currentDude)) return false;
+
             let type = currentDude.getType();
             currentDude.setTexture(`${type}DudeJump`)
 
@@ -374,6 +390,9 @@ export class ArmyManager {
     public idleDudes(actionsManager: ActionsManager) {
         this.dudesArmyGameplay_group.children.iterate((dude) => {
             const currentDude = dude as PinkDude | WhiteDude | BlueDude;
+
+            if (this.isDudeDeathOrIsDying(currentDude)) return false;
+
             let type = currentDude.getType();
 
             currentDude.setTexture(`${type}Dude_idle_spritesheet`)
@@ -414,5 +433,9 @@ export class ArmyManager {
         }
 
         throw new Error(`Tipo di key-animazione non riconosciuto: "${type}"`);
+    }
+
+    private isDudeDeathOrIsDying(currentDude: PinkDude | WhiteDude | BlueDude): boolean {
+        return !currentDude || currentDude.getIsDeath()
     }
 }
