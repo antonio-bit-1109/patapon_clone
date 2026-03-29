@@ -9,7 +9,6 @@ export class MainTitle extends Phaser.Scene {
 
 
     private text: Phaser.GameObjects.Text;
-    private text2: Phaser.GameObjects.Text;
     private logo: Phaser.GameObjects.Image;
 
 
@@ -174,21 +173,6 @@ export class MainTitle extends Phaser.Scene {
                 CommonMethodsClass.addTweens(500, this.text, 5, "Power2", this)
             })
 
-        this.text2 = this.add.text(CommonMethodsClass.adjustWidth(2, this), CommonMethodsClass.adjustHeight(1.5, this), "Continue",
-            this.style
-        )
-            .setScale(5)
-            .setOrigin(0.5, 0.5)
-            .setInteractive({cursor: "pointer"})
-            .once("pointerdown", () => {
-                console.log("stai avviando il continua.")
-            })
-            .on("pointerover", () => {
-                CommonMethodsClass.addTweens(500, this.text2, 6, "Power2", this)
-            })
-            .on("pointerout", () => {
-                CommonMethodsClass.addTweens(500, this.text2, 5, "Power2", this)
-            })
     }
 
     public startAndStopScene(sceneToStop: string, sceneToStart: string) {
