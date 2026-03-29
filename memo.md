@@ -34,7 +34,8 @@ e tramite quelli ricostruisci gli sprite nella scena gameplay
 - [x] scrivi collisioni tra shuriken nemico e dude player
 - [x] implementa salto dei dudeplayer
 
--[] capisci perche ogni tanto fai delle animazioni ma il player è morto e crasha
+-[] capisci perche ogni tanto fai delle animazioni ma il player è morto e crasha (tipo è morto e subito dopo acchiappa
+un altra animaizone da fare crasha )
 - [x]capisci perche se white dude prende la pozione perde un po di vita
 
 - []aggiungi suono di refill hp

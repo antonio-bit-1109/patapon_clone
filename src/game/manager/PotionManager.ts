@@ -5,6 +5,7 @@ import {BlueDude} from "../entities/players/child/BlueDude.ts";
 import {WhiteDude} from "../entities/players/child/WhiteDude.ts";
 import {PinkDude} from "../entities/players/child/PinkDude.ts";
 import {LifePointsManager} from "./LifePointsManager.ts";
+import {SoundsManager} from "./SoundsManager.ts";
 
 export class PotionManager {
 
@@ -94,6 +95,7 @@ export class PotionManager {
 
                 this.potion?.destroy()
                 this.potion = null;
+                SoundsManager.playSound("drink_potion_sound")
             }, // Funzione da chiamare al contatto
             undefined,
             this
