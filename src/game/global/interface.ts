@@ -10,7 +10,8 @@ export interface ISceneName {
     choosemaincharacter: string;
     preloadscene: string
     gameplay: string;
-    startthegame: string
+    startthegame: string;
+    gameover: string
 }
 
 export interface IActions {

@@ -125,5 +125,8 @@ export class Gameplay extends Phaser.Scene {
             this.inputKeyboardManager.resetInputsContainer()
         }
 
+        // se il gruppo dei dudes principali è vuoto, ti sono morti tutti i dudepon, game over
+        this.dudesArmyManager.doYouStillHaveDudesToFight()
+
     }
 }

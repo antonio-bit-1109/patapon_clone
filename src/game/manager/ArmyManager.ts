@@ -4,7 +4,7 @@ import {WhiteDude} from "../entities/players/child/WhiteDude.ts";
 import {BlueDude} from "../entities/players/child/BlueDude.ts";
 import {ActionsManager} from "./ActionsManager.ts";
 import {WeaponManager} from "./WeaponManager.ts";
-import {dudeponTypes, weaponTypes} from "../global/global_constant.ts";
+import {dudeponTypes, sceneName, weaponTypes} from "../global/global_constant.ts";
 import {EnvironmentManager} from "./EnvironmentManager.ts";
 import {BaseEnemy} from "../entities/players/root/BaseEnemy.ts";
 import {Rock} from "../entities/weapons/Rock.ts";
@@ -16,6 +16,7 @@ import {InteractionManager} from "./InteractionManager.ts";
 import {InputKeyboardManager} from "./InputKeyboardManager.ts";
 import {Shuriken} from "../entities/weapons/Shuriken.ts";
 import {CommonMethodsClass} from "../scenes/CommonMethodsClass.ts";
+import {SoundsManager} from "./SoundsManager.ts";
 
 
 export class ArmyManager {
@@ -23,7 +24,7 @@ export class ArmyManager {
     private dudesArmyGameplay_group: Group;
     private dudesArmyEnemy_group: Group;
     private dudeDataPreviousScene: string[];
-    private readonly scene: Scene;
+    private readonly scene: Phaser.Scene;
 
 
     constructor(scene: Scene) {
@@ -39,6 +40,14 @@ export class ArmyManager {
         return this.dudesArmyEnemy_group;
     }
 
+    // hai ancora dudes per giocare ?
+    public doYouStillHaveDudesToFight() {
+        if (this.getDudesArmy().getLength() === 0) {
+            SoundsManager.stopSound("march_gameplay_1");
+            this.scene.scene.stop(sceneName.gameplay);
+            this.scene.scene.start(sceneName.gameover)
+        }
+    }
 
     public generatePlayerArmy(dudeDataPreviousScene: string[]) {
         this.dudeDataPreviousScene = dudeDataPreviousScene;

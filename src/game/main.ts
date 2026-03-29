@@ -4,6 +4,7 @@ import {ChooseMainCharacter} from "./scenes/ChooseMainCharacter.ts";
 import {PreloadScene} from "./scenes/PreloadScene.ts";
 import {Gameplay} from "./scenes/Gameplay.ts";
 import {StartTheGame} from "./scenes/StartTheGame.ts";
+import {GameOver} from "./scenes/GameOver.ts";
 
 const config: Phaser.Types.Core.GameConfig = {
     type: AUTO,
@@ -25,7 +26,8 @@ const config: Phaser.Types.Core.GameConfig = {
         StartTheGame,
         MainTitle,
         ChooseMainCharacter,
-        Gameplay
+        Gameplay,
+        GameOver
     ],
 };
 

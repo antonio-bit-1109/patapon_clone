@@ -12,7 +12,8 @@ export const sceneName: ISceneName = {
     choosemaincharacter: "choosemaincharacter",
     preloadscene: "preloadscene",
     gameplay: "gameplay",
-    startthegame: "startthegame"
+    startthegame: "startthegame",
+    gameover: "gameover"
 }
 
 export const actions: IActions = {
