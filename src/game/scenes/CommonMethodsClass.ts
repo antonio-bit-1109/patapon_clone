@@ -90,6 +90,21 @@ export class CommonMethodsClass {
         }
     }
 
+
+    public static addTextInteractive(scene: Phaser.Scene, x: number, y: number, text: string, style: any, origin: OriginObj, event: string, cursorType: string, f: Function, rotation?: number,) {
+        const text_ref = scene.add.text(x, y, text, style)
+            .setOrigin(origin.x, origin.y)
+
+        if (rotation) {
+            text_ref.setRotation(Phaser.Math.DegToRad(rotation))
+        }
+
+        text_ref.setInteractive({cursor: cursorType})
+            .on(event, () => {
+                f()
+            })
+    }
+
     public static addImage(scene: Scene, x: number, y: number, texture: string, scale?: number) {
         const image = scene.add.image(x, y, texture)
 

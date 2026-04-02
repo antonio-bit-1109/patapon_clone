@@ -24,7 +24,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
     }
 
     init() {
-
+        this.arrayDudes = [];
     }
 
     preload() {

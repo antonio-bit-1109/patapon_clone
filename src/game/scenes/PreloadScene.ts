@@ -61,6 +61,7 @@ export class PreloadScene extends Phaser.Scene {
         this.load.spritesheet("red_potion_spritesheet", assetPath + "/potions/full_red_potion.png", this.addFrameWidthHeight(16, 16))
 
         this.load.image("background_looping", assetPath + "/background_seamless.jpeg")
+        this.load.image("gameOver", assetPath + "/general/gameover.png")
         this.load.image("terrain_looping", assetPath + "/terrain_seamless.png")
         this.load.image("stamp_w", assetPathStamp + "/timbro_w.png")
         this.load.image("stamp_a", assetPathStamp + "/timbro_a.png")
@@ -83,6 +84,7 @@ export class PreloadScene extends Phaser.Scene {
         this.load.audio("D_sound", assetPathSound + "/letters/D_letter.mp3")
         this.load.audio("drink_potion_sound", assetPathSound + "/potion/drinking_potion.wav")
         this.load.audio("boss_sound", assetPathSound + "/boss/boss_fight_sound.mp3")
+        this.load.audio("game_over", assetPathSound + "/ends/gameover_sound.wav")
     }
 
     create() {
@@ -125,9 +127,9 @@ export class PreloadScene extends Phaser.Scene {
         SoundsManager.addAudio("D_sound", {volume: 2, loop: false}, this)
         SoundsManager.addAudio("drink_potion_sound", {volume: 2, loop: false}, this)
         SoundsManager.addAudio("boss_sound", {volume: 2, loop: true}, this)
-        
+        SoundsManager.addAudio("game_over", {volume: 2, loop: false}, this)
         this.scene.start(sceneName.startthegame)
-
+        //this.scene.start(sceneName.gameover)
 
     }
 }
