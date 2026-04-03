@@ -40,6 +40,47 @@ export class ArmyManager {
         return this.dudesArmyEnemy_group;
     }
 
+    // se dopo un certo lasso di tempo i dudes nemici si trovano fuori canvas per bug tecnici
+    // ( ci finiscono se vengono sconfitti e invece di fare animazione di morte si spostano all infinito)
+    // vengono eliminati
+    public checkIfEnemiesDudesAreOutOfCanvas() {
+
+        this.scene.time.addEvent({
+            delay: 40000,
+            loop: true,
+            callback: () => {
+
+                if (this.getDudesEnemyArmy().getLength() === 0) {
+                    console.info("Nessun nemico presente.")
+
+                    if (SoundsManager.isSoundAlreadyPlaying("march_gameplay_1")) {
+                        SoundsManager.StopASoundAndPlayOtherOne("march_gameplay_1", "boss_sound", this.scene)
+                    }
+
+
+                }
+
+                this.getDudesEnemyArmy().getChildren().forEach(dude => {
+
+                    const currDude = dude as PinkDude;
+                    const canvasWidth = this.scene.scene.systems.game.config.width as number;
+
+                    if (!currDude || !currDude.body) return;
+
+                    if (!currDude.body.x) return;
+
+                    if (currDude.body.x < 0 || currDude.body.x > canvasWidth) {
+                        currDude.destroy(true);
+                        console.info("dude nemico fuoriuscito dalla canvas è stato eliminato.")
+                    }
+
+                })
+
+            }
+        })
+
+    }
+
     // hai ancora dudes per giocare ?
     public doYouStillHaveDudesToFight() {
         if (this.getDudesArmy().getLength() === 0) {

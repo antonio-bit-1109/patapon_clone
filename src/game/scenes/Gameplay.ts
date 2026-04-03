@@ -73,6 +73,8 @@ export class Gameplay extends Phaser.Scene {
             this.dudesArmyManager.getDudesArmy(), this.lifePointsManager
         )
 
+        this.dudesArmyManager.checkIfEnemiesDudesAreOutOfCanvas();
+
     }
 
 

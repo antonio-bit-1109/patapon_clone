@@ -6,7 +6,7 @@ export class SoundsManager {
 
     private static mapSounds: Map<string, any> = new Map<string, any>()
 
-    constructor() {
+    private constructor() {
     }
 
 
@@ -18,6 +18,15 @@ export class SoundsManager {
     public static resetDefault() {
         SoundsManager.mapSounds = new Map()
     }
+
+    public static StopASoundAndPlayOtherOne(soundToStop: string, soundToPLay: string, scene: Scene) {
+
+        SoundsManager.stopSound(soundToStop)
+        scene.time.delayedCall(300, () => {
+            SoundsManager.playSound(soundToPLay)
+        })
+    }
+
 
     public static addAudio(key: string, config: IConfigSound, scene: Scene) {
         const sound = scene.sound.add(key, config)

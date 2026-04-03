@@ -113,7 +113,7 @@ export class ChooseMainCharacter extends Phaser.Scene {
             .text(
                 CommonMethodsClass.adjustWidth(2, this),
                 CommonMethodsClass.adjustHeight(1.3, this),
-                "click on the dude down here to remove it from the army.", {
+                "click on the dudes down here to remove it from the army.", {
                     color: '#e70d0d',
                     stroke: '#e70d0d',
                     fontSize: '18px',
