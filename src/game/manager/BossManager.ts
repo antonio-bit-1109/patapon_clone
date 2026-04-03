@@ -92,52 +92,7 @@ export class BossManager {
         });
     }
 
-
-    // // aggiungi animazione di idle e movimento post spawn e durante gli spostamenti
-    // public moveBossAvanti(lifePointsManager: LifePointsManager) {
-    //
-    //     if (this.isBossNull()) return;
-    //
-    //     this.scene.tweens.add({
-    //         targets: this.bossSprite,
-    //         x: "-=100",
-    //         duration: 1000,
-    //         onStart: () => {
-    //             this.bossSprite.play("boss_walk")
-    //         },
-    //         onUpdate: () => {
-    //             lifePointsManager.updatePositionBarBoss(this.bossSprite)
-    //         },
-    //         onComplete: () => {
-    //             this.bossSprite.playIdle()
-    //         }
-    //     })
-    //
-    //
-    // }
-    //
-    //
-    // public moveBossIndietro(lifePointsManager: LifePointsManager) {
-    //
-    //     if (this.isBossNull()) return;
-    //
-    //     this.scene.tweens.add({
-    //         targets: this.bossSprite,
-    //         x: "+=100",
-    //         duration: 1000,
-    //         onStart: () => {
-    //             this.bossSprite.play("boss_walk_backward")
-    //         },
-    //         onUpdate: () => {
-    //             lifePointsManager.updatePositionBarBoss(this.bossSprite)
-    //         },
-    //         onComplete: () => {
-    //             this.bossSprite.playIdle()
-    //         }
-    //     })
-    // }
-
-
+    
     public isBossNull() {
         return this.bossSprite === null;
     }
