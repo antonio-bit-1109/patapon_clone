@@ -52,17 +52,18 @@ export class Gameplay extends Phaser.Scene {
 
     create() {
 
-        SoundsManager.playSound("march_gameplay_1");
+        //SoundsManager.playSound("march_gameplay_1");
 
         this.environmentManager.create();
 
         this.bossManager.spawnBoss(this.environmentManager.getEnemyStoppingZone())
-
+        this.lifePointsManager.createLifeBarsBoss(this.bossManager.getBossSprite())
+        this.bossManager.bossActions(this.lifePointsManager)
         // this.legendaManager.showCommands() // mostra comandi di gioco
         // this.dudesArmyManager.generatePlayerArmy(this.oldDudesTypes) // creation playerdudes
         // this.dudesArmyManager.generateEnemyArmy(4)
-        // this.lifePointsManager.createLifeBars(this.dudesArmyManager.getDudesArmy())
-        // this.lifePointsManager.createLifeBars(this.dudesArmyManager.getDudesEnemyArmy())
+        // this.lifePointsManager.createLifeBarsDudesGroup(this.dudesArmyManager.getDudesArmy())
+        // this.lifePointsManager.createLifeBarsDudesGroup(this.dudesArmyManager.getDudesEnemyArmy())
         // this.inputKeyboardManager.create()
         // this.interactionManager.checkOverlapWithEnemyStoppingZone(
         //     this.dudesArmyManager,
@@ -85,7 +86,7 @@ export class Gameplay extends Phaser.Scene {
 
 
     update(_time: number, _delta: number) {
-        //
+
         // this.lifePointsManager.updatePositionBar(this.dudesArmyManager.getDudesArmy())
         // this.lifePointsManager.updatePositionBar(this.dudesArmyManager.getDudesEnemyArmy())
         // this.inputKeyboardManager.showStatusInputContainer()

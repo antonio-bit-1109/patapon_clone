@@ -1,4 +1,5 @@
 import {BaseCharacter} from "../root/BaseCharacter.ts";
+import {SoundsManager} from "../../../manager/SoundsManager.ts";
 
 export class Boss extends BaseCharacter {
 
@@ -14,6 +15,7 @@ export class Boss extends BaseCharacter {
         this.adjustBossSizeAndPosition();
         this.setupAnimationHandler()
         this.play("boss_spawn")
+        SoundsManager.playSound("boss_growl_audio")
     }
 
     private adjustBossSizeAndPosition() {

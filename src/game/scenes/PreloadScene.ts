@@ -63,6 +63,7 @@ export class PreloadScene extends Phaser.Scene {
 
         this.load.spritesheet("boss_appear_spritesheet", assetPathBoss + "/appear.png", this.addFrameWidthHeight(384, 512))
         this.load.spritesheet("boss_idle_spritesheet", assetPathBoss + "/idle.png", this.addFrameWidthHeight(384, 512))
+        this.load.spritesheet("boss_walk_spritesheet", assetPathBoss + "/Walk.png", this.addFrameWidthHeight(384, 512))
 
 
         this.load.image("background_looping", assetPath + "/background_seamless.jpeg")
@@ -90,6 +91,7 @@ export class PreloadScene extends Phaser.Scene {
         this.load.audio("drink_potion_sound", assetPathSound + "/potion/drinking_potion.wav")
         this.load.audio("boss_sound", assetPathSound + "/boss/boss_fight_sound.mp3")
         this.load.audio("game_over", assetPathSound + "/ends/gameover_sound.wav")
+        this.load.audio("boss_growl_audio", assetPathSound + "/boss/boss_growl.mp3")
     }
 
     create() {
@@ -97,6 +99,8 @@ export class PreloadScene extends Phaser.Scene {
         // load all the animations a need in the game
         CommonMethodsClass.createAnimation(this, "boss_spawn", "boss_appear_spritesheet", 0, 23, 0)
         CommonMethodsClass.createAnimation(this, "boss_idle", "boss_idle_spritesheet", 0, 29, -1)
+        CommonMethodsClass.createAnimation(this, "boss_walk", "boss_walk_spritesheet", 0, 29, 0)
+        CommonMethodsClass.createAnimation(this, "boss_walk_backward", "boss_walk_spritesheet", 29, 0, 0)
 
 
         CommonMethodsClass.createAnimation(this, "red_potion", "red_potion_spritesheet", 0, 7, -1)
@@ -129,6 +133,7 @@ export class PreloadScene extends Phaser.Scene {
         SoundsManager.addAudio("intro_sound", {volume: 1, loop: true}, this)
         SoundsManager.addAudio("choosing_player", {volume: 1, loop: true}, this)
         SoundsManager.addAudio("march_gameplay_1", {volume: 1, loop: true}, this)
+        SoundsManager.addAudio("boss_growl_audio", {volume: 2, loop: false}, this)
 
         SoundsManager.addAudio("W_sound", {volume: 2, loop: false}, this)
         SoundsManager.addAudio("A_sound", {volume: 2, loop: false}, this)

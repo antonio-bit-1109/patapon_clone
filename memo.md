@@ -42,8 +42,11 @@ e tramite quelli ricostruisci gli sprite nella scena gameplay
 
 - []gestisci quando enemydude escono fuori dalla canvas e fai destroy in quei casi sia cehe escano verso sinistra che
   verso destra (usa un add event magari)
-- se chiami un attacco con i dudes bianchi quando un nemico non è presnete nella trigger zone, i comandi vengono
+  -[] se chiami un attacco con i dudes bianchi quando un nemico non è presnete nella trigger zone, i comandi vengono
   bloccati (test: ad inizio gioco attacco subito con 5 dudes bianchi)
-- aggiungi shield protettivo
-- aggiungi boss finale
-- una volta finita la wave dei dude nemici rimuovi il rettangolo di collisione
+  -[] aggiungi shield protettivo
+  -[] aggiungi boss finale
+  -[] una volta finita la wave dei dude nemici rimuovi il rettangolo di collisione
+  -[] dopo che i dudes alleati ricevono una pozione la loro vita sembra minore quando prendono danno. tankano meno
+  danni (
+  healing buggato)

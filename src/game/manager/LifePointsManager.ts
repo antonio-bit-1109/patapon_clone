@@ -8,6 +8,8 @@ import {Rock} from "../entities/weapons/Rock.ts";
 import {BasePlayer} from "../entities/players/root/BasePlayer.ts";
 import {EnemyDude} from "../entities/players/child/EnemyDude.ts";
 import {Shuriken} from "../entities/weapons/Shuriken.ts";
+import {Boss} from "../entities/players/child/Boss.ts";
+import Graphics = Phaser.GameObjects.Graphics;
 
 
 export class LifePointsManager {
@@ -19,43 +21,57 @@ export class LifePointsManager {
         this.scene = scene;
     }
 
-    public createLifeBars(groupDude: Phaser.GameObjects.Group) {
+    public createLifeBarsDudesGroup(groupDude: Phaser.GameObjects.Group) {
         this.buildLowerBar(groupDude)
         this.buildUpperBar(groupDude)
+    }
+
+    public createLifeBarsBoss(boss: Boss) {
+        this.buildLowerBarBoss(boss)
+        this.buildUpperBarBoss(boss)
+    }
+
+
+    public buildLowerBarBoss(boss: Boss) {
+        const lowerBar = this.graphicLowerBar(boss, 10, 80);
+        lowerBar.fillRect(0, 0, 100, 5);
+        boss.setHpLowerBar(lowerBar);
+    }
+
+    public buildUpperBarBoss(boss: Boss) {
+        const upperBar = this.graphicUpperBar(boss, 10, 80);
+        upperBar.fillRect(0, 0, 100, 5);
+        boss.setHpUpperBar(upperBar);
     }
 
     public buildLowerBar(groupDude: Phaser.GameObjects.Group) {
         groupDude.children.iterate(dude => {
 
             let currentDude = dude as PinkDude | WhiteDude | BlueDude | BaseEnemy;
-
-            const lowerBar = this.scene.add.graphics({
-                fillStyle: {color: 0xff0000, alpha: 1},
-                lineStyle: {width: 2, color: 0xff0000, alpha: 1},
-                x: currentDude.x - 10,
-                y: currentDude.y - 50
-            })
+            const lowerBar = this.graphicLowerBar(currentDude, 10, 50);
             lowerBar.fillRect(0, 0, 30, 5);
             currentDude.setHpLowerBar(lowerBar);
             return true;
         })
     }
 
+
     public buildUpperBar(groupDude: Phaser.GameObjects.Group) {
         groupDude.children.iterate(dude => {
 
             let currentDude = dude as PinkDude | WhiteDude | BlueDude | BaseEnemy;
 
-            const upperBar = this.scene.add.graphics({
-                fillStyle: {color: 0x008000, alpha: 1},
-                lineStyle: {width: 2, color: 0x82f72f, alpha: 1},
-                x: currentDude.x - 10,
-                y: currentDude.y - 50
-            })
+            const upperBar = this.graphicUpperBar(currentDude, 10, 50);
             upperBar.fillRect(0, 0, 30, 5);
             currentDude.setHpUpperBar(upperBar);
             return true;
         })
+    }
+
+    public updatePositionBarBoss(boss: Boss) {
+
+        boss.getHpLowerBar()?.setPosition(boss.x - 10, boss.y - 80)
+        boss.getHpUpperBar()?.setPosition(boss.x - 10, boss.y - 80)
     }
 
     public updatePositionBar(groupDude: Phaser.GameObjects.Group) {
@@ -74,12 +90,7 @@ export class LifePointsManager {
     public updateUpperbarHp(dude: PinkDude | WhiteDude | BlueDude) {
         const upperBar = dude.getHpUpperBar();
         upperBar?.clear()
-        const newBar = this.scene.add.graphics({
-            fillStyle: {color: 0x008000, alpha: 1},
-            lineStyle: {width: 2, color: 0x82f72f, alpha: 1},
-            x: dude.x - 10,
-            y: dude.y - 50
-        })
+        const newBar = this.graphicUpperBar(dude, 10, 50)
         newBar.fillRect(0, 0, 30, 5);
         dude.setHpUpperBar(newBar);
     }
@@ -163,5 +174,24 @@ export class LifePointsManager {
                     currDude.destroy(true)
                 })
         }
+    }
+
+
+    private graphicLowerBar(currentDude: PinkDude | WhiteDude | BlueDude | BaseEnemy | Boss, deltaX: number, deltaY: number): Graphics {
+        return this.scene.add.graphics({
+            fillStyle: {color: 0xff0000, alpha: 1},
+            lineStyle: {width: 2, color: 0xff0000, alpha: 1},
+            x: currentDude.x - deltaX,
+            y: currentDude.y - deltaY
+        });
+    }
+
+    private graphicUpperBar(currentDude: PinkDude | WhiteDude | BlueDude | BaseEnemy | Boss, deltaX: number, deltaY: number): Graphics {
+        return this.scene.add.graphics({
+            fillStyle: {color: 0x008000, alpha: 1},
+            lineStyle: {width: 2, color: 0x82f72f, alpha: 1},
+            x: currentDude.x - deltaX,
+            y: currentDude.y - deltaY
+        })
     }
 }
