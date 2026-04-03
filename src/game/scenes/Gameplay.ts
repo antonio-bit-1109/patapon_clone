@@ -10,6 +10,7 @@ import {WeaponManager} from "../manager/WeaponManager.ts";
 import {InteractionManager} from "../manager/InteractionManager.ts";
 import {LegendaManager} from "../manager/LegendaManager.ts";
 import {PotionManager} from "../manager/PotionManager.ts";
+import {BossManager} from "../manager/BossManager.ts";
 
 
 export class Gameplay extends Phaser.Scene {
@@ -24,6 +25,7 @@ export class Gameplay extends Phaser.Scene {
     private readonly interactionManager: InteractionManager;
     private readonly legendaManager: LegendaManager;
     private readonly potionmanager: PotionManager;
+    private readonly bossManager: BossManager;
 
 
     constructor() {
@@ -37,6 +39,7 @@ export class Gameplay extends Phaser.Scene {
         this.interactionManager = new InteractionManager(this);
         this.legendaManager = new LegendaManager(this)
         this.potionmanager = new PotionManager(this);
+        this.bossManager = new BossManager(this);
     }
 
     init(data: IData) {
@@ -52,83 +55,86 @@ export class Gameplay extends Phaser.Scene {
         SoundsManager.playSound("march_gameplay_1");
 
         this.environmentManager.create();
-        this.legendaManager.showCommands() // mostra comandi di gioco
-        this.dudesArmyManager.generatePlayerArmy(this.oldDudesTypes) // creation playerdudes
-        this.dudesArmyManager.generateEnemyArmy(4)
-        this.lifePointsManager.createLifeBars(this.dudesArmyManager.getDudesArmy())
-        this.lifePointsManager.createLifeBars(this.dudesArmyManager.getDudesEnemyArmy())
-        this.inputKeyboardManager.create()
-        this.interactionManager.checkOverlapWithEnemyStoppingZone(
-            this.dudesArmyManager,
-            this.environmentManager.getEnemyStoppingZone(),
-            this.environmentManager,
-            this.weaponManager,
-            this.interactionManager,
-            this.lifePointsManager
-        )
-        this.inputKeyboardManager.createSwitchArrowRange(this.oldDudesTypes);
 
-        this.potionmanager.spawnPotionToGiveHealth(
-            this.environmentManager.getPhisicsTerrain(),
-            this.dudesArmyManager.getDudesArmy(), this.lifePointsManager
-        )
+        this.bossManager.spawnBoss(this.environmentManager.getEnemyStoppingZone())
 
-        this.dudesArmyManager.checkIfEnemiesDudesAreOutOfCanvas();
+        // this.legendaManager.showCommands() // mostra comandi di gioco
+        // this.dudesArmyManager.generatePlayerArmy(this.oldDudesTypes) // creation playerdudes
+        // this.dudesArmyManager.generateEnemyArmy(4)
+        // this.lifePointsManager.createLifeBars(this.dudesArmyManager.getDudesArmy())
+        // this.lifePointsManager.createLifeBars(this.dudesArmyManager.getDudesEnemyArmy())
+        // this.inputKeyboardManager.create()
+        // this.interactionManager.checkOverlapWithEnemyStoppingZone(
+        //     this.dudesArmyManager,
+        //     this.environmentManager.getEnemyStoppingZone(),
+        //     this.environmentManager,
+        //     this.weaponManager,
+        //     this.interactionManager,
+        //     this.lifePointsManager
+        // )
+        // this.inputKeyboardManager.createSwitchArrowRange(this.oldDudesTypes);
+        //
+        // this.potionmanager.spawnPotionToGiveHealth(
+        //     this.environmentManager.getPhisicsTerrain(),
+        //     this.dudesArmyManager.getDudesArmy(), this.lifePointsManager
+        // )
+        //
+        // this.dudesArmyManager.checkIfEnemiesDudesAreOutOfCanvas();
 
     }
 
 
     update(_time: number, _delta: number) {
-
-        this.lifePointsManager.updatePositionBar(this.dudesArmyManager.getDudesArmy())
-        this.lifePointsManager.updatePositionBar(this.dudesArmyManager.getDudesEnemyArmy())
-        this.inputKeyboardManager.showStatusInputContainer()
-        this.inputKeyboardManager.updateStatusInputContainer()
-
-        //  this.lifePointsManager.updateLifeBarPosition(this.dudesArmyManager.getDudesEnemyArmy())
-        this.actionsManager.update(this.inputKeyboardManager.getInputsContainer())
-
-        if (this.actionsManager.getActionToPerform()) {
-
-            let action = this.actionsManager.getActionToPerform()
-
-            switch (action) {
-                case actions.move :
-                    this.dudesArmyManager.moveDudes(this.actionsManager)
-                    this.environmentManager.moveTerrain()
-                    this.environmentManager.moveBackground()
-                    break;
-
-                case actions.attack :
-                    this.dudesArmyManager.attackDudes(
-                        this.dudesArmyManager.getDudesEnemyArmy(),
-                        this.actionsManager,
-                        this.weaponManager,
-                        this.environmentManager,
-                        this.lifePointsManager,
-                        this.interactionManager,
-                        this.inputKeyboardManager
-                    )
-                    break;
-
-                case actions.defend :
-                    this.dudesArmyManager.defendDudes()
-                    break;
-
-                case actions.jump :
-                    this.dudesArmyManager.jumpDudes(this.actionsManager)
-                    break;
-                default:
-                    this.dudesArmyManager.idleDudes(this.actionsManager)
-                    console.log("nessuna azione dudes in idle")
-                    break;
-            }
-            this.actionsManager.resetActionToPerform();
-            this.inputKeyboardManager.resetInputsContainer()
-        }
-
-        // se il gruppo dei dudes principali è vuoto, ti sono morti tutti i dudepon, game over
-        this.dudesArmyManager.doYouStillHaveDudesToFight()
+        //
+        // this.lifePointsManager.updatePositionBar(this.dudesArmyManager.getDudesArmy())
+        // this.lifePointsManager.updatePositionBar(this.dudesArmyManager.getDudesEnemyArmy())
+        // this.inputKeyboardManager.showStatusInputContainer()
+        // this.inputKeyboardManager.updateStatusInputContainer()
+        //
+        // //  this.lifePointsManager.updateLifeBarPosition(this.dudesArmyManager.getDudesEnemyArmy())
+        // this.actionsManager.update(this.inputKeyboardManager.getInputsContainer())
+        //
+        // if (this.actionsManager.getActionToPerform()) {
+        //
+        //     let action = this.actionsManager.getActionToPerform()
+        //
+        //     switch (action) {
+        //         case actions.move :
+        //             this.dudesArmyManager.moveDudes(this.actionsManager)
+        //             this.environmentManager.moveTerrain()
+        //             this.environmentManager.moveBackground()
+        //             break;
+        //
+        //         case actions.attack :
+        //             this.dudesArmyManager.attackDudes(
+        //                 this.dudesArmyManager.getDudesEnemyArmy(),
+        //                 this.actionsManager,
+        //                 this.weaponManager,
+        //                 this.environmentManager,
+        //                 this.lifePointsManager,
+        //                 this.interactionManager,
+        //                 this.inputKeyboardManager
+        //             )
+        //             break;
+        //
+        //         case actions.defend :
+        //             this.dudesArmyManager.defendDudes()
+        //             break;
+        //
+        //         case actions.jump :
+        //             this.dudesArmyManager.jumpDudes(this.actionsManager)
+        //             break;
+        //         default:
+        //             this.dudesArmyManager.idleDudes(this.actionsManager)
+        //             console.log("nessuna azione dudes in idle")
+        //             break;
+        //     }
+        //     this.actionsManager.resetActionToPerform();
+        //     this.inputKeyboardManager.resetInputsContainer()
+        // }
+        //
+        // // se il gruppo dei dudes principali è vuoto, ti sono morti tutti i dudepon, game over
+        // this.dudesArmyManager.doYouStillHaveDudesToFight()
 
     }
 }

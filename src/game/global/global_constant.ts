@@ -49,6 +49,7 @@ export const TriggerZoneState = {
 export type TriggerZoneType = typeof TriggerZoneState[keyof typeof TriggerZoneState];
 
 export const assetPath: string = "assets/dudepon"
+export const assetPathBoss: string = "assets/dudepon/boss"
 export const assetPathSound: string = "assets/sounds"
 export const assetPathStamp: string = "assets/stamps"
 export const assetPathWeapon: string = "assets/dudepon/weapon"

@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import {
-    assetPath,
+    assetPath, assetPathBoss,
     assetPathSound,
     assetPathStamp,
     assetPathSwitch,
@@ -60,6 +60,11 @@ export class PreloadScene extends Phaser.Scene {
 
         this.load.spritesheet("red_potion_spritesheet", assetPath + "/potions/full_red_potion.png", this.addFrameWidthHeight(16, 16))
 
+
+        this.load.spritesheet("boss_appear_spritesheet", assetPathBoss + "/appear.png", this.addFrameWidthHeight(384, 512))
+        this.load.spritesheet("boss_idle_spritesheet", assetPathBoss + "/idle.png", this.addFrameWidthHeight(384, 512))
+
+
         this.load.image("background_looping", assetPath + "/background_seamless.jpeg")
         this.load.image("gameOver", assetPath + "/general/gameover.png")
         this.load.image("terrain_looping", assetPath + "/terrain_seamless.png")
@@ -90,6 +95,10 @@ export class PreloadScene extends Phaser.Scene {
     create() {
 
         // load all the animations a need in the game
+        CommonMethodsClass.createAnimation(this, "boss_spawn", "boss_appear_spritesheet", 0, 23, 0)
+        CommonMethodsClass.createAnimation(this, "boss_idle", "boss_idle_spritesheet", 0, 29, -1)
+
+
         CommonMethodsClass.createAnimation(this, "red_potion", "red_potion_spritesheet", 0, 7, -1)
         CommonMethodsClass.createAnimation(this, "pinkWalk_infinite", "pinkDude_walk", 0, 5, -1)
 

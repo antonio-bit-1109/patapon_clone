@@ -45,4 +45,5 @@ e tramite quelli ricostruisci gli sprite nella scena gameplay
 - se chiami un attacco con i dudes bianchi quando un nemico non è presnete nella trigger zone, i comandi vengono
   bloccati (test: ad inizio gioco attacco subito con 5 dudes bianchi)
 - aggiungi shield protettivo
-- aggiungi boss finale 
+- aggiungi boss finale
+- una volta finita la wave dei dude nemici rimuovi il rettangolo di collisione
