@@ -56,8 +56,7 @@ export class ArmyManager {
                     if (SoundsManager.isSoundAlreadyPlaying("march_gameplay_1")) {
                         SoundsManager.StopASoundAndPlayOtherOne("march_gameplay_1", "boss_sound", this.scene)
                     }
-
-
+                    
                 }
 
                 this.getDudesEnemyArmy().getChildren().forEach(dude => {
