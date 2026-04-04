@@ -14,6 +14,10 @@ export class SoundsManager {
         return SoundsManager.mapSounds.get(key)
     }
 
+    public static playEffect(key: string, scene: Scene, config?: any) {
+        // Questo crea una nuova istanza "usa e getta" che può sovrapporsi alle altre
+        scene.sound.play(key, config);
+    }
 
     public static resetDefault() {
         SoundsManager.mapSounds = new Map()

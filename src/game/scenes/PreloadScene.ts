@@ -64,6 +64,7 @@ export class PreloadScene extends Phaser.Scene {
         this.load.spritesheet("boss_appear_spritesheet", assetPathBoss + "/appear.png", this.addFrameWidthHeight(384, 512))
         this.load.spritesheet("boss_idle_spritesheet", assetPathBoss + "/idle.png", this.addFrameWidthHeight(384, 512))
         this.load.spritesheet("boss_walk_spritesheet", assetPathBoss + "/Walk.png", this.addFrameWidthHeight(384, 512))
+        this.load.spritesheet("boss_atk3_spritesheet", assetPathBoss + "/Attack_03.png", this.addFrameWidthHeight(384, 512))
 
 
         this.load.image("background_looping", assetPath + "/background_seamless.jpeg")
@@ -92,6 +93,7 @@ export class PreloadScene extends Phaser.Scene {
         this.load.audio("boss_sound", assetPathSound + "/boss/boss_fight_sound.mp3")
         this.load.audio("game_over", assetPathSound + "/ends/gameover_sound.wav")
         this.load.audio("boss_growl_audio", assetPathSound + "/boss/boss_growl.mp3")
+        this.load.audio("boss_breath_fire_sound", assetPathSound + "/boss/boss_breath_fire.mp3")
     }
 
     create() {
@@ -101,6 +103,7 @@ export class PreloadScene extends Phaser.Scene {
         CommonMethodsClass.createAnimation(this, "boss_idle", "boss_idle_spritesheet", 0, 29, -1)
         CommonMethodsClass.createAnimation(this, "boss_walk", "boss_walk_spritesheet", 0, 29, 0)
         CommonMethodsClass.createAnimation(this, "boss_walk_backward", "boss_walk_spritesheet", 29, 0, 0)
+        CommonMethodsClass.createAnimation(this, "boss_atk3", "boss_atk3_spritesheet", 0, 29, 0)
 
 
         CommonMethodsClass.createAnimation(this, "red_potion", "red_potion_spritesheet", 0, 7, -1)
@@ -142,6 +145,7 @@ export class PreloadScene extends Phaser.Scene {
         SoundsManager.addAudio("drink_potion_sound", {volume: 2, loop: false}, this)
         SoundsManager.addAudio("boss_sound", {volume: 2, loop: true}, this)
         SoundsManager.addAudio("game_over", {volume: 2, loop: false}, this)
+        SoundsManager.addAudio("boss_breath_fire_sound", {volume: 2, loop: false}, this)
         this.scene.start(sceneName.startthegame)
         //this.scene.start(sceneName.gameover)
 

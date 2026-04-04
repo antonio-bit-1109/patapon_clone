@@ -2,6 +2,7 @@ import {Scene} from "phaser";
 import {Boss} from "../entities/players/child/Boss.ts";
 import Zone = Phaser.GameObjects.Zone;
 import {LifePointsManager} from "./LifePointsManager.ts";
+import {SoundsManager} from "./SoundsManager.ts";
 
 export class BossManager {
 
@@ -36,26 +37,50 @@ export class BossManager {
 
     public bossActions(lifePointsManager: LifePointsManager) {
 
-        this.scene.time.delayedCall(2000, () => {
+        if (this.isBossNull()) return;
 
+        this.scene.time.addEvent({
+            loop: true,
+            delay: 6000,
+            callback: () => {
+                let n = Math.floor(Math.random() * 2);
 
-            let n = Math.floor(Math.random() * 2);
-
-            this.moveBossAvantiEIndietro(lifePointsManager)
-            // se valore minore 0.5 movimento
-            if (n) {
-            } else {
-                // altrimenti attacco
+                // se valore minore 0.5 movimento
+                if (n < 0.5) {
+                    this.moveBossAvantiEIndietro(lifePointsManager)
+                } else {
+                    // altrimenti attacco
+                    this.bossAtk_03(lifePointsManager)
+                }
             }
-
-
         })
 
+    }
+
+    public bossAtk_03(lifePointsManager: LifePointsManager) {
+
+        if (this.isBossNull()) return;
+
+        this.scene.tweens.add({
+            targets: this.bossSprite,
+            duration: 2000,
+            alpha: 1,
+            onStart: () => {
+                this.bossSprite.play("boss_atk3")
+                SoundsManager.playEffect("boss_breath_fire_sound", this.scene);
+            },
+            onUpdate: () => lifePointsManager.updatePositionBarBoss(this.bossSprite)
+            ,
+            onComplete: () => {
+                this.bossSprite.playIdle()
+                SoundsManager.stopSound("boss_breath_fire_sound")
+            }
+        })
 
     }
 
     public moveBossAvantiEIndietro(lifePointsManager: LifePointsManager) {
-        if (!this.bossSprite) return;
+        if (this.isBossNull()) return;
 
         this.scene.tweens.chain({
             targets: this.bossSprite,
@@ -92,7 +117,7 @@ export class BossManager {
         });
     }
 
-    
+
     public isBossNull() {
         return this.bossSprite === null;
     }

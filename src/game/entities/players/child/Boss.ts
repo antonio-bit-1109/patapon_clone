@@ -19,9 +19,9 @@ export class Boss extends BaseCharacter {
     }
 
     private adjustBossSizeAndPosition() {
-        this.setSize(300, 300)
+        this.setSize(280, 300)
         this.setFlipX(true)
-        this.setOffset(140, 90)
+        this.setOffset(130, 90)
 
     }
 
