@@ -65,6 +65,7 @@ export class PreloadScene extends Phaser.Scene {
         this.load.spritesheet("boss_idle_spritesheet", assetPathBoss + "/idle.png", this.addFrameWidthHeight(384, 512))
         this.load.spritesheet("boss_walk_spritesheet", assetPathBoss + "/Walk.png", this.addFrameWidthHeight(384, 512))
         this.load.spritesheet("boss_atk3_spritesheet", assetPathBoss + "/Attack_03.png", this.addFrameWidthHeight(384, 512))
+        this.load.spritesheet("flamethrower_spritesheet", assetPathBoss + "/flamethrower.png", this.addFrameWidthHeight(92.75, 134.4))
 
 
         this.load.image("background_looping", assetPath + "/background_seamless.jpeg")
@@ -104,6 +105,7 @@ export class PreloadScene extends Phaser.Scene {
         CommonMethodsClass.createAnimation(this, "boss_walk", "boss_walk_spritesheet", 0, 29, 0)
         CommonMethodsClass.createAnimation(this, "boss_walk_backward", "boss_walk_spritesheet", 29, 0, 0)
         CommonMethodsClass.createAnimation(this, "boss_atk3", "boss_atk3_spritesheet", 0, 29, 0)
+        CommonMethodsClass.createAnimation(this, "flamethrower", "flamethrower_spritesheet", 0, 19, 0)
 
 
         CommonMethodsClass.createAnimation(this, "red_potion", "red_potion_spritesheet", 0, 7, -1)
