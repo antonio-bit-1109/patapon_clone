@@ -16,6 +16,7 @@ import {FireManager} from "../manager/FireManager.ts";
 
 export class Gameplay extends Phaser.Scene {
 
+    private bossTime = false;
     private oldDudesTypes: string[] = []
     private readonly environmentManager: EnvironmentManager;
     private readonly dudesArmyManager: ArmyManager;
@@ -53,15 +54,17 @@ export class Gameplay extends Phaser.Scene {
 
     create() {
 
-        //SoundsManager.playSound("march_gameplay_1");
-
+        //
+        // SoundsManager.playSound("march_gameplay_1");
+        //
         this.environmentManager.create();
 
         this.bossManager.spawnBoss(this.environmentManager.getEnemyStoppingZone())
         this.lifePointsManager.createLifeBarsBoss(this.bossManager.getBossSprite())
         this.bossManager.bossActions(this.lifePointsManager)
 
-
+        
+        //
         // this.legendaManager.showCommands() // mostra comandi di gioco
         // this.dudesArmyManager.generatePlayerArmy(this.oldDudesTypes) // creation playerdudes
         // this.dudesArmyManager.generateEnemyArmy(4)
@@ -84,7 +87,23 @@ export class Gameplay extends Phaser.Scene {
         // )
         //
         // this.dudesArmyManager.checkIfEnemiesDudesAreOutOfCanvas();
-
+        //
+        // // switch to second game phase, the boss fight!
+        // this.time.addEvent({
+        //     delay: 40000,
+        //     loop: true,
+        //     callback: () => {
+        //
+        //         if (this.dudesArmyManager.getDudesEnemyArmy().getLength() === 0 && !this.bossTime) {
+        //
+        //             this.bossTime = true;
+        //             this.bossManager.spawnBoss(this.environmentManager.getEnemyStoppingZone())
+        //             this.lifePointsManager.createLifeBarsBoss(this.bossManager.getBossSprite())
+        //             this.bossManager.bossActions(this.lifePointsManager)
+        //         }
+        //
+        //     }
+        // })
     }
 
 

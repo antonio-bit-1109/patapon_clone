@@ -95,6 +95,7 @@ export class PreloadScene extends Phaser.Scene {
         this.load.audio("game_over", assetPathSound + "/ends/gameover_sound.wav")
         this.load.audio("boss_growl_audio", assetPathSound + "/boss/boss_growl.mp3")
         this.load.audio("boss_breath_fire_sound", assetPathSound + "/boss/boss_breath_fire.mp3")
+        this.load.audio("bossFireAtk", assetPathSound + "/boss/incoming_fire_attack_boss.mp3")
     }
 
     create() {
@@ -139,15 +140,16 @@ export class PreloadScene extends Phaser.Scene {
         SoundsManager.addAudio("choosing_player", {volume: 1, loop: true}, this)
         SoundsManager.addAudio("march_gameplay_1", {volume: 1, loop: true}, this)
         SoundsManager.addAudio("boss_growl_audio", {volume: 2, loop: false}, this)
+        SoundsManager.addAudio("bossFireAtk", {volume: 2, loop: false}, this)
 
-        SoundsManager.addAudio("W_sound", {volume: 2, loop: false}, this)
-        SoundsManager.addAudio("A_sound", {volume: 2, loop: false}, this)
-        SoundsManager.addAudio("S_sound", {volume: 2, loop: false}, this)
-        SoundsManager.addAudio("D_sound", {volume: 2, loop: false}, this)
+        SoundsManager.addAudio("W_sound", {volume: 1, loop: false}, this)
+        SoundsManager.addAudio("A_sound", {volume: 1, loop: false}, this)
+        SoundsManager.addAudio("S_sound", {volume: 1, loop: false}, this)
+        SoundsManager.addAudio("D_sound", {volume: 1, loop: false}, this)
         SoundsManager.addAudio("drink_potion_sound", {volume: 2, loop: false}, this)
-        SoundsManager.addAudio("boss_sound", {volume: 2, loop: true}, this)
+        SoundsManager.addAudio("boss_sound", {volume: 1, loop: true}, this)
         SoundsManager.addAudio("game_over", {volume: 2, loop: false}, this)
-        SoundsManager.addAudio("boss_breath_fire_sound", {volume: 2, loop: false}, this)
+        SoundsManager.addAudio("boss_breath_fire_sound", {volume: 5, loop: false}, this)
         this.scene.start(sceneName.startthegame)
         //this.scene.start(sceneName.gameover)
 

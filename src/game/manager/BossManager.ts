@@ -29,11 +29,10 @@ export class BossManager {
 
         this.bossSprite = new Boss(
             this.scene,
-            800,
+            600,
             550,
             "boss_appear_spritesheet"
         )
-
 
     }
 
@@ -47,15 +46,16 @@ export class BossManager {
             callback: () => {
                 let n = Math.floor(Math.random() * 2);
 
-                this.bossAtk_03(lifePointsManager)
 
-                // se valore minore 0.5 movimento
-                // if (n < 0.5) {
-                //     this.moveBossAvantiEIndietro(lifePointsManager)
-                // } else {
-                //     // altrimenti attacco
-                //     this.bossAtk_03(lifePointsManager)
-                // }
+                //se valore minore 0.5 movimento
+                if (n < 0.5) {
+                    this.moveBossAvantiEIndietro(lifePointsManager)
+                } else {
+                    // altrimenti attacco
+                    SoundsManager.playEffect("bossFireAtk", this.scene)
+                    this.scene.time.delayedCall(2000,
+                        () => this.bossAtk_03(lifePointsManager))
+                }
             }
         })
 
@@ -65,14 +65,12 @@ export class BossManager {
 
 
         this.fire = this.scene.physics.add.sprite(
-            this.bossSprite.x - 200, this.bossSprite.y, "flamethrower_spritesheet"
+            this.bossSprite.x - 400, this.bossSprite.y + 150, "flamethrower_spritesheet"
         )
-        //this.fire.setFlipX(true);
+
         this.fire.setRotation(Phaser.Math.DegToRad(180))
         this.fire.setScale(4);
         this.fire.setSize(100, 50);
-        //this.fire.setSize(600, 200)
-        //this.fire.setOffset(-100, 100)
         this.fire.play("flamethrower")
     }
 
