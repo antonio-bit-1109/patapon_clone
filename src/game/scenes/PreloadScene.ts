@@ -98,6 +98,7 @@ export class PreloadScene extends Phaser.Scene {
         this.load.audio("boss_breath_fire_sound", assetPathSound + "/boss/boss_breath_fire.mp3")
         this.load.audio("bossFireAtk", assetPathSound + "/boss/incoming_fire_attack_boss.mp3")
         this.load.audio("boss_shockwave", assetPathSound + "/boss/shockwave.mp3")
+        this.load.audio("boss_shockwave_incoming_sound", assetPathSound + "/boss/incoming_shockwave_sound.mp3")
     }
 
     create() {
@@ -154,6 +155,7 @@ export class PreloadScene extends Phaser.Scene {
         SoundsManager.addAudio("boss_sound", {volume: 1, loop: true}, this)
         SoundsManager.addAudio("game_over", {volume: 2, loop: false}, this)
         SoundsManager.addAudio("boss_breath_fire_sound", {volume: 5, loop: false}, this)
+        SoundsManager.addAudio("boss_shockwave_incoming_sound", {volume: 5, loop: false}, this)
         this.scene.start(sceneName.startthegame)
         //this.scene.start(sceneName.gameover)
 

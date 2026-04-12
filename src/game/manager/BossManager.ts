@@ -87,37 +87,46 @@ export class BossManager {
 
         if (this.isBossNull()) return;
 
-        this.scene.tweens.add({
-            targets: this.bossSprite,
-            duration: 2000,
-            alpha: 1,
 
-            onStart: () => {
+        SoundsManager.playSound("boss_shockwave_incoming_sound")
 
-                this.isBossShakingAttackActive = true;
+        this.scene.time.delayedCall(1500, () => {
 
-                this.scene.time.delayedCall(500,
-                    () => SoundsManager.playEffect("boss_shockwave", this.scene)
-                );
+            this.scene.tweens.add({
+                targets: this.bossSprite,
+                duration: 2000,
+                alpha: 1,
 
-                this.bossSprite.play("boss_atk2");
+                onStart: () => {
 
-                // 👇 listener PRIMA dello shake
-                this.scene.cameras.main.once('camerashakecomplete', () => {
-                    this.isBossShakingAttackActive = false;
-                    this.bossSprite.playIdle();
-                    console.log("shake finito");
-                });
+                    this.isBossShakingAttackActive = true;
 
-                // 👇 shake UNA VOLTA
-                this.scene.cameras.main.shake(2000, 0.02);
-            },
+                    this.scene.time.delayedCall(500,
+                        () => SoundsManager.playEffect("boss_shockwave", this.scene)
+                    );
 
-            onUpdate: () => {
-                lifePointsManager.updatePositionBarBoss(this.bossSprite);
-            },
-            onComplete: () => this.bossSprite.playIdle()
-        });
+                    this.bossSprite.play("boss_atk2");
+
+                    // 👇 listener PRIMA dello shake
+                    this.scene.cameras.main.once('camerashakecomplete', () => {
+                        this.isBossShakingAttackActive = false;
+                        this.bossSprite.playIdle();
+                        console.log("shake finito");
+                    });
+
+                    // 👇 shake UNA VOLTA
+                    this.scene.cameras.main.shake(2000, 0.02);
+                },
+
+                onUpdate: () => {
+                    lifePointsManager.updatePositionBarBoss(this.bossSprite);
+                },
+                onComplete: () => this.bossSprite.playIdle()
+            });
+
+
+        })
+
     }
 
 
