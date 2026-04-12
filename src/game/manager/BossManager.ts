@@ -69,7 +69,7 @@ export class BossManager {
 
 
         this.fire = this.scene.physics.add.sprite(
-            this.bossSprite.x - 400, this.bossSprite.y + 150, "flamethrower_spritesheet"
+            this.bossSprite.x - 350, this.bossSprite.y + 150, "flamethrower_spritesheet"
         )
 
         this.fire.setRotation(Phaser.Math.DegToRad(180))
