@@ -58,12 +58,12 @@ export class Gameplay extends Phaser.Scene {
         // SoundsManager.playSound("march_gameplay_1");
         //
         this.environmentManager.create();
-
+        SoundsManager.playSound("boss_sound");
         this.bossManager.spawnBoss(this.environmentManager.getEnemyStoppingZone())
         this.lifePointsManager.createLifeBarsBoss(this.bossManager.getBossSprite())
         this.bossManager.bossActions(this.lifePointsManager)
 
-        
+
         //
         // this.legendaManager.showCommands() // mostra comandi di gioco
         // this.dudesArmyManager.generatePlayerArmy(this.oldDudesTypes) // creation playerdudes

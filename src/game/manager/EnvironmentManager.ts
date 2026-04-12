@@ -18,6 +18,14 @@ export class EnvironmentManager {
         this.scene = scene;
     }
 
+    public getBackgroundLooping() {
+        return this.backgroundLooping;
+    }
+
+    public getTerrainLooping() {
+        return this.terrainLooping;
+    }
+
     public getEnemyStoppingZone() {
         return this.enemyStoppingZone
     }
